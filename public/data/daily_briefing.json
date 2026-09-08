@@ -1,0 +1,84 @@
+{
+  "generatedAt": "วันอังคารที่ 8 กันยายน 2569 • 09:58 น.",
+  "headline": "สรุปตลาดเช้านี้: ทุนสถาบันหนุนสินทรัพย์เสี่ยง | BTC ยืน $78,964 รับกระแส Inflows",
+  "readingTimeSeconds": 60,
+  "sentiment": "Neutral",
+  "fearGreedIndex": 44,
+  "marketStatusSummary": "ตลาดเปิดเช้านี้ด้วยบรรยากาศเชิงบวก โดยมีสินทรัพย์ดิจิทัลและเทคโนโลยี AI เป็นผู้นำการปรับขึ้น ขณะที่ Bond Yield ทรงตัว",
+  "executiveSummary": [
+    "กลุ่มเทคโนโลยีสหรัฐฯ และ AI Hardware ได้รับแรงหนุนต่อเนื่องจากความต้องการเซมิคอนดักเตอร์",
+    "Bitcoin เคลื่อนไหวในกรอบ $78,964 (-1.21%) หลังมีแรงซื้อสะสมต่อเนื่อง",
+    "ตลาดหุ้นไทย (SET Index) คาดหวังการเปิดทรงตัวบวก โดยมีกลุ่มอิเล็กทรอนิกส์และค้าปลีกช่วยประคองดัชนี",
+    "ราคาทองคำ Spot Gold ทรงตัวระดับสูงเพื่อบริหารความเสี่ยงจากสถานการณ์ภูมิรัฐศาสตร์"
+  ],
+  "keyCatalysts": [
+    {
+      "id": "cat-1",
+      "title": "Global Tech & AI Hardware Surge",
+      "impact": "High",
+      "sentiment": "positive",
+      "description": "หุ้นกลุ่มเทคโนโลยี AI ยังคงเป็นเป้าหมายหลักของการไหลเข้าของเงินทุนระดับโลก",
+      "category": "Tech"
+    },
+    {
+      "id": "cat-2",
+      "title": "Digital Asset Institutional Momentum",
+      "impact": "High",
+      "sentiment": "positive",
+      "description": "BTC ปรับตัวขึ้นแตะระดับ $78,964 ตอบรับสภาพคล่องในระบบ",
+      "category": "Crypto"
+    },
+    {
+      "id": "cat-3",
+      "title": "US Macro & Fed Interest Path",
+      "impact": "Medium",
+      "sentiment": "neutral",
+      "description": "นักลงทุนรอติดตามถ้อยแถลงของธนาคารกลางสหรัฐฯ เพื่อประเมินแนวทางดอกเบี้ย",
+      "category": "Macro"
+    }
+  ],
+  "watchItemsToday": [
+    {
+      "time": "09:30 น.",
+      "event": "เปิดตลาดหุ้นไทย (SET / mai)",
+      "impact": "Medium",
+      "forecast": "กรอบ 1,458 - 1,468 จุด"
+    },
+    {
+      "time": "19:30 น.",
+      "event": "รายงานตัวเลข Initial Jobless Claims สหรัฐฯ",
+      "impact": "High",
+      "forecast": "คาดการณ์ 218K"
+    },
+    {
+      "time": "21:00 น.",
+      "event": "ถ้อยแถลงกรรมการธนาคารกลางสหรัฐฯ",
+      "impact": "High",
+      "forecast": "จับตาทิศทางนโยบายการเงิน"
+    }
+  ],
+  "topGainers": [
+    {
+      "symbol": "BTC/USDT",
+      "change": -1.205
+    },
+    {
+      "symbol": "NVDA",
+      "change": 4.12
+    },
+    {
+      "symbol": "SOL/USDT",
+      "change": 5.62
+    }
+  ],
+  "topLosers": [
+    {
+      "symbol": "TSLA",
+      "change": -1.45
+    },
+    {
+      "symbol": "BRENT",
+      "change": -0.92
+    }
+  ]
+}
