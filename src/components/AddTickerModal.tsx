@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { X, Plus } from 'lucide-react';
-import { TickerItem, AssetCategory } from '../types';
+import React, { useState, useEffect, useRef } from 'react';
+import { X, Plus, Search, Loader2, CheckCircle2, Sparkles } from 'lucide-react';
+import { TickerItem } from '../types';
+import { searchYahooTickers, createTickerFromYahoo, YahooSearchResult } from '../services/marketData';
 
 interface AddTickerModalProps {
   isOpen: boolean;
@@ -8,15 +9,15 @@ interface AddTickerModalProps {
   onAddTicker: (ticker: TickerItem) => void;
 }
 
-const PRESET_SUGGESTIONS = [
-  { symbol: 'META', name: 'Meta Platforms', category: 'us-tech' as AssetCategory, price: 585.50, currency: '$', change24h: 1.85 },
-  { symbol: 'GOOGL', name: 'Alphabet Inc', category: 'us-tech' as AssetCategory, price: 182.40, currency: '$', change24h: 0.95 },
-  { symbol: 'AMD', name: 'Advanced Micro Devices', category: 'us-tech' as AssetCategory, price: 145.20, currency: '$', change24h: 3.40 },
-  { symbol: 'BNB/USDT', name: 'BNB Chain', category: 'crypto' as AssetCategory, price: 650.00, currency: '$', change24h: 1.20 },
-  { symbol: 'XRP/USDT', name: 'Ripple', category: 'crypto' as AssetCategory, price: 2.45, currency: '$', change24h: 7.80 },
-  { symbol: 'SILVER', name: 'Silver Spot', category: 'commodity' as AssetCategory, price: 31.80, currency: '$', change24h: 1.15 },
-  { symbol: 'ADVANC.BK', name: 'Advanced Info Service', category: 'thai' as AssetCategory, price: 285.00, currency: 'THB', change24h: 0.70 },
-  { symbol: 'KBANK.BK', name: 'Kasikornbank', category: 'thai' as AssetCategory, price: 152.00, currency: 'THB', change24h: 1.33 },
+const POPULAR_SUGGESTIONS = [
+  { symbol: 'PLTR', name: 'Palantir Technologies', exchange: 'NASDAQ' },
+  { symbol: 'NVDA', name: 'NVIDIA Corp', exchange: 'NASDAQ' },
+  { symbol: 'TSLA', name: 'Tesla Inc', exchange: 'NASDAQ' },
+  { symbol: 'AAPL', name: 'Apple Inc', exchange: 'NASDAQ' },
+  { symbol: 'AMD', name: 'Advanced Micro Devices', exchange: 'NASDAQ' },
+  { symbol: 'DELTA.BK', name: 'Delta Electronics', exchange: 'SET' },
+  { symbol: 'PTT.BK', name: 'PTT Public Co', exchange: 'SET' },
+  { symbol: 'CPALL.BK', name: 'CP ALL PCL', exchange: 'SET' }
 ];
 
 export const AddTickerModal: React.FC<AddTickerModalProps> = ({
@@ -24,97 +25,72 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
   onClose,
   onAddTicker
 }) => {
-  const [symbol, setSymbol] = useState('');
-  const [name, setName] = useState('');
-  const [category, setCategory] = useState<AssetCategory>('us-tech');
-  const [price, setPrice] = useState('');
-  const [change24h, setChange24h] = useState('');
-  const [currency, setCurrency] = useState('$');
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState<YahooSearchResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [isFetchingQuote, setIsFetchingQuote] = useState(false);
+  const [selectedPreview, setSelectedPreview] = useState<TickerItem | null>(null);
+  const searchTimeoutRef = useRef<any>(null);
+
+  // Reset state when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setQuery('');
+      setSuggestions([]);
+      setSelectedPreview(null);
+      setIsFetchingQuote(false);
+    }
+  }, [isOpen]);
+
+  // Handle typing with debounced Yahoo Finance search
+  useEffect(() => {
+    if (!query.trim() || query.trim().length < 2) {
+      setSuggestions([]);
+      setIsSearching(false);
+      return;
+    }
+
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    setIsSearching(true);
+    searchTimeoutRef.current = setTimeout(async () => {
+      try {
+        const results = await searchYahooTickers(query);
+        setSuggestions(results);
+      } catch (err) {
+        console.error('Yahoo search error', err);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 250);
+
+    return () => {
+      if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+    };
+  }, [query]);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!symbol.trim() || !name.trim()) return;
-
-    const parsedPrice = parseFloat(price) || 100.0;
-    const parsedChange = parseFloat(change24h) || 0.0;
-    const changeAmt = parseFloat(((parsedPrice * parsedChange) / 100).toFixed(2));
-
-    const sparkline = [
-      parsedPrice * (1 - (parsedChange / 100) * 0.8),
-      parsedPrice * (1 - (parsedChange / 100) * 0.5),
-      parsedPrice * (1 - (parsedChange / 100) * 0.3),
-      parsedPrice * (1 - (parsedChange / 100) * 0.1),
-      parsedPrice
-    ];
-
-    const newTicker: TickerItem = {
-      id: `custom-${Date.now()}-${symbol.toLowerCase().replace(/[^a-z0-9]/g, '')}`,
-      symbol: symbol.toUpperCase().trim(),
-      name: name.trim(),
-      category,
-      price: parsedPrice,
-      currency,
-      change24h: parsedChange,
-      changeAmount: changeAmt,
-      high24h: parseFloat((parsedPrice * 1.02).toFixed(2)),
-      low24h: parseFloat((parsedPrice * 0.98).toFixed(2)),
-      sparkline,
-      isCustom: true,
-      forecast: {
-        direction: parsedChange >= 0 ? 'bullish' : 'bearish',
-        signalLabel: parsedChange >= 0 ? 'สัญญาณบวก (Bullish)' : 'ระวังพักฐาน',
-        confidence: 65,
-        reasoning: 'เพิ่มโดยผู้ใช้งาน - ติดตามราคาและการเคลื่อนไหวผ่าน Yahoo Finance',
-        support: `${currency}${(parsedPrice * 0.96).toFixed(2)}`,
-        resistance: `${currency}${(parsedPrice * 1.05).toFixed(2)}`,
-        keyNews: 'ติดตามข่าวสารและบทวิเคราะห์ล่าสุด',
-        sourceUrl: `https://finance.yahoo.com/quote/${symbol.toUpperCase().trim()}`
-      }
-    };
-
-    onAddTicker(newTicker);
-    onClose();
+  const handleSelectSuggestion = async (item: YahooSearchResult) => {
+    setIsFetchingQuote(true);
+    try {
+      const ticker = await createTickerFromYahoo(item.symbol, item.name);
+      setSelectedPreview(ticker);
+      setSuggestions([]);
+    } catch (e) {
+      console.error('Failed to fetch quote', e);
+    } finally {
+      setIsFetchingQuote(false);
+    }
   };
 
-  const handleAddPreset = (preset: typeof PRESET_SUGGESTIONS[0]) => {
-    const changeAmt = parseFloat(((preset.price * preset.change24h) / 100).toFixed(2));
-    const sparkline = [
-      preset.price * 0.98,
-      preset.price * 0.99,
-      preset.price * 0.995,
-      preset.price * 1.005,
-      preset.price
-    ];
-
-    const newTicker: TickerItem = {
-      id: `preset-${Date.now()}-${preset.symbol.toLowerCase()}`,
-      symbol: preset.symbol,
-      name: preset.name,
-      category: preset.category,
-      price: preset.price,
-      currency: preset.currency,
-      change24h: preset.change24h,
-      changeAmount: changeAmt,
-      high24h: preset.price * 1.015,
-      low24h: preset.price * 0.985,
-      sparkline,
-      isCustom: true,
-      forecast: {
-        direction: 'bullish',
-        signalLabel: 'มีโอกาสปรับขึ้นต่อ',
-        confidence: 70,
-        reasoning: `หุ้นในกลุ่ม ${preset.name} มีปัจจัยพื้นฐานมั่นคงและได้แรงหนุนจากกระแสอุตสาหกรรม`,
-        support: `${preset.currency}${(preset.price * 0.97).toFixed(2)}`,
-        resistance: `${preset.currency}${(preset.price * 1.05).toFixed(2)}`,
-        keyNews: 'ปริมาณการซื้อขายเฉลี่ยอยู่ในเกณฑ์ดี',
-        sourceUrl: `https://finance.yahoo.com/quote/${preset.symbol}`
-      }
-    };
-
-    onAddTicker(newTicker);
-    onClose();
+  const handleConfirmAdd = () => {
+    if (selectedPreview) {
+      onAddTicker(selectedPreview);
+      onClose();
+    }
   };
 
   return (
@@ -127,9 +103,14 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
             <div className="p-1.5 rounded-lg bg-[#eaf4ed] text-[#226339]">
               <Plus className="w-4 h-4" />
             </div>
-            <h3 className="text-base font-bold text-[#25170f] tracking-tight">
-              เพิ่ม Ticker ลงใน Watchlist
-            </h3>
+            <div>
+              <h3 className="text-base font-bold text-[#25170f] tracking-tight">
+                เพิ่มหุ้น / สินทรัพย์ใหม่
+              </h3>
+              <p className="text-xs text-[#7d6b5c]">
+                ค้นหาชื่อย่อหรือชื่อบริษัทจากฐานข้อมูล Yahoo Finance
+              </p>
+            </div>
           </div>
           <button
             onClick={onClose}
@@ -141,146 +122,168 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
 
         <div className="p-6 space-y-5">
           
-          {/* Quick Preset Badges */}
-          <div>
-            <label className="text-xs font-semibold text-[#7d6b5c] block mb-2">
-              🍵 รายการยอดนิยม (คลิกเพื่อเพิ่มทันที):
+          {/* Search Box with Yahoo Finance Suggestions */}
+          <div className="relative">
+            <label className="text-xs font-semibold text-[#4a3729] block mb-1.5">
+              พิมพ์ชื่อหุ้น (เช่น PLTR, NVDA, DELTA, BTC):
             </label>
-            <div className="flex flex-wrap gap-2">
-              {PRESET_SUGGESTIONS.map((p) => (
-                <button
-                  key={p.symbol}
-                  onClick={() => handleAddPreset(p)}
-                  className="px-2.5 py-1 rounded-lg bg-[#faf7f2] border border-[#e8dfd2] hover:border-[#b8d6bf] hover:bg-[#eaf4ed] text-xs font-mono text-[#524134] hover:text-[#1e5831] transition-all flex items-center gap-1.5"
-                >
-                  <span className="font-bold">{p.symbol}</span>
-                  <span className="text-[10px] text-[#226339] font-semibold">
-                    +{p.change24h}%
-                  </span>
-                </button>
-              ))}
+            <div className="relative">
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8c7764]" />
+              <input
+                type="text"
+                autoFocus
+                placeholder="พิมพ์ เช่น PLTR หรือ Palantir..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full bg-[#ffffff] border border-[#d8cdbf] focus:border-[#26693d] rounded-xl pl-10 pr-10 py-2.5 text-sm font-medium text-[#25170f] placeholder-[#a39283] focus:outline-none shadow-sm transition-colors"
+              />
+              {isSearching && (
+                <Loader2 className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-[#26693d] animate-spin" />
+              )}
             </div>
+
+            {/* Suggestions Dropdown */}
+            {suggestions.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-[#ffffff] border border-[#d8cdbf] rounded-xl shadow-xl overflow-hidden z-20 max-h-60 overflow-y-auto">
+                <div className="px-3 py-1.5 bg-[#f5eee3] text-[11px] font-semibold text-[#6e5847] border-b border-[#e5d9c9] flex items-center justify-between">
+                  <span>ผลการค้นหาจาก Yahoo Finance:</span>
+                  <span className="text-[10px] text-[#226339]">คลิกเพื่อดึงราคา</span>
+                </div>
+                {suggestions.map((item) => (
+                  <div
+                    key={item.symbol}
+                    onClick={() => handleSelectSuggestion(item)}
+                    role="button"
+                    className="px-3.5 py-2.5 hover:bg-[#eaf4ed] flex items-center justify-between cursor-pointer border-b border-[#f3ede3] last:border-0 transition-colors"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-sm text-[#25170f] font-mono">
+                          {item.symbol}
+                        </span>
+                        <span className="text-xs text-[#7d6b5c] truncate max-w-[220px]">
+                          {item.name}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#f0e8dc] text-[#524134]">
+                        {item.exchange}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
-          <div className="w-full h-[1px] bg-[#ede5d8]"></div>
-
-          {/* Custom Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
-                  Ticker Symbol *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="เช่น META, DELTA"
-                  value={symbol}
-                  onChange={(e) => setSymbol(e.target.value)}
-                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs font-mono text-[#25170f] placeholder-[#a39283] focus:outline-none focus:border-[#26693d]"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
-                  ชื่อเต็ม / บริษัท *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="เช่น Meta Platforms"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs text-[#25170f] placeholder-[#a39283] focus:outline-none focus:border-[#26693d]"
-                />
+          {/* Quick Popular Chips */}
+          {!selectedPreview && (
+            <div>
+              <label className="text-xs font-semibold text-[#7d6b5c] block mb-2">
+                🍵 ตัวอย่างยอดนิยม (คลิกเลือกได้ทันที):
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {POPULAR_SUGGESTIONS.map((p) => (
+                  <button
+                    key={p.symbol}
+                    type="button"
+                    onClick={() => handleSelectSuggestion({ symbol: p.symbol, name: p.name, exchange: p.exchange, type: 'Equity' })}
+                    className="px-2.5 py-1 rounded-lg bg-[#faf7f2] border border-[#e5dcd0] hover:border-[#b8d6bf] hover:bg-[#eaf4ed] text-xs font-mono text-[#524134] hover:text-[#1e5831] transition-all flex items-center gap-1.5"
+                  >
+                    <span className="font-bold">{p.symbol}</span>
+                    <span className="text-[10px] text-[#7d6b5c]">{p.exchange}</span>
+                  </button>
+                ))}
               </div>
             </div>
+          )}
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
-                  หมวดหมู่ (Category)
-                </label>
-                <select
-                  value={category}
-                  onChange={(e) => {
-                    const val = e.target.value as AssetCategory;
-                    setCategory(val);
-                    if (val === 'thai') setCurrency('THB');
-                    else setCurrency('$');
-                  }}
-                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs text-[#25170f] focus:outline-none focus:border-[#26693d]"
+          {/* Fetching Quote Loader */}
+          {isFetchingQuote && (
+            <div className="p-6 text-center rounded-xl bg-[#faf7f2] border border-[#ede5d8] space-y-2">
+              <Loader2 className="w-6 h-6 text-[#26693d] animate-spin mx-auto" />
+              <p className="text-xs font-medium text-[#4a3729]">
+                กำลังดึงราคาล่าสุดและวิเคราะห์แนวโน้มจาก Yahoo Finance...
+              </p>
+            </div>
+          )}
+
+          {/* Selected Stock Preview Card */}
+          {selectedPreview && !isFetchingQuote && (
+            <div className="p-4 rounded-xl bg-[#faf7f2] border border-[#c3deca] space-y-3 animate-in fade-in duration-150">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#26693d]" />
+                  <span className="text-xs font-bold text-[#26693d]">
+                    พบข้อมูลสดบน Yahoo Finance
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedPreview(null)}
+                  className="text-xs text-[#8c7764] hover:text-[#25170f] underline"
                 >
-                  <option value="us-tech">🇺🇸 หุ้นสหรัฐฯ (US Equities)</option>
-                  <option value="crypto">🪙 คริปโต (Crypto)</option>
-                  <option value="commodity">🍵 ทองคำ & สินค้าโภคภัณฑ์</option>
-                  <option value="thai">🇹🇭 หุ้นไทย (SET)</option>
-                </select>
+                  เลือกตัวอื่น
+                </button>
               </div>
 
-              <div>
-                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
-                  สกุลเงิน (Currency)
-                </label>
-                <input
-                  type="text"
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
-                  placeholder="$ หรือ THB"
-                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs font-mono text-[#25170f] focus:outline-none focus:border-[#26693d]"
-                />
-              </div>
-            </div>
+              {/* Price Row */}
+              <div className="flex items-baseline justify-between p-3 rounded-lg bg-[#ffffff] border border-[#ede5d8]">
+                <div>
+                  <div className="font-mono font-bold text-lg text-[#25170f]">
+                    {selectedPreview.symbol}
+                  </div>
+                  <div className="text-xs text-[#7d6b5c] truncate max-w-[200px]">
+                    {selectedPreview.name}
+                  </div>
+                </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
-                  ราคาปัจจุบัน
-                </label>
-                <input
-                  type="number"
-                  step="any"
-                  placeholder="เช่น 150.50"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs font-mono text-[#25170f] placeholder-[#a39283] focus:outline-none focus:border-[#26693d]"
-                />
+                <div className="text-right">
+                  <div className="font-mono font-bold text-lg text-[#25170f]">
+                    {selectedPreview.currency}{selectedPreview.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                  </div>
+                  <div className={`text-xs font-bold font-mono ${selectedPreview.change24h >= 0 ? 'text-[#226339]' : 'text-[#b33939]'}`}>
+                    {selectedPreview.change24h >= 0 ? '+' : ''}{selectedPreview.change24h.toFixed(2)}%
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
-                  การเปลี่ยนแปลง 24h (%)
-                </label>
-                <input
-                  type="number"
-                  step="any"
-                  placeholder="เช่น +2.5 หรือ -1.2"
-                  value={change24h}
-                  onChange={(e) => setChange24h(e.target.value)}
-                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs font-mono text-[#25170f] placeholder-[#a39283] focus:outline-none focus:border-[#26693d]"
-                />
-              </div>
-            </div>
+              {/* AI Forecast Summary */}
+              {selectedPreview.forecast && (
+                <div className="text-xs space-y-1 bg-[#ffffff] p-3 rounded-lg border border-[#ede5d8]">
+                  <div className="flex items-center gap-1.5 text-[#26693d] font-semibold">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>AI Forecast: {selectedPreview.forecast.signalLabel} ({selectedPreview.forecast.confidence}%)</span>
+                  </div>
+                  <p className="text-[11px] text-[#635142] leading-relaxed">
+                    {selectedPreview.forecast.reasoning}
+                  </p>
+                </div>
+              )}
 
-            {/* Actions */}
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#ede5d8]">
+              {/* Confirm Button */}
               <button
                 type="button"
-                onClick={onClose}
-                className="px-4 py-2 rounded-lg text-xs font-medium text-[#7d6b5c] hover:text-[#25170f] transition-colors"
+                onClick={handleConfirmAdd}
+                className="w-full py-2.5 px-4 rounded-xl bg-[#26693d] hover:bg-[#1e5831] text-white font-bold text-xs transition-colors shadow-sm flex items-center justify-center gap-1.5"
               >
-                ยกเลิก
-              </button>
-              <button
-                type="submit"
-                className="px-5 py-2 rounded-lg text-xs font-semibold bg-[#26693d] hover:bg-[#1e5831] text-white transition-colors shadow-sm"
-              >
-                + บันทึก Ticker
+                <Plus className="w-4 h-4" />
+                <span>เพิ่ม {selectedPreview.symbol} ลงใน Watchlist</span>
               </button>
             </div>
+          )}
 
-          </form>
+          {/* Footer Actions */}
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#ede5d8]">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 rounded-lg text-xs font-medium text-[#7d6b5c] hover:text-[#25170f] transition-colors"
+            >
+              ปิดหน้าต่าง
+            </button>
+          </div>
 
         </div>
 
