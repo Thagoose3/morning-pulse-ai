@@ -71,7 +71,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#090c13] text-slate-100 flex flex-col font-sans selection:bg-amber-500/30 selection:text-amber-200">
+    <div className="min-h-screen bg-[#0d1118] bg-soft-pattern text-slate-200 flex flex-col font-sans selection:bg-amber-500/25 selection:text-amber-200">
       
       {/* Top Subtle Ticker Marquee */}
       <TickerMarquee tickers={tickers} />

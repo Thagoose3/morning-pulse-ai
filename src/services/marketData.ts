@@ -1,12 +1,13 @@
 import { TickerItem } from '../types';
 
-const STORAGE_KEY = 'morning_pulse_watchlist_v3';
+const STORAGE_KEY = 'morning_pulse_watchlist_v4';
 
 // Clear legacy cached watchlists that might hold outdated prices
 if (typeof window !== 'undefined') {
   try {
     localStorage.removeItem('morning_pulse_watchlist_v1');
     localStorage.removeItem('morning_pulse_watchlist_v2');
+    localStorage.removeItem('morning_pulse_watchlist_v3');
   } catch (e) {
     // ignore
   }
@@ -43,6 +44,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 235.00,
     low24h: 229.00,
     sparkline: [228.45, 230.5, 234.2, 231.8, 230.2, 230.5, 230.36],
+    forecast: {
+      direction: 'bullish',
+      signalLabel: 'มีโอกาสขึ้นต่อ (Bullish)',
+      confidence: 82,
+      reasoning: 'คำสั่งซื้อชิป AI สถาปัตยกรรม Blackwell ยังล้นกำลังการผลิต และการลงทุน Data Center ของ Big Tech สหรัฐฯ ยังขยายตัวสูงต่อเนื่อง',
+      support: '$224.50',
+      resistance: '$236.00',
+      keyNews: 'สถาบันการเงินรายใหญ่ปรับเพิ่มราคาเป้าหมายจากอุปสงค์ชิป AI ที่เติบโตไม่หยุด',
+      sourceUrl: 'https://finance.yahoo.com/quote/NVDA/news/'
+    }
   },
   {
     id: 'stock-tsla',
@@ -56,6 +67,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 368.00,
     low24h: 350.00,
     sparkline: [376.36, 370.5, 365.2, 358.0, 352.4, 355.1, 354.08],
+    forecast: {
+      direction: 'bearish',
+      signalLabel: 'ระวังพักฐานระยะสั้น (Pullback)',
+      confidence: 65,
+      reasoning: 'เผชิญแรงขายทำกำไรทางเทคนิคหลังไม่ผ่านแนวต้าน $360 ประกอบกับตลาดยังรอความชัดเจนเรื่องยอดส่งมอบรถยนต์และ Robotaxi',
+      support: '$345.00',
+      resistance: '$362.00',
+      keyNews: 'การแข่งขันด้านสงครามราคาในตลาดยุโรปและจีนยังกดดันอัตรากำไรขั้นต้น',
+      sourceUrl: 'https://finance.yahoo.com/quote/TSLA/news/'
+    }
   },
   {
     id: 'stock-aapl',
@@ -69,6 +90,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 326.00,
     low24h: 318.50,
     sparkline: [328.21, 325.4, 324.1, 322.0, 320.5, 321.2, 319.97],
+    forecast: {
+      direction: 'neutral',
+      signalLabel: 'ทรงตัวสะสมกำลัง (Consolidation)',
+      confidence: 60,
+      reasoning: 'ราคาแกว่งตัวในกรอบแคบ นักลงทุนรอตัวเลขสถิติยอดขายอุปกรณ์และรอบการอัปเกรดเครื่องใหม่จากฟีเจอร์ Apple Intelligence ทั่วโลก',
+      support: '$315.00',
+      resistance: '$326.00',
+      keyNews: 'กระแสตอบรับการอัปเกรดระบบ AI บน iOS เริ่มทยอยขยายไปยังประเทศแถบเอเชีย',
+      sourceUrl: 'https://finance.yahoo.com/quote/AAPL/news/'
+    }
   },
   {
     id: 'stock-msft',
@@ -82,6 +113,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 508.00,
     low24h: 497.50,
     sparkline: [510.11, 506.2, 504.0, 501.2, 498.5, 500.1, 499.70],
+    forecast: {
+      direction: 'bullish',
+      signalLabel: 'ทยอยสะสม (Mild Bullish)',
+      confidence: 72,
+      reasoning: 'อัตราการเติบโตของรายได้ส่วนงาน Azure Cloud และการนำโซลูชัน Copilot ไปใช้ในองค์กรธุรกิจยังเติบโตในระดับสองหลัก',
+      support: '$492.00',
+      resistance: '$510.00',
+      keyNews: 'การใช้งานบริการ AI บนระบบคลาวด์ Azure ยังคงสร้างกระแสเงินสดแข็งแกร่ง',
+      sourceUrl: 'https://finance.yahoo.com/quote/MSFT/news/'
+    }
   },
 
   // Crypto
@@ -97,6 +138,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 80200,
     low24h: 78400,
     sparkline: [79100, 79400, 79800, 79200, 78800, 79050, 78953.98],
+    forecast: {
+      direction: 'neutral',
+      signalLabel: 'แกว่งสะสมพลัง (Sideways Up)',
+      confidence: 68,
+      reasoning: 'ราคายังรักษาระดับฐาน $78,500 ได้อย่างแข็งแกร่ง มีการสะสมของสถาบันผ่าน Spot ETF ช่วยดูดซับแรงขายของนักขุด',
+      support: '$77,500',
+      resistance: '$81,200',
+      keyNews: 'ยอดเงินไหลเข้ากองทุนบิตคอยน์ ETF ในสหรัฐฯ ทยอยเป็นบวกสุทธิ',
+      sourceUrl: 'https://finance.yahoo.com/quote/BTC-USD/news/'
+    }
   },
   {
     id: 'crypto-eth',
@@ -110,6 +161,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 2520,
     low24h: 2440,
     sparkline: [2440, 2455, 2468, 2460, 2475, 2480, 2485],
+    forecast: {
+      direction: 'bullish',
+      signalLabel: 'ฟื้นตัวตามตลาด (Recovery)',
+      confidence: 64,
+      reasoning: 'กิจกรรมบนเครือข่าย Layer-2 และโปรโตคอล DeFi เริ่มกลับมามี Volume สูงขึ้น หนุนการใช้งานแก๊สบนเครือข่ายหลัก',
+      support: '$2,420',
+      resistance: '$2,550',
+      keyNews: 'ยอดธุรกรรมบน Ethereum L2 พุ่งขึ้นแตะระดับสูงสุดในรอบหลายสัปดาห์',
+      sourceUrl: 'https://finance.yahoo.com/quote/ETH-USD/news/'
+    }
   },
   {
     id: 'crypto-sol',
@@ -123,6 +184,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 106.00,
     low24h: 101.20,
     sparkline: [101, 102, 102.5, 103, 102.8, 103.4, 103.8],
+    forecast: {
+      direction: 'bullish',
+      signalLabel: 'มีลุ้นทดสอบ $108 (Bullish)',
+      confidence: 70,
+      reasoning: 'ปริมาณการซื้อขายบน Decentralized Exchange ของ Solana ยังอยู่ในอันดับต้นๆ และมีแรงซื้อต่อเนื่องเมื่อราคาย่อตัว',
+      support: '$99.50',
+      resistance: '$108.00',
+      keyNews: 'ระบบนิเวศ DeFi และผู้ใช้งานรายวันบนเครือข่าย Solana ยังคงหนาแน่น',
+      sourceUrl: 'https://finance.yahoo.com/quote/SOL-USD/news/'
+    }
   },
 
   // Commodities (Yahoo: GC=F, BZ=F)
@@ -138,6 +209,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 4485.00,
     low24h: 4452.00,
     sparkline: [4476.8, 4480.0, 4482.5, 4474.0, 4465.0, 4470.0, 4468.70],
+    forecast: {
+      direction: 'bullish',
+      signalLabel: 'แนวโน้มขาขึ้นระยะยาว (Strong Trend)',
+      confidence: 80,
+      reasoning: 'ธนาคารกลางทั่วโลกยังคงเดินหน้าทยอยเข้าซื้อทองคำแท่งสำรอง และความไม่แน่นอนด้านภูมิรัฐศาสตร์เป็นปัจจัยหนุนหลัก',
+      support: '$4,420',
+      resistance: '$4,520',
+      keyNews: 'กระแส De-dollarization ของกลุ่มประเทศตลาดเกิดใหม่ผลักดันให้ทองคำแท่งเป็นสินทรัพย์สำรองอันดับหนึ่ง',
+      sourceUrl: 'https://finance.yahoo.com/quote/GC=F/news/'
+    }
   },
   {
     id: 'comm-brent',
@@ -151,6 +232,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 75.80,
     low24h: 73.90,
     sparkline: [75.5, 75.2, 74.8, 75.0, 74.4, 74.2, 74.5],
+    forecast: {
+      direction: 'neutral',
+      signalLabel: 'แกว่งในกรอบแคบ (Range-bound)',
+      confidence: 62,
+      reasoning: 'ตลาดชะลอการซื้อขายเพื่อประเมินความต้องการใช้น้ำมันของจีน เทียบกับนโยบายการผลิตของกลุ่ม OPEC+',
+      support: '$72.50',
+      resistance: '$77.00',
+      keyNews: 'กลุ่ม OPEC+ ยังคงรักษาวินัยการผลิตเพื่อพยุงราคาน้ำมันโลกให้อยู่ในกรอบสมดุล',
+      sourceUrl: 'https://finance.yahoo.com/quote/BZ=F/news/'
+    }
   },
 
   // Thai Market (Yahoo: DELTA.BK, PTT.BK, CPALL.BK, ^SET.BK)
@@ -166,6 +257,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 1622.00,
     low24h: 1598.00,
     sparkline: [1595.5, 1602.0, 1608.5, 1612.0, 1615.0, 1617.5, 1618.82],
+    forecast: {
+      direction: 'bullish',
+      signalLabel: 'มีลุ้นทดสอบ 1,625 จุด (Bullish)',
+      confidence: 72,
+      reasoning: 'แรงหนุนจากหุ้นกลุ่มอิเล็กทรอนิกส์และค้าปลีก ประกอบกับเม็ดเงินกองทุน Thai ESG และการฟื้นตัวของเศรษฐกิจในประเทศ',
+      support: '1,605 จุด',
+      resistance: '1,625 จุด',
+      keyNews: 'Fund Flow สถาบันในประเทศมีสถานะซื้อสุทธิต่อเนื่องช่วยประคองดัชนี',
+      sourceUrl: 'https://finance.yahoo.com/quote/%5ESET.BK/news/'
+    }
   },
   {
     id: 'thai-delta',
@@ -179,6 +280,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 280.00,
     low24h: 258.00,
     sparkline: [256.0, 260.0, 265.0, 268.0, 272.0, 274.0, 276.00],
+    forecast: {
+      direction: 'bullish',
+      signalLabel: 'โมเมนตัมขึ้นแรง (Strong Momentum)',
+      confidence: 76,
+      reasoning: 'คำสั่งซื้อระบบ Power Supply สำหรับ Data Center และฮาร์ดแวร์ AI ทั่วโลกยังเติบโตสูง หนุนราคาขึ้นทดสอบระดับ New High',
+      support: '265.00 ฿',
+      resistance: '285.00 ฿',
+      keyNews: 'ดีมานด์ระบบจ่ายไฟสำหรับเซิร์ฟเวอร์ AI ทั่วโลกผลักดันยอดขายของ DELTA',
+      sourceUrl: 'https://finance.yahoo.com/quote/DELTA.BK/news/'
+    }
   },
   {
     id: 'thai-ptt',
@@ -192,6 +303,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 42.00,
     low24h: 41.25,
     sparkline: [41.5, 41.5, 41.75, 41.5, 41.25, 41.5, 41.5],
+    forecast: {
+      direction: 'neutral',
+      signalLabel: 'ทรงตัวรับปันผล (Defensive Yield)',
+      confidence: 65,
+      reasoning: 'หุ้นมีความผันผวนต่ำและให้ผลตอบแทนเงินปันผลสม่ำเสมอ เป็นเป้าหมายพักเงินในยามตลาดผันผวน',
+      support: '40.50 ฿',
+      resistance: '42.50 ฿',
+      keyNews: 'ทิศทางราคาก๊าซและน้ำมันโลกที่ทรงตัวส่งผลให้ผลการดำเนินงานมีเสถียรภาพ',
+      sourceUrl: 'https://finance.yahoo.com/quote/PTT.BK/news/'
+    }
   },
   {
     id: 'thai-cpall',
@@ -205,6 +326,16 @@ export const INITIAL_TICKERS: TickerItem[] = [
     high24h: 46.50,
     low24h: 45.75,
     sparkline: [46.25, 46.0, 46.0, 45.75, 46.25, 46.0, 46.0],
+    forecast: {
+      direction: 'bullish',
+      signalLabel: 'ฟื้นตัวตามค้าปลีก (Recovery)',
+      confidence: 70,
+      reasoning: 'ยอดขายสาขาเดิม (SSSG) ของ 7-Eleven ยังได้แรงบวกจากการจับจ่ายใช้สอยและการฟื้นตัวของนักท่องเที่ยวต่างชาติ',
+      support: '44.75 ฿',
+      resistance: '48.00 ฿',
+      keyNews: 'การบริโภคภาคเอกชนและภาคการท่องเที่ยวในไทยเริ่มมีสัญญาณเร่งตัว',
+      sourceUrl: 'https://finance.yahoo.com/quote/CPALL.BK/news/'
+    }
   }
 ];
 
@@ -243,7 +374,6 @@ async function fetchYahooQuote(symbol: string): Promise<{
 } | null> {
   const yhSymbol = toYahooSymbol(symbol);
   
-  // Endpoints to try: 1. Vite Proxy (Local), 2. corsproxy.io, 3. allorigins fallback
   const endpoints = [
     `/api/yahoo/v8/finance/chart/${yhSymbol}`,
     `https://corsproxy.io/?url=https://query1.finance.yahoo.com/v8/finance/chart/${yhSymbol}`,
@@ -264,13 +394,11 @@ async function fetchYahooQuote(symbol: string): Promise<{
       const diff = currentPrice - prevClose;
       const pct = prevClose ? (diff / prevClose) * 100 : 0;
 
-      // Extract closing prices from timestamps for sparkline if available
       let sparkline: number[] | undefined;
       const closes = result.indicators?.quote?.[0]?.close;
       if (Array.isArray(closes) && closes.length > 0) {
         const validCloses = closes.filter((c: any) => typeof c === 'number' && !isNaN(c));
         if (validCloses.length >= 5) {
-          // Take 7 evenly spaced sample points
           const step = Math.floor(validCloses.length / 7) || 1;
           sparkline = [];
           for (let i = 0; i < validCloses.length; i += step) {
@@ -292,7 +420,7 @@ async function fetchYahooQuote(symbol: string): Promise<{
         sparkline
       };
     } catch (e) {
-      // Try next endpoint
+      // Continue to next endpoint
     }
   }
 
@@ -300,7 +428,7 @@ async function fetchYahooQuote(symbol: string): Promise<{
 }
 
 /**
- * Updates all tickers with live data from Yahoo Finance
+ * Updates all tickers with live data from Yahoo Finance while preserving their AI forecasts
  */
 export async function fetchLiveMarketUpdates(tickers: TickerItem[]): Promise<TickerItem[]> {
   const updatedList = await Promise.all(

@@ -4,43 +4,32 @@
 
 @layer base {
   body {
-    background-color: #080b11;
+    background-color: #0d1118;
     color: #e2e8f0;
     font-feature-settings: "tnum" 1, "zero" 1;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
-/* Custom Bloomberg-style Scrollbar */
+/* Soothing Minimal Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #080b11;
+  background: #0d1118;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #232c3c;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #334155;
 }
 
-/* Glow effects */
-.glow-emerald {
-  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.25);
-}
-.glow-rose {
-  box-shadow: 0 0 15px -3px rgba(244, 63, 94, 0.25);
-}
-.glow-amber {
-  box-shadow: 0 0 15px -3px rgba(245, 158, 11, 0.25);
-}
-
-/* Scanline / Grid overlay */
-.bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+/* Gentle Soft Background Pattern */
+.bg-soft-pattern {
+  background-color: #0d1118;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
 }

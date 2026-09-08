@@ -1,5 +1,16 @@
 export type AssetCategory = 'us-tech' | 'crypto' | 'commodity' | 'thai' | 'macro';
 
+export interface StockForecast {
+  direction: 'bullish' | 'bearish' | 'neutral';
+  signalLabel: string; // e.g. 'มีโอกาสขึ้นต่อ' | 'ระวังพักฐาน' | 'ทรงตัวสะสมกำลัง'
+  confidence: number; // e.g. 78%
+  reasoning: string; // e.g. 'ได้แรงหนุนจากดีมานด์ชิป AI Blackwell ทะลุเป้า'
+  support: string; // แนวรับ
+  resistance: string; // แนวต้าน
+  keyNews: string;
+  sourceUrl: string; // Link to Yahoo Finance
+}
+
 export interface TickerItem {
   id: string;
   symbol: string;
@@ -7,12 +18,13 @@ export interface TickerItem {
   category: AssetCategory;
   price: number;
   currency: string;
-  change24h: number; // in percentage, e.g. +3.42
-  changeAmount: number; // in absolute currency value
+  change24h: number;
+  changeAmount: number;
   high24h?: number;
   low24h?: number;
-  sparkline: number[]; // 7-10 data points for mini chart
+  sparkline: number[];
   isCustom?: boolean;
+  forecast?: StockForecast;
 }
 
 export type SentimentType = 'Bullish' | 'Bearish' | 'Neutral' | 'Strong Bullish' | 'Extreme Fear';
@@ -24,6 +36,13 @@ export interface CatalystItem {
   sentiment: 'positive' | 'negative' | 'neutral';
   description: string;
   category: string;
+  fullDetail?: {
+    overview: string;
+    marketImpact: string;
+    outlook: string;
+    sourceName: string;
+    sourceUrl: string;
+  };
 }
 
 export interface WatchItem {
@@ -31,6 +50,16 @@ export interface WatchItem {
   event: string;
   impact: 'High' | 'Medium' | 'Low';
   forecast?: string;
+  sourceUrl?: string;
+}
+
+export interface ExecutiveSummaryItem {
+  id: string;
+  title: string;
+  summary: string;
+  fullText: string;
+  sourceName: string;
+  sourceUrl: string;
 }
 
 export interface MorningBriefingData {
@@ -38,9 +67,10 @@ export interface MorningBriefingData {
   headline: string;
   readingTimeSeconds: number;
   sentiment: SentimentType;
-  fearGreedIndex: number; // 0 - 100
+  fearGreedIndex: number;
   marketStatusSummary: string;
   executiveSummary: string[];
+  detailedArticles?: ExecutiveSummaryItem[];
   keyCatalysts: CatalystItem[];
   watchItemsToday: WatchItem[];
   topGainers: { symbol: string; change: number }[];

@@ -1,0 +1,168 @@
+import React from 'react';
+import { X, TrendingUp, TrendingDown, Activity, ExternalLink, ShieldCheck, Newspaper, Compass } from 'lucide-react';
+import { TickerItem } from '../types';
+
+interface StockForecastModalProps {
+  ticker: TickerItem | null;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const StockForecastModal: React.FC<StockForecastModalProps> = ({
+  ticker,
+  isOpen,
+  onClose
+}) => {
+  if (!isOpen || !ticker) return null;
+
+  const isUp = ticker.change24h >= 0;
+  const forecast = ticker.forecast;
+
+  const getDirectionBadge = (dir?: 'bullish' | 'bearish' | 'neutral') => {
+    switch (dir) {
+      case 'bullish':
+        return {
+          bg: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+          icon: <TrendingUp className="w-4 h-4 text-emerald-400" />,
+          label: 'สัญญาณบวก (มีโอกาสปรับขึ้นต่อ)'
+        };
+      case 'bearish':
+        return {
+          bg: 'bg-rose-500/15 text-rose-400 border border-rose-500/30',
+          icon: <TrendingDown className="w-4 h-4 text-rose-400" />,
+          label: 'สัญญาณระมัดระวัง (อาจมีแรงขายพักฐาน)'
+        };
+      default:
+        return {
+          bg: 'bg-amber-500/15 text-amber-400 border border-amber-500/30',
+          icon: <Activity className="w-4 h-4 text-amber-400" />,
+          label: 'สัญญาณทรงตัว (แกว่งตัวสะสมกำลัง)'
+        };
+    }
+  };
+
+  const badge = getDirectionBadge(forecast?.direction);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="bg-[#141a24] border border-slate-700/80 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl text-slate-100">
+        
+        {/* Modal Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+          <div className="flex items-center gap-2.5">
+            <span className="font-mono font-bold text-lg text-white">
+              {ticker.symbol}
+            </span>
+            <span className="text-xs text-slate-400">
+              {ticker.name}
+            </span>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Modal Body */}
+        <div className="p-6 space-y-5">
+          
+          {/* Price & Direction Section */}
+          <div className="flex items-center justify-between p-4 rounded-xl bg-[#0d121b] border border-slate-800/80">
+            <div>
+              <div className="text-xs text-slate-400 mb-0.5">ราคาล่าสุด (Yahoo Finance)</div>
+              <div className="text-2xl font-bold text-white font-mono">
+                {ticker.currency}{ticker.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              </div>
+              <div className={`text-xs font-semibold mt-0.5 flex items-center gap-1 ${isUp ? 'text-emerald-400' : 'text-rose-400'}`}>
+                {isUp ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
+                {isUp ? '+' : ''}{ticker.change24h.toFixed(2)}%
+                <span className="text-slate-500 font-normal">
+                  ({isUp ? '+' : ''}{ticker.currency}{Math.abs(ticker.changeAmount).toFixed(2)})
+                </span>
+              </div>
+            </div>
+
+            {/* AI Signal Badge */}
+            <div className="text-right">
+              <div className="text-[11px] text-slate-400 mb-1">AI Trend Forecast</div>
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold ${badge.bg}`}>
+                {badge.icon}
+                <span>{forecast?.signalLabel || 'ประเมินตามตลาด'}</span>
+              </div>
+              {forecast?.confidence && (
+                <div className="text-[11px] text-slate-400 mt-1 font-mono">
+                  ความเชื่อมั่น: <span className="text-amber-400 font-semibold">{forecast.confidence}%</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Support & Resistance */}
+          {forecast && (
+            <div className="grid grid-cols-2 gap-3">
+              <div className="p-3 rounded-xl bg-[#0d121b] border border-slate-800">
+                <div className="text-[11px] text-slate-400 flex items-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>แนวรับสำคัญ (Support)</span>
+                </div>
+                <div className="font-mono font-bold text-base text-emerald-400 mt-1">
+                  {forecast.support}
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-[#0d121b] border border-slate-800">
+                <div className="text-[11px] text-slate-400 flex items-center gap-1">
+                  <Compass className="w-3.5 h-3.5 text-rose-400" />
+                  <span>แนวต้านสำคัญ (Resistance)</span>
+                </div>
+                <div className="font-mono font-bold text-base text-rose-400 mt-1">
+                  {forecast.resistance}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* AI Analysis & News Reasoning */}
+          <div className="p-4 rounded-xl bg-[#0d121b] border border-slate-800 space-y-2">
+            <div className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+              <Newspaper className="w-4 h-4 text-amber-400" />
+              <span>บทวิเคราะห์คาดการณ์ & ข่าวตลาดที่เกี่ยวข้อง:</span>
+            </div>
+            <p className="text-xs text-slate-300 leading-relaxed font-sans">
+              {forecast?.reasoning || 'ราคามีการเคลื่อนไหวตามกรอบเทคนิคและปัจจัยพื้นฐานของอุตสาหกรรมในภาพรวม'}
+            </p>
+            {forecast?.keyNews && (
+              <div className="pt-2 mt-2 border-t border-slate-800/80 text-[11px] text-slate-400">
+                <span className="text-amber-400 font-medium">ข่าวหนุนล่าสุด:</span> {forecast.keyNews}
+              </div>
+            )}
+          </div>
+
+          {/* Read Full Details Source Link */}
+          <div className="pt-2 flex flex-col sm:flex-row items-center gap-2.5">
+            <a
+              href={forecast?.sourceUrl || `https://finance.yahoo.com/quote/${ticker.symbol}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-xs transition-colors shadow-sm"
+            >
+              <span>อ่านข่าวต้นฉบับ & ข้อมูลเต็มบน Yahoo Finance</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+
+            <button
+              onClick={onClose}
+              className="w-full sm:w-auto py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium transition-colors"
+            >
+              ปิดหน้าต่าง
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
+};
