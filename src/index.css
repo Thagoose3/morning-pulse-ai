@@ -4,32 +4,32 @@
 
 @layer base {
   body {
-    background-color: #0d1118;
-    color: #e2e8f0;
+    background-color: #fbf9f5;
+    color: #3d2e24;
     font-feature-settings: "tnum" 1, "zero" 1;
     -webkit-font-smoothing: antialiased;
   }
 }
 
-/* Soothing Minimal Scrollbar */
+/* Soothing Tea Time Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d1118;
+  background: #fbf9f5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #232c3c;
+  background: #ded5c7;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #c7bcab;
 }
 
-/* Gentle Soft Background Pattern */
-.bg-soft-pattern {
-  background-color: #0d1118;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+/* Warm Paper Dot Pattern */
+.bg-tea-pattern {
+  background-color: #fbf9f5;
+  background-image: radial-gradient(rgba(140, 110, 80, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
 }

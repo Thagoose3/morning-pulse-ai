@@ -41,7 +41,6 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
     const parsedChange = parseFloat(change24h) || 0.0;
     const changeAmt = parseFloat(((parsedPrice * parsedChange) / 100).toFixed(2));
 
-    // Generate realistic sparkline
     const sparkline = [
       parsedPrice * (1 - (parsedChange / 100) * 0.8),
       parsedPrice * (1 - (parsedChange / 100) * 0.5),
@@ -62,7 +61,17 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
       high24h: parseFloat((parsedPrice * 1.02).toFixed(2)),
       low24h: parseFloat((parsedPrice * 0.98).toFixed(2)),
       sparkline,
-      isCustom: true
+      isCustom: true,
+      forecast: {
+        direction: parsedChange >= 0 ? 'bullish' : 'bearish',
+        signalLabel: parsedChange >= 0 ? 'สัญญาณบวก (Bullish)' : 'ระวังพักฐาน',
+        confidence: 65,
+        reasoning: 'เพิ่มโดยผู้ใช้งาน - ติดตามราคาและการเคลื่อนไหวผ่าน Yahoo Finance',
+        support: `${currency}${(parsedPrice * 0.96).toFixed(2)}`,
+        resistance: `${currency}${(parsedPrice * 1.05).toFixed(2)}`,
+        keyNews: 'ติดตามข่าวสารและบทวิเคราะห์ล่าสุด',
+        sourceUrl: `https://finance.yahoo.com/quote/${symbol.toUpperCase().trim()}`
+      }
     };
 
     onAddTicker(newTicker);
@@ -91,7 +100,17 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
       high24h: preset.price * 1.015,
       low24h: preset.price * 0.985,
       sparkline,
-      isCustom: true
+      isCustom: true,
+      forecast: {
+        direction: 'bullish',
+        signalLabel: 'มีโอกาสปรับขึ้นต่อ',
+        confidence: 70,
+        reasoning: `หุ้นในกลุ่ม ${preset.name} มีปัจจัยพื้นฐานมั่นคงและได้แรงหนุนจากกระแสอุตสาหกรรม`,
+        support: `${preset.currency}${(preset.price * 0.97).toFixed(2)}`,
+        resistance: `${preset.currency}${(preset.price * 1.05).toFixed(2)}`,
+        keyNews: 'ปริมาณการซื้อขายเฉลี่ยอยู่ในเกณฑ์ดี',
+        sourceUrl: `https://finance.yahoo.com/quote/${preset.symbol}`
+      }
     };
 
     onAddTicker(newTicker);
@@ -99,22 +118,22 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#0f1422] border border-slate-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="bg-[#ffffff] border border-[#e5dcd0] rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl text-[#3d2e24]">
         
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#ede5d8]">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-400">
+            <div className="p-1.5 rounded-lg bg-[#eaf4ed] text-[#226339]">
               <Plus className="w-4 h-4" />
             </div>
-            <h3 className="text-base font-bold text-white tracking-tight">
+            <h3 className="text-base font-bold text-[#25170f] tracking-tight">
               เพิ่ม Ticker ลงใน Watchlist
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-[#8c7764] hover:text-[#25170f] hover:bg-[#f5eee3] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -124,18 +143,18 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
           
           {/* Quick Preset Badges */}
           <div>
-            <label className="text-xs font-mono text-slate-400 block mb-2">
-              ⚡ รายการยอดนิยม (คลิกเพื่อเพิ่มทันที):
+            <label className="text-xs font-semibold text-[#7d6b5c] block mb-2">
+              🍵 รายการยอดนิยม (คลิกเพื่อเพิ่มทันที):
             </label>
             <div className="flex flex-wrap gap-2">
               {PRESET_SUGGESTIONS.map((p) => (
                 <button
                   key={p.symbol}
                   onClick={() => handleAddPreset(p)}
-                  className="px-2.5 py-1 rounded-lg bg-[#0a0d17] border border-slate-800 hover:border-amber-500/50 hover:bg-amber-500/10 text-xs font-mono text-slate-300 hover:text-amber-300 transition-all flex items-center gap-1.5"
+                  className="px-2.5 py-1 rounded-lg bg-[#faf7f2] border border-[#e8dfd2] hover:border-[#b8d6bf] hover:bg-[#eaf4ed] text-xs font-mono text-[#524134] hover:text-[#1e5831] transition-all flex items-center gap-1.5"
                 >
-                  <span>{p.symbol}</span>
-                  <span className="text-[10px] text-emerald-400 font-bold">
+                  <span className="font-bold">{p.symbol}</span>
+                  <span className="text-[10px] text-[#226339] font-semibold">
                     +{p.change24h}%
                   </span>
                 </button>
@@ -143,44 +162,44 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
             </div>
           </div>
 
-          <div className="w-full h-[1px] bg-slate-800"></div>
+          <div className="w-full h-[1px] bg-[#ede5d8]"></div>
 
           {/* Custom Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
                   Ticker Symbol *
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="เช่น META, BNB, DELTA"
+                  placeholder="เช่น META, DELTA"
                   value={symbol}
                   onChange={(e) => setSymbol(e.target.value)}
-                  className="w-full bg-[#0a0d17] border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs font-mono text-[#25170f] placeholder-[#a39283] focus:outline-none focus:border-[#26693d]"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
                   ชื่อเต็ม / บริษัท *
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="เช่น Meta Platforms Inc"
+                  placeholder="เช่น Meta Platforms"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-[#0a0d17] border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs text-[#25170f] placeholder-[#a39283] focus:outline-none focus:border-[#26693d]"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
                   หมวดหมู่ (Category)
                 </label>
                 <select
@@ -191,17 +210,17 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
                     if (val === 'thai') setCurrency('THB');
                     else setCurrency('$');
                   }}
-                  className="w-full bg-[#0a0d17] border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs text-[#25170f] focus:outline-none focus:border-[#26693d]"
                 >
-                  <option value="us-tech">💻 US Tech / Equities</option>
-                  <option value="crypto">🪙 Crypto</option>
-                  <option value="commodity">🛢️ Commodities / ทองคำ</option>
-                  <option value="thai">🇹🇭 Thai Stocks (SET)</option>
+                  <option value="us-tech">🇺🇸 หุ้นสหรัฐฯ (US Equities)</option>
+                  <option value="crypto">🪙 คริปโต (Crypto)</option>
+                  <option value="commodity">🍵 ทองคำ & สินค้าโภคภัณฑ์</option>
+                  <option value="thai">🇹🇭 หุ้นไทย (SET)</option>
                 </select>
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
                   สกุลเงิน (Currency)
                 </label>
                 <input
@@ -209,14 +228,14 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
                   placeholder="$ หรือ THB"
-                  className="w-full bg-[#0a0d17] border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs font-mono text-[#25170f] focus:outline-none focus:border-[#26693d]"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
                   ราคาปัจจุบัน
                 </label>
                 <input
@@ -225,12 +244,12 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
                   placeholder="เช่น 150.50"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  className="w-full bg-[#0a0d17] border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs font-mono text-[#25170f] placeholder-[#a39283] focus:outline-none focus:border-[#26693d]"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                <label className="text-xs font-semibold text-[#4a3729] block mb-1">
                   การเปลี่ยนแปลง 24h (%)
                 </label>
                 <input
@@ -239,23 +258,23 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
                   placeholder="เช่น +2.5 หรือ -1.2"
                   value={change24h}
                   onChange={(e) => setChange24h(e.target.value)}
-                  className="w-full bg-[#0a0d17] border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#ffffff] border border-[#e2d8c9] rounded-lg px-3 py-2 text-xs font-mono text-[#25170f] placeholder-[#a39283] focus:outline-none focus:border-[#26693d]"
                 />
               </div>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#ede5d8]">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+                className="px-4 py-2 rounded-lg text-xs font-medium text-[#7d6b5c] hover:text-[#25170f] transition-colors"
               >
                 ยกเลิก
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-400 text-slate-950 transition-colors font-mono"
+                className="px-5 py-2 rounded-lg text-xs font-semibold bg-[#26693d] hover:bg-[#1e5831] text-white transition-colors shadow-sm"
               >
                 + บันทึก Ticker
               </button>

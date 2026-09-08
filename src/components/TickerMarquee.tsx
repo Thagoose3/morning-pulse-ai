@@ -7,11 +7,10 @@ interface TickerMarqueeProps {
 }
 
 export const TickerMarquee: React.FC<TickerMarqueeProps> = ({ tickers }) => {
-  // Duplicate tickers to ensure smooth infinite loop
   const displayTickers = [...tickers, ...tickers];
 
   return (
-    <div className="bg-[#05070a] border-b border-slate-800/60 overflow-hidden py-1.5 select-none relative group">
+    <div className="bg-[#f3ede3] border-b border-[#e5dcce] overflow-hidden py-1.5 select-none relative group">
       <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] space-x-6 items-center">
         {displayTickers.map((ticker, index) => {
           const isUp = ticker.change24h >= 0;
@@ -20,8 +19,8 @@ export const TickerMarquee: React.FC<TickerMarqueeProps> = ({ tickers }) => {
               key={`${ticker.id}-${index}`}
               className="flex items-center space-x-2 text-xs font-mono tracking-tight px-2"
             >
-              <span className="text-slate-400 font-semibold">{ticker.symbol}</span>
-              <span className="text-slate-200">
+              <span className="text-[#6d5a4c] font-semibold">{ticker.symbol}</span>
+              <span className="text-[#2b1f17] font-medium">
                 {ticker.currency}
                 {ticker.price.toLocaleString(undefined, {
                   minimumFractionDigits: ticker.price < 10 ? 2 : 2,
@@ -30,7 +29,7 @@ export const TickerMarquee: React.FC<TickerMarqueeProps> = ({ tickers }) => {
               </span>
               <span
                 className={`flex items-center text-[11px] font-bold ${
-                  isUp ? 'text-emerald-400' : 'text-rose-400'
+                  isUp ? 'text-[#256a3e]' : 'text-[#b33939]'
                 }`}
               >
                 {isUp ? (
@@ -41,7 +40,7 @@ export const TickerMarquee: React.FC<TickerMarqueeProps> = ({ tickers }) => {
                 {isUp ? '+' : ''}
                 {ticker.change24h.toFixed(2)}%
               </span>
-              <span className="text-slate-700">|</span>
+              <span className="text-[#d5c9b9]">|</span>
             </div>
           );
         })}

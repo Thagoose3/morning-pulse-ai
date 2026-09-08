@@ -4,19 +4,25 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        fintech: {
-          bg: '#0a0d14',
-          card: '#111726',
-          cardBorder: '#1e293b',
-          amber: '#f59e0b',
-          bull: '#10b981',
-          bear: '#f43f5e',
-          textMuted: '#94a3b8',
-          terminal: '#05070a'
+        tea: {
+          bg: '#fbf9f5',
+          card: '#ffffff',
+          cardSubtle: '#f7f4ed',
+          border: '#e8e2d8',
+          borderHover: '#c5dec9',
+          brown: '#3d2e24',
+          brownMuted: '#7c6858',
+          brownLight: '#ede3d5',
+          matcha: '#2e6b45',
+          matchaLight: '#eaf3ec',
+          matchaBorder: '#b8d9bf',
+          terracotta: '#b84848',
+          terracottaLight: '#faeded',
+          amber: '#9c6628',
+          amberLight: '#fcf4ea'
         }
       },
       fontFamily: {
@@ -24,8 +30,7 @@ export default {
         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'marquee': 'marquee 25s linear infinite',
+        'marquee': 'marquee 30s linear infinite',
       },
       keyframes: {
         marquee: {

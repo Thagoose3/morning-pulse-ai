@@ -24,28 +24,27 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
       case 'Bullish':
         return {
           label: 'ตลาดสดใส (Bullish)',
-          badge: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
-          icon: <TrendingUp className="w-4 h-4 text-emerald-400" />
+          badge: 'bg-[#eaf4ed] text-[#226339] border border-[#c3deca]',
+          icon: <TrendingUp className="w-4 h-4 text-[#226339]" />
         };
       case 'Bearish':
       case 'Extreme Fear':
         return {
           label: 'ตลาดชะลอตัว (Bearish)',
-          badge: 'bg-rose-500/15 text-rose-400 border border-rose-500/30',
-          icon: <TrendingDown className="w-4 h-4 text-rose-400" />
+          badge: 'bg-[#fbeded] text-[#b33939] border border-[#f0c8c8]',
+          icon: <TrendingDown className="w-4 h-4 text-[#b33939]" />
         };
       default:
         return {
           label: 'ตลาดทรงตัว (Neutral)',
-          badge: 'bg-amber-500/15 text-amber-400 border border-amber-500/30',
-          icon: <Activity className="w-4 h-4 text-amber-400" />
+          badge: 'bg-[#fcf5ea] text-[#8f5d23] border border-[#ebd9be]',
+          icon: <Activity className="w-4 h-4 text-[#8f5d23]" />
         };
     }
   };
 
   const sentiment = getSentimentInfo(briefing.sentiment);
 
-  // Helper to map executive summary bullets to deep dive source info
   const handleBulletClick = (index: number, text: string) => {
     const sources = [
       {
@@ -108,35 +107,35 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
   return (
     <div className="space-y-6">
       
-      {/* Main Coffee Briefing Card */}
-      <div className="rounded-2xl bg-[#121722] border border-slate-800/80 p-6 md:p-8 shadow-sm">
+      {/* Main Tea Time Briefing Card */}
+      <div className="rounded-2xl bg-[#ffffff] border border-[#e8dfd2] p-6 md:p-8 shadow-[0_2px_12px_rgba(80,60,40,0.04)]">
         
         {/* Top Tag & Sentiment */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-amber-400 flex items-center gap-1.5">
-              <span>☕ สรุปเช้านี้</span>
+            <span className="text-sm font-semibold text-[#8a5d2c] flex items-center gap-1.5">
+              <span>🍵 สรุปเช้านี้</span>
             </span>
-            <span className="text-slate-500 text-xs">•</span>
-            <span className="text-xs text-slate-400">
+            <span className="text-[#c7baa8] text-xs">•</span>
+            <span className="text-xs text-[#7d6b5c]">
               {briefing.generatedAt}
             </span>
           </div>
 
-          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${sentiment.badge}`}>
+          <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${sentiment.badge}`}>
             {sentiment.icon}
             <span>{sentiment.label}</span>
           </div>
         </div>
 
-        {/* Big Clean Headline */}
-        <h2 className="text-lg md:text-2xl font-bold text-white leading-snug mb-5">
+        {/* Big Clean Headline in Tea Brown */}
+        <h2 className="text-xl md:text-2xl font-bold text-[#2d1e14] leading-snug mb-5">
           {briefing.headline}
         </h2>
 
         {/* 4 Interactive Bullet Points */}
         <div className="space-y-2.5 mb-6">
-          <p className="text-xs text-slate-400 mb-1 font-medium flex items-center gap-1">
+          <p className="text-xs text-[#7d6b5c] mb-1 font-medium flex items-center gap-1">
             <span>💡 คลิกที่แต่ละหัวข้อเพื่ออ่านรายละเอียดฉบับเต็มและแหล่งข่าว:</span>
           </p>
           {briefing.executiveSummary.map((item, idx) => (
@@ -144,15 +143,15 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
               key={idx}
               onClick={() => handleBulletClick(idx, item)}
               role="button"
-              className="group flex items-start justify-between gap-3 p-3 rounded-xl bg-[#0b0f17] hover:bg-[#151c2a] border border-slate-800/70 hover:border-amber-500/40 cursor-pointer transition-all duration-150"
+              className="group flex items-start justify-between gap-3 p-3.5 rounded-xl bg-[#faf7f2] hover:bg-[#f3ece0] border border-[#ebe2d4] hover:border-[#b8d6bf] cursor-pointer transition-all duration-150"
             >
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5 group-hover:text-amber-400 transition-colors" />
-                <p className="text-sm text-slate-300 group-hover:text-white leading-relaxed transition-colors">
+                <CheckCircle2 className="w-4 h-4 text-[#26693d] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                <p className="text-sm text-[#38281d] group-hover:text-[#1e130c] leading-relaxed transition-colors">
                   {item}
                 </p>
               </div>
-              <div className="flex items-center text-xs text-slate-500 group-hover:text-amber-400 whitespace-nowrap pl-2 font-medium">
+              <div className="flex items-center text-xs text-[#8c7764] group-hover:text-[#26693d] whitespace-nowrap pl-2 font-medium">
                 <span className="hidden sm:inline mr-1 text-[11px]">อ่านเต็ม</span>
                 <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </div>
@@ -161,10 +160,10 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
         </div>
 
         {/* 3 Catalysts Cards (Clickable) */}
-        <div className="pt-5 border-t border-slate-800/70">
-          <p className="text-xs font-medium text-slate-400 mb-3 flex items-center justify-between">
+        <div className="pt-5 border-t border-[#ede5d8]">
+          <p className="text-xs font-medium text-[#7d6b5c] mb-3 flex items-center justify-between">
             <span className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-[#8a5d2c]" />
               3 ปัจจัยสำคัญที่ขับเคลื่อนตลาดวันนี้ (คลิกเพื่ออ่านบทวิเคราะห์):
             </span>
           </p>
@@ -174,19 +173,19 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
                 key={cat.id}
                 onClick={() => handleCatalystClick(cat)}
                 role="button"
-                className="group p-3.5 rounded-xl bg-[#0b0f17] hover:bg-[#151c2a] border border-slate-800/70 hover:border-amber-500/40 cursor-pointer transition-all duration-150 flex flex-col justify-between"
+                className="group p-3.5 rounded-xl bg-[#faf7f2] hover:bg-[#f3ece0] border border-[#ebe2d4] hover:border-[#b8d6bf] cursor-pointer transition-all duration-150 flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1">
-                    <span className="font-semibold text-amber-400/90">{cat.category}</span>
-                    <span className="group-hover:text-amber-400 text-slate-500 text-[10px] flex items-center gap-0.5">
+                  <div className="flex items-center justify-between text-[11px] text-[#7d6b5c] mb-1">
+                    <span className="font-semibold text-[#8a5d2c]">{cat.category}</span>
+                    <span className="group-hover:text-[#26693d] text-[#8c7764] text-[10px] flex items-center gap-0.5">
                       อ่านต่อ <ExternalLink className="w-2.5 h-2.5" />
                     </span>
                   </div>
-                  <div className="text-xs font-bold text-slate-200 group-hover:text-white mb-1 leading-snug">
+                  <div className="text-xs font-bold text-[#2d1e14] group-hover:text-[#1e130c] mb-1 leading-snug">
                     {cat.title}
                   </div>
-                  <p className="text-xs text-slate-400 leading-normal">
+                  <p className="text-xs text-[#635142] leading-normal">
                     {cat.description}
                   </p>
                 </div>
