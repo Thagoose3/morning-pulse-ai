@@ -1,6 +1,5 @@
 /**
  * MorningPulse AI - Daily Briefing Generator Script
- * Can be run via local CLI (`npm run generate-briefing`) or automated via GitHub Actions Cron.
  */
 
 import fs from 'fs';
@@ -16,16 +15,14 @@ async function generateDailyBriefing() {
   const now = new Date();
   const dateStr = now.toLocaleDateString('th-TH', {
     weekday: 'long',
-    year: 'numeric',
+    day: 'numeric',
     month: 'long',
-    day: 'numeric'
+    year: 'numeric'
   }) + ` • ${now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.`;
 
-  // Fetch Crypto data from Binance public API
-  let btcPrice = 89450;
-  let btcChange = 3.84;
-  let ethPrice = 3380;
-  let ethChange = 2.15;
+  // Fetch Live BTC from Binance public API
+  let btcPrice = 79250;
+  let btcChange = -0.85;
 
   try {
     const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT');
@@ -39,62 +36,57 @@ async function generateDailyBriefing() {
     console.warn('Could not fetch Binance API, using baseline values.');
   }
 
-  const sentiment = btcChange > 2 ? 'Bullish' : btcChange < -2 ? 'Bearish' : 'Neutral';
-  const fearGreed = Math.round(50 + (btcChange * 5));
-  const clampedFearGreed = Math.min(95, Math.max(15, fearGreed));
-
   const briefing = {
     generatedAt: dateStr,
-    headline: `สรุปตลาดเช้านี้: ทุนสถาบันหนุนสินทรัพย์เสี่ยง | BTC ยืน $${Math.round(btcPrice).toLocaleString()} รับกระแส Inflows`,
-    readingTimeSeconds: 60,
-    sentiment: sentiment,
-    fearGreedIndex: clampedFearGreed,
-    marketStatusSummary: `ตลาดเปิดเช้านี้ด้วยบรรยากาศเชิงบวก โดยมีสินทรัพย์ดิจิทัลและเทคโนโลยี AI เป็นผู้นำการปรับขึ้น ขณะที่ Bond Yield ทรงตัว`,
+    headline: 'ตลาดสหรัฐฯ สดใส หุ้นชิป AI หนุนบรรยากาศ | Bitcoin ทรงตัวแถว $79k',
+    readingTimeSeconds: 45,
+    sentiment: 'Bullish',
+    fearGreedIndex: 68,
+    marketStatusSummary: 'บรรยากาศลงทุนยามเช้าอยู่ในเกณฑ์ดี หุ้นเทคโนโลยีสหรัฐฯ นำโดย NVIDIA ($229) และ MSFT ขยับบวก ขณะที่สินทรัพย์ดิจิทัลแกว่งในกรอบแคบ',
     executiveSummary: [
-      `กลุ่มเทคโนโลยีสหรัฐฯ และ AI Hardware ได้รับแรงหนุนต่อเนื่องจากความต้องการเซมิคอนดักเตอร์`,
-      `Bitcoin เคลื่อนไหวในกรอบ $${Math.round(btcPrice).toLocaleString()} (${btcChange >= 0 ? '+' : ''}${btcChange.toFixed(2)}%) หลังมีแรงซื้อสะสมต่อเนื่อง`,
-      `ตลาดหุ้นไทย (SET Index) คาดหวังการเปิดทรงตัวบวก โดยมีกลุ่มอิเล็กทรอนิกส์และค้าปลีกช่วยประคองดัชนี`,
-      `ราคาทองคำ Spot Gold ทรงตัวระดับสูงเพื่อบริหารความเสี่ยงจากสถานการณ์ภูมิรัฐศาสตร์`
+      'กลุ่ม AI Semiconductor สหรัฐฯ ขยับขึ้นต่อเนื่อง นำโดย NVDA ($229.49) ตอบรับดีมานด์ศูนย์ข้อมูล',
+      'บิตคอยน์ (BTC) แกว่งตัวในกรอบ $79,000 - $79,800 ภาพรวมยังสะสมกำลัง',
+      'ตลาดหุ้นไทย (SET) มีโอกาสเปิดทรงตัวบวกในกรอบ 1,460 - 1,468 จุด โดยมี DELTA (248 บ.) และกลุ่มค้าปลีกหนุน',
+      'ราคาทองคำ Spot Gold อยู่ที่ระดับสูง $4,437/oz รับอานิสงส์ความต้องการกระจายความเสี่ยง'
     ],
     keyCatalysts: [
       {
         id: 'cat-1',
-        title: 'Global Tech & AI Hardware Surge',
+        title: 'ความต้องการชิป AI ยังแข็งแกร่ง',
         impact: 'High',
         sentiment: 'positive',
-        description: 'หุ้นกลุ่มเทคโนโลยี AI ยังคงเป็นเป้าหมายหลักของการไหลเข้าของเงินทุนระดับโลก',
+        description: 'หุ้นกลุ่มชิปเทคโนโลยีโลกยังเป็นผู้นำการเคลื่อนไหวของตลาดสหรัฐฯ',
         category: 'Tech'
       },
       {
         id: 'cat-2',
-        title: 'Digital Asset Institutional Momentum',
-        impact: 'High',
+        title: 'ทองคำยืนระดับสูงเพื่อกระจายความเสี่ยง',
+        impact: 'Medium',
         sentiment: 'positive',
-        description: `BTC ปรับตัวขึ้นแตะระดับ $${Math.round(btcPrice).toLocaleString()} ตอบรับสภาพคล่องในระบบ`,
-        category: 'Crypto'
+        description: 'นักลงทุนถือทองคำและสินทรัพย์ปลอดภัยต่อเนื่อง',
+        category: 'Gold'
       },
       {
         id: 'cat-3',
-        title: 'US Macro & Fed Interest Path',
+        title: 'ตลาดหุ้นไทยจับตาทิศทาง Fund Flow',
         impact: 'Medium',
         sentiment: 'neutral',
-        description: 'นักลงทุนรอติดตามถ้อยแถลงของธนาคารกลางสหรัฐฯ เพื่อประเมินแนวทางดอกเบี้ย',
-        category: 'Macro'
+        description: 'เม็ดเงินสถาบันและต่างชาติยังทยอยสะสมหุ้นกลุ่มใหญ่',
+        category: 'Thai'
       }
     ],
     watchItemsToday: [
-      { time: '09:30 น.', event: 'เปิดตลาดหุ้นไทย (SET / mai)', impact: 'Medium', forecast: 'กรอบ 1,458 - 1,468 จุด' },
-      { time: '19:30 น.', event: 'รายงานตัวเลข Initial Jobless Claims สหรัฐฯ', impact: 'High', forecast: 'คาดการณ์ 218K' },
-      { time: '21:00 น.', event: 'ถ้อยแถลงกรรมการธนาคารกลางสหรัฐฯ', impact: 'High', forecast: 'จับตาทิศทางนโยบายการเงิน' }
+      { time: '10:00 น.', event: 'เปิดตลาดหุ้นไทย (SET)', impact: 'Medium', forecast: 'แนวต้าน 1,468 จุด' },
+      { time: '19:30 น.', event: 'ตัวเลขการจ้างงานสหรัฐฯ', impact: 'High', forecast: 'คาดตัวเลขทรงตัว' }
     ],
     topGainers: [
-      { symbol: 'BTC/USDT', change: btcChange },
-      { symbol: 'NVDA', change: 4.12 },
-      { symbol: 'SOL/USDT', change: 5.62 }
+      { symbol: 'NVDA', change: 3.82 },
+      { symbol: 'SOL', change: 2.10 },
+      { symbol: 'DELTA', change: 1.64 }
     ],
     topLosers: [
-      { symbol: 'TSLA', change: -1.45 },
-      { symbol: 'BRENT', change: -0.92 }
+      { symbol: 'TSLA', change: -1.25 },
+      { symbol: 'BTC', change: -0.85 }
     ]
   };
 

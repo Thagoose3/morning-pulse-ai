@@ -4,7 +4,6 @@ import { TickerMarquee } from './components/TickerMarquee';
 import { MorningBriefing } from './components/MorningBriefing';
 import { WatchlistGrid } from './components/WatchlistGrid';
 import { AddTickerModal } from './components/AddTickerModal';
-import { MacroOverviewCard } from './components/MacroOverviewCard';
 import { Footer } from './components/Footer';
 import { TickerItem, MorningBriefingData } from './types';
 import { 
@@ -71,12 +70,12 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#080b11] text-slate-100 flex flex-col font-sans bg-grid-pattern selection:bg-amber-500/30 selection:text-amber-200">
+    <div className="min-h-screen bg-[#090c13] text-slate-100 flex flex-col font-sans selection:bg-amber-500/30 selection:text-amber-200">
       
-      {/* Top Fixed Marquee */}
+      {/* Top Subtle Ticker Marquee */}
       <TickerMarquee tickers={tickers} />
 
-      {/* Main Header */}
+      {/* Clean Header */}
       <Header
         briefing={briefing}
         onRefresh={handleRefresh}
@@ -84,20 +83,15 @@ export const App: React.FC = () => {
         isRefreshing={isRefreshing}
       />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
         
-        {/* Morning 60-Second AI Briefing */}
+        {/* Morning 45-Second AI Briefing */}
         <section>
           <MorningBriefing
             briefing={briefing}
             onOpenAddModal={() => setIsAddModalOpen(true)}
           />
-        </section>
-
-        {/* Global Macro Benchmark Grid */}
-        <section>
-          <MacroOverviewCard />
         </section>
 
         {/* Real-Time Watchlist Grid */}
@@ -118,7 +112,7 @@ export const App: React.FC = () => {
         onAddTicker={handleAddTicker}
       />
 
-      {/* Footer */}
+      {/* Clean Footer */}
       <Footer />
 
     </div>

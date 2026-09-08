@@ -3,77 +3,62 @@ import { MorningBriefingData, TickerItem, SentimentType } from '../types';
 export const FALLBACK_BRIEFING: MorningBriefingData = {
   generatedAt: new Date().toLocaleDateString('th-TH', { 
     weekday: 'long', 
-    year: 'numeric', 
+    day: 'numeric', 
     month: 'long', 
-    day: 'numeric' 
+    year: 'numeric' 
   }) + ' • 06:30 น.',
-  headline: 'ตลาดเอเชียเปิดบวกรับแรงส่ง Tech Rally สหรัฐฯ | Bitcoin ยืนเหนือ $89,000 รับกระแส Institutional Flow',
-  readingTimeSeconds: 60,
+  headline: 'ตลาดเช้านี้: ฝั่งเทคโนโลยีสดใส หุ้น AI ยังหนุนตลาด | Bitcoin ยืนแถว $79,000',
+  readingTimeSeconds: 45,
   sentiment: 'Bullish',
-  fearGreedIndex: 72, // Greed
-  marketStatusSummary: 'สินทรัพย์เสี่ยงส่งสัญญาณฟื้นตัวแข็งแกร่ง นำโดยกลุ่ม AI Semiconductor และ Crypto ขณะที่ Bond Yields สหรัฐฯ ทรงตัว',
+  fearGreedIndex: 68,
+  marketStatusSummary: 'ภาพรวมเปิดเช้านี้บรรยากาศผ่อนคลาย หุ้นเทคโนโลยีสหรัฐฯ นำโดย NVIDIA ($229) และ Microsoft ขยับบวก ขณะที่สินทรัพย์ดิจิทัลและทองคำทรงตัวระดับสูง',
   executiveSummary: [
-    'กลุ่มเทคโนโลยีสหรัฐฯ ปิดพุ่งนำโดย NVIDIA และ Big Tech หลังตลาดซึมซับมุมมองดอกเบี้ยของ Fed',
-    'บิตคอยน์ (BTC) ดีดตัวแตะกรอบ $89,000 - $90,000 สะท้อนแรงซื้อต่อเนื่องของ Spot ETF',
-    'ตลาดหุ้นไทย (SET Index) มีแนวโน้มเปิดทดสอบแนวต้าน 1,465 - 1,470 จุด โดยมี DELTA และกลุ่มค้าปลีกหนุน',
-    'ราคาทองคำ Spot Gold ปรับตัวยืนเหนือ $2,740 ต่อออนซ์ ท่ามกลางความไม่แน่นอนด้านภูมิรัฐศาสตร์โลก'
+    'กลุ่มชิป AI สหรัฐฯ ปิดบวกต่อเนื่อง นำโดย NVDA ($229.49, +3.8%) ตอบรับดีมานด์ศูนย์ข้อมูล',
+    'บิตคอยน์ (BTC) แกว่งตัวบริเวณ $79,000 - $79,800 ภาพรวมยังเป็นการสะสมกำลัง',
+    'หุ้นไทย (SET) คาดแกว่งทรงตัวกรอบ 1,460 - 1,468 จุด มีแรงหนุนจาก DELTA (248 บ.) และกลุ่มค้าปลีก',
+    'ทองคำ Spot Gold ทรงตัวระดับสูง $4,437/oz จากความต้องการถือสินทรัพย์ปลอดภัย'
   ],
   keyCatalysts: [
     {
       id: 'cat-1',
-      title: 'AI Capex Supercycle & Semiconductor Demand',
+      title: 'ความต้องการชิป AI ทั่วโลกยังแข็งแกร่ง',
       impact: 'High',
       sentiment: 'positive',
-      description: 'ยอดสั่งซื้อชิป AI รุ่นล่าสุด Blackwell ยังคงเต็มกำลังการผลิต หนุน Sentiment หุ้นกลุ่มฮาร์ดแวร์ทั่วโลก',
+      description: 'หุ้นกลุ่มเซมิคอนดักเตอร์และฮาร์ดแวร์ยังคงเป็นผู้นำการปรับตัวขึ้นของตลาดสหรัฐฯ',
       category: 'Tech'
     },
     {
       id: 'cat-2',
-      title: 'Institutional Crypto Accumulation',
-      impact: 'High',
+      title: 'ทองคำและสินทรัพย์ปลอดภัยทรงตัวสูง',
+      impact: 'Medium',
       sentiment: 'positive',
-      description: 'กองทุน ETF สหรัฐฯ มี Net Inflows ติดต่อกันเป็นวันที่ 5 สะท้อนความเชื่อมั่นของนักลงทุนสถาบัน',
-      category: 'Crypto'
+      description: 'นักลงทุนยังคงกระจายความเสี่ยงเข้าสู่ทองคำที่ระดับ $4,437/oz',
+      category: 'Gold'
     },
     {
       id: 'cat-3',
-      title: 'US Bond Yields Consolidation (10Y @ 4.18%)',
+      title: 'ตลาดหุ้นไทยจับตาทิศทาง Fund Flow',
       impact: 'Medium',
       sentiment: 'neutral',
-      description: 'อัตราผลตอบแทนพันธบัตรรัฐบาลสหรัฐฯ ชะลอการปรับขึ้น ช่วยคลายแรงกดดันต่อ Valuation หุ้น Growth',
-      category: 'Macro'
-    },
-    {
-      id: 'cat-4',
-      title: 'Dollar Index & Geopolitical Hedging',
-      impact: 'Medium',
-      sentiment: 'neutral',
-      description: 'เงินดอลลาร์ทรงตัวในกรอบแคบ ส่งผลให้นักลงทุนกระจายความเสี่ยงเข้าสู่ทองคำแท่งและสินทรัพย์ทางเลือก',
-      category: 'Commodities'
+      description: 'แรงซื้อเก็งกำไรในหุ้นกลุ่มอิเล็กทรอนิกส์ยังช่วยพยุงดัชนี SET',
+      category: 'Thai Market'
     }
   ],
   watchItemsToday: [
-    { time: '09:30 น.', event: 'เปิดตลาดหุ้นไทย (SET / mai)', impact: 'Medium', forecast: 'แกว่งตัวในกรอบ 1,458 - 1,468 จุด' },
-    { time: '13:00 น.', event: 'ตัวเลขส่งออก-นำเข้าจีนประจำงวด', impact: 'High', forecast: 'คาดเติบโต +4.5% YoY' },
-    { time: '19:30 น.', event: 'รายงานตัวเลข Initial Jobless Claims สหรัฐฯ', impact: 'High', forecast: 'คาดการณ์ 218K' },
-    { time: '21:00 น.', event: 'ถ้อยแถลงกรรมการธนาคารกลางสหรัฐฯ (Fed Governors)', impact: 'High', forecast: 'จับตาส่งสัญญาณอัตราดอกเบี้ย' }
+    { time: '10:00 น.', event: 'เปิดตลาดหุ้นไทย (SET / mai)', impact: 'Medium', forecast: 'แนวต้าน 1,468 จุด' },
+    { time: '19:30 น.', event: 'รายงานตัวเลข Initial Jobless Claims สหรัฐฯ', impact: 'High', forecast: 'คาดตัวเลขทรงตัว' }
   ],
   topGainers: [
-    { symbol: 'SOL/USDT', change: 5.62 },
-    { symbol: 'NVDA', change: 4.12 },
-    { symbol: 'BTC/USDT', change: 3.84 },
-    { symbol: 'DELTA.BK', change: 2.32 }
+    { symbol: 'NVDA', change: 3.82 },
+    { symbol: 'SOL', change: 2.10 },
+    { symbol: 'DELTA', change: 1.64 }
   ],
   topLosers: [
-    { symbol: 'TSLA', change: -1.45 },
-    { symbol: 'BRENT', change: -0.92 },
-    { symbol: 'PTT.BK', change: -0.77 }
+    { symbol: 'TSLA', change: -1.25 },
+    { symbol: 'BTC', change: -0.85 }
   ]
 };
 
-/**
- * Calculates dynamic sentiment and briefing adjustments based on live tickers
- */
 export function generateDynamicBriefing(tickers: TickerItem[]): MorningBriefingData {
   const gainers = tickers.filter(t => t.change24h > 0);
   const gainerRatio = gainers.length / Math.max(1, tickers.length);
@@ -81,15 +66,12 @@ export function generateDynamicBriefing(tickers: TickerItem[]): MorningBriefingD
   let sentiment: SentimentType = 'Neutral';
   let fearGreed = 50;
 
-  if (gainerRatio >= 0.75) {
-    sentiment = 'Strong Bullish';
-    fearGreed = 78;
-  } else if (gainerRatio >= 0.55) {
+  if (gainerRatio >= 0.65) {
     sentiment = 'Bullish';
-    fearGreed = 66;
-  } else if (gainerRatio <= 0.3) {
+    fearGreed = 68;
+  } else if (gainerRatio <= 0.35) {
     sentiment = 'Bearish';
-    fearGreed = 34;
+    fearGreed = 38;
   } else {
     sentiment = 'Neutral';
     fearGreed = 52;
@@ -97,12 +79,12 @@ export function generateDynamicBriefing(tickers: TickerItem[]): MorningBriefingD
 
   const sortedGainers = [...tickers]
     .sort((a, b) => b.change24h - a.change24h)
-    .slice(0, 4)
+    .slice(0, 3)
     .map(t => ({ symbol: t.symbol, change: t.change24h }));
 
   const sortedLosers = [...tickers]
     .sort((a, b) => a.change24h - b.change24h)
-    .slice(0, 3)
+    .slice(0, 2)
     .map(t => ({ symbol: t.symbol, change: t.change24h }));
 
   return {
@@ -113,16 +95,13 @@ export function generateDynamicBriefing(tickers: TickerItem[]): MorningBriefingD
     topLosers: sortedLosers,
     generatedAt: new Date().toLocaleDateString('th-TH', { 
       weekday: 'long', 
-      year: 'numeric', 
+      day: 'numeric', 
       month: 'long', 
-      day: 'numeric' 
+      year: 'numeric' 
     }) + ` • ${new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.`
   };
 }
 
-/**
- * Loads daily briefing from static JSON (if updated by GitHub Actions) or returns dynamically generated
- */
 export async function loadMorningBriefing(currentTickers: TickerItem[]): Promise<MorningBriefingData> {
   try {
     const res = await fetch('./data/daily_briefing.json', { cache: 'no-cache' });
@@ -131,7 +110,7 @@ export async function loadMorningBriefing(currentTickers: TickerItem[]): Promise
       return data;
     }
   } catch (e) {
-    // Expected on local dev before daily sync runs
+    // fallback
   }
   return generateDynamicBriefing(currentTickers);
 }

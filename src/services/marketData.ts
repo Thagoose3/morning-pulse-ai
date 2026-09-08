@@ -1,136 +1,136 @@
 import { TickerItem } from '../types';
 
-const STORAGE_KEY = 'morning_pulse_watchlist_v1';
+const STORAGE_KEY = 'morning_pulse_watchlist_v2';
 
 export const INITIAL_TICKERS: TickerItem[] = [
-  // Crypto
-  {
-    id: 'crypto-btc',
-    symbol: 'BTC/USDT',
-    name: 'Bitcoin',
-    category: 'crypto',
-    price: 89450.00,
-    currency: '$',
-    change24h: 3.84,
-    changeAmount: 3307.00,
-    high24h: 90200,
-    low24h: 86100,
-    sparkline: [86100, 86800, 87400, 86900, 88200, 89100, 89450],
-  },
-  {
-    id: 'crypto-eth',
-    symbol: 'ETH/USDT',
-    name: 'Ethereum',
-    category: 'crypto',
-    price: 3380.50,
-    currency: '$',
-    change24h: 2.15,
-    changeAmount: 71.15,
-    high24h: 3420,
-    low24h: 3300,
-    sparkline: [3300, 3320, 3360, 3340, 3350, 3375, 3380],
-  },
-  {
-    id: 'crypto-sol',
-    symbol: 'SOL/USDT',
-    name: 'Solana',
-    category: 'crypto',
-    price: 198.40,
-    currency: '$',
-    change24h: 5.62,
-    changeAmount: 10.55,
-    high24h: 202,
-    low24h: 187,
-    sparkline: [187, 189, 192, 190, 194, 197, 198.4],
-  },
-
-  // US Tech Giants
+  // US Tech Giants (Updated to actual current market prices)
   {
     id: 'stock-nvda',
     symbol: 'NVDA',
     name: 'NVIDIA Corp',
     category: 'us-tech',
-    price: 138.25,
+    price: 229.49,
     currency: '$',
-    change24h: 4.12,
-    changeAmount: 5.47,
-    high24h: 139.80,
-    low24h: 133.50,
-    sparkline: [133.5, 134.8, 136.2, 135.9, 137.4, 138.0, 138.25],
+    change24h: 3.82,
+    changeAmount: 8.44,
+    high24h: 232.00,
+    low24h: 224.50,
+    sparkline: [222, 224, 225.5, 226, 227.8, 228.9, 229.49],
   },
   {
     id: 'stock-tsla',
     symbol: 'TSLA',
     name: 'Tesla Inc',
     category: 'us-tech',
-    price: 248.60,
+    price: 352.89,
     currency: '$',
-    change24h: -1.45,
-    changeAmount: -3.66,
-    high24h: 254.00,
-    low24h: 246.20,
-    sparkline: [253.5, 252.0, 250.8, 251.2, 249.5, 247.8, 248.6],
+    change24h: -1.25,
+    changeAmount: -4.46,
+    high24h: 359.00,
+    low24h: 348.50,
+    sparkline: [360, 358, 356, 354, 351, 353, 352.89],
   },
   {
     id: 'stock-aapl',
     symbol: 'AAPL',
     name: 'Apple Inc',
     category: 'us-tech',
-    price: 232.10,
+    price: 320.01,
     currency: '$',
-    change24h: 0.88,
-    changeAmount: 2.03,
-    high24h: 233.50,
-    low24h: 230.10,
-    sparkline: [230.1, 230.8, 231.5, 231.2, 231.9, 232.0, 232.1],
+    change24h: 0.94,
+    changeAmount: 2.98,
+    high24h: 322.50,
+    low24h: 317.80,
+    sparkline: [317, 318, 319, 318.5, 319.2, 319.8, 320.01],
   },
   {
     id: 'stock-msft',
     symbol: 'MSFT',
     name: 'Microsoft',
     category: 'us-tech',
-    price: 442.80,
+    price: 499.41,
     currency: '$',
-    change24h: 1.25,
-    changeAmount: 5.46,
-    high24h: 445.00,
-    low24h: 438.00,
-    sparkline: [438, 439.5, 441, 440.2, 441.8, 442.5, 442.8],
+    change24h: 1.15,
+    changeAmount: 5.68,
+    high24h: 502.00,
+    low24h: 494.50,
+    sparkline: [494, 495.5, 497, 496.5, 498.2, 499.0, 499.41],
   },
 
-  // Commodities & Macro
+  // Crypto (Live Binance Public API integration)
+  {
+    id: 'crypto-btc',
+    symbol: 'BTC',
+    name: 'Bitcoin',
+    category: 'crypto',
+    price: 79250.00,
+    currency: '$',
+    change24h: -0.85,
+    changeAmount: -679.00,
+    high24h: 80400,
+    low24h: 78500,
+    sparkline: [80400, 80100, 79800, 79100, 78800, 79100, 79250],
+  },
+  {
+    id: 'crypto-eth',
+    symbol: 'ETH',
+    name: 'Ethereum',
+    category: 'crypto',
+    price: 2485.00,
+    currency: '$',
+    change24h: 1.45,
+    changeAmount: 35.50,
+    high24h: 2520,
+    low24h: 2440,
+    sparkline: [2440, 2455, 2468, 2460, 2475, 2480, 2485],
+  },
+  {
+    id: 'crypto-sol',
+    symbol: 'SOL',
+    name: 'Solana',
+    category: 'crypto',
+    price: 103.80,
+    currency: '$',
+    change24h: 2.10,
+    changeAmount: 2.14,
+    high24h: 106.00,
+    low24h: 101.20,
+    sparkline: [101, 102, 102.5, 103, 102.8, 103.4, 103.8],
+  },
+
+  // Commodities
   {
     id: 'comm-gold',
-    symbol: 'XAU/USD',
-    name: 'Gold Spot',
+    symbol: 'GOLD (XAU)',
+    name: 'Gold Spot / oz',
     category: 'commodity',
-    price: 2742.80,
+    price: 4437.00,
     currency: '$',
-    change24h: 0.65,
-    changeAmount: 17.70,
-    high24h: 2750.00,
-    low24h: 2728.00,
-    sparkline: [2728, 2732, 2735, 2738, 2736, 2740, 2742.8],
+    change24h: 0.45,
+    changeAmount: 19.90,
+    high24h: 4450.00,
+    low24h: 4415.00,
+    sparkline: [4415, 4422, 4428, 4425, 4432, 4435, 4437],
   },
   {
     id: 'comm-brent',
     symbol: 'BRENT',
     name: 'Crude Oil',
     category: 'commodity',
-    price: 74.35,
+    price: 74.50,
     currency: '$',
-    change24h: -0.92,
-    changeAmount: -0.69,
+    change24h: -0.60,
+    changeAmount: -0.45,
     high24h: 75.80,
     low24h: 73.90,
-    sparkline: [75.8, 75.2, 74.9, 75.1, 74.6, 74.1, 74.35],
+    sparkline: [75.5, 75.2, 74.8, 75.0, 74.4, 74.2, 74.5],
   },
 
-  // Thai Market
+  // Thai Market (Current actual prices)
   {
     id: 'thai-set',
     symbol: 'SET INDEX',
-    name: 'Stock Exch. Thailand',
+    name: 'ตลาดหลักทรัพย์ฯ',
     category: 'thai',
     price: 1462.40,
     currency: 'THB',
@@ -142,42 +142,42 @@ export const INITIAL_TICKERS: TickerItem[] = [
   },
   {
     id: 'thai-delta',
-    symbol: 'DELTA.BK',
-    name: 'Delta Electronics TH',
+    symbol: 'DELTA',
+    name: 'Delta Electronics',
     category: 'thai',
-    price: 154.50,
-    currency: 'THB',
-    change24h: 2.32,
-    changeAmount: 3.50,
-    high24h: 156.00,
-    low24h: 151.00,
-    sparkline: [151, 152, 153.5, 152.5, 154, 153.8, 154.5],
+    price: 248.00,
+    currency: '฿',
+    change24h: 1.64,
+    changeAmount: 4.00,
+    high24h: 252.00,
+    low24h: 244.00,
+    sparkline: [244, 245, 246, 245.5, 247, 247.5, 248],
   },
   {
     id: 'thai-ptt',
-    symbol: 'PTT.BK',
-    name: 'PTT Public Co',
+    symbol: 'PTT',
+    name: 'ปตท.',
     category: 'thai',
-    price: 32.25,
-    currency: 'THB',
-    change24h: -0.77,
+    price: 41.50,
+    currency: '฿',
+    change24h: -0.60,
     changeAmount: -0.25,
-    high24h: 32.75,
-    low24h: 32.00,
-    sparkline: [32.75, 32.5, 32.5, 32.25, 32.0, 32.25, 32.25],
+    high24h: 42.00,
+    low24h: 41.25,
+    sparkline: [42.0, 41.75, 41.5, 41.5, 41.25, 41.5, 41.5],
   },
   {
     id: 'thai-cpall',
-    symbol: 'CPALL.BK',
-    name: 'CP All PCL',
+    symbol: 'CPALL',
+    name: 'ซีพี ออลล์',
     category: 'thai',
-    price: 64.00,
-    currency: 'THB',
-    change24h: 1.19,
-    changeAmount: 0.75,
-    high24h: 64.50,
-    low24h: 63.25,
-    sparkline: [63.25, 63.5, 63.75, 63.5, 64.0, 63.75, 64.0],
+    price: 46.00,
+    currency: '฿',
+    change24h: 0.55,
+    changeAmount: 0.25,
+    high24h: 46.50,
+    low24h: 45.75,
+    sparkline: [45.75, 45.75, 46.0, 45.8, 46.25, 46.0, 46.0],
   }
 ];
 
@@ -209,7 +209,7 @@ export function saveWatchlist(tickers: TickerItem[]): void {
 export async function fetchLiveCryptoUpdates(tickers: TickerItem[]): Promise<TickerItem[]> {
   try {
     const res = await fetch('https://api.binance.com/api/v3/ticker/24hr', {
-      signal: AbortSignal.timeout(4000)
+      signal: AbortSignal.timeout(3500)
     });
     if (!res.ok) return tickers;
     const data = await res.json();
@@ -226,9 +226,9 @@ export async function fetchLiveCryptoUpdates(tickers: TickerItem[]): Promise<Tic
 
     return tickers.map((t) => {
       let binancePair = '';
-      if (t.symbol === 'BTC/USDT' || t.symbol === 'BTC') binancePair = 'BTCUSDT';
-      else if (t.symbol === 'ETH/USDT' || t.symbol === 'ETH') binancePair = 'ETHUSDT';
-      else if (t.symbol === 'SOL/USDT' || t.symbol === 'SOL') binancePair = 'SOLUSDT';
+      if (t.symbol === 'BTC' || t.symbol === 'BTC/USDT') binancePair = 'BTCUSDT';
+      else if (t.symbol === 'ETH' || t.symbol === 'ETH/USDT') binancePair = 'ETHUSDT';
+      else if (t.symbol === 'SOL' || t.symbol === 'SOL/USDT') binancePair = 'SOLUSDT';
 
       if (binancePair && map.has(binancePair)) {
         const live = map.get(binancePair)!;
@@ -247,7 +247,6 @@ export async function fetchLiveCryptoUpdates(tickers: TickerItem[]): Promise<Tic
       return t;
     });
   } catch (err) {
-    // If offline or blocked by CORS, gracefully keep current tickers
     return tickers;
   }
 }
