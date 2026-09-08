@@ -9,7 +9,7 @@ import { TickerItem, MorningBriefingData } from './types';
 import { 
   getSavedWatchlist, 
   saveWatchlist, 
-  fetchLiveCryptoUpdates 
+  fetchLiveMarketUpdates 
 } from './services/marketData';
 import { 
   loadMorningBriefing, 
@@ -27,18 +27,11 @@ export const App: React.FC = () => {
     saveWatchlist(tickers);
   }, [tickers]);
 
-  // Load briefing initially
-  useEffect(() => {
-    loadMorningBriefing(tickers).then((data) => {
-      setBriefing(data);
-    });
-  }, []);
-
-  // Fetch live updates
+  // Fetch live updates from Yahoo Finance
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     try {
-      const updated = await fetchLiveCryptoUpdates(tickers);
+      const updated = await fetchLiveMarketUpdates(tickers);
       setTickers(updated);
       const newBriefing = generateDynamicBriefing(updated);
       setBriefing(newBriefing);
@@ -49,11 +42,19 @@ export const App: React.FC = () => {
     }
   }, [tickers]);
 
-  // Auto-refresh crypto every 30s
+  // Initial load: Load briefing and fetch live Yahoo Finance prices immediately
+  useEffect(() => {
+    loadMorningBriefing(tickers).then((data) => {
+      setBriefing(data);
+    });
+    handleRefresh();
+  }, []);
+
+  // Auto-refresh every 60s
   useEffect(() => {
     const interval = setInterval(() => {
       handleRefresh();
-    }, 30000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [handleRefresh]);
 

@@ -70,11 +70,17 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
       {/* Header and Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h3 className="text-base font-bold text-white tracking-tight">
-            ราคาหุ้น & สินทรัพย์น่าจับตา
-          </h3>
-          <p className="text-xs text-slate-400">
-            อัปเดตราคาตลาดปัจจุบัน (Real-time & Delayed)
+          <div className="flex items-center gap-2">
+            <h3 className="text-base font-bold text-white tracking-tight">
+              ราคาหุ้น & สินทรัพย์น่าจับตา
+            </h3>
+            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Live Yahoo Finance API
+            </span>
+          </div>
+          <p className="text-xs text-slate-400 mt-0.5">
+            ราคาตรงตามตลาดโลก ปิด/เปิดล่าสุดจาก Yahoo Finance
           </p>
         </div>
 
