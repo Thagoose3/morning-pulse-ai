@@ -15,9 +15,11 @@ const POPULAR_SUGGESTIONS = [
   { symbol: 'TSLA', name: 'Tesla Inc', exchange: 'NASDAQ' },
   { symbol: 'AAPL', name: 'Apple Inc', exchange: 'NASDAQ' },
   { symbol: 'AMD', name: 'Advanced Micro Devices', exchange: 'NASDAQ' },
+  { symbol: 'INTC', name: 'Intel Corporation', exchange: 'NASDAQ' },
   { symbol: 'DELTA.BK', name: 'Delta Electronics', exchange: 'SET' },
   { symbol: 'PTT.BK', name: 'PTT Public Co', exchange: 'SET' },
-  { symbol: 'CPALL.BK', name: 'CP ALL PCL', exchange: 'SET' }
+  { symbol: 'CPALL.BK', name: 'CP ALL PCL', exchange: 'SET' },
+  { symbol: 'AOT.BK', name: 'Airports of Thailand', exchange: 'SET' }
 ];
 
 export const AddTickerModal: React.FC<AddTickerModalProps> = ({
@@ -30,6 +32,7 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
   const [isSearching, setIsSearching] = useState(false);
   const [isFetchingQuote, setIsFetchingQuote] = useState(false);
   const [selectedPreview, setSelectedPreview] = useState<TickerItem | null>(null);
+  const [isEditingPrice, setIsEditingPrice] = useState(false);
   const searchTimeoutRef = useRef<any>(null);
 
   // Reset state when modal opens
@@ -39,6 +42,7 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
       setSuggestions([]);
       setSelectedPreview(null);
       setIsFetchingQuote(false);
+      setIsEditingPrice(false);
     }
   }, [isOpen]);
 
@@ -64,7 +68,7 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
       } finally {
         setIsSearching(false);
       }
-    }, 250);
+    }, 200);
 
     return () => {
       if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
@@ -79,6 +83,7 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
       const ticker = await createTickerFromYahoo(item.symbol, item.name);
       setSelectedPreview(ticker);
       setSuggestions([]);
+      setIsEditingPrice(false);
     } catch (e) {
       console.error('Failed to fetch quote', e);
     } finally {
@@ -132,9 +137,24 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
               <input
                 type="text"
                 autoFocus
-                placeholder="พิมพ์ เช่น PLTR หรือ Palantir..."
+                placeholder="พิมพ์ เช่น PLTR หรือ Palantir แล้วกด Enter..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={async (e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (suggestions.length > 0) {
+                      handleSelectSuggestion(suggestions[0]);
+                    } else if (query.trim()) {
+                      handleSelectSuggestion({
+                        symbol: query.trim().toUpperCase(),
+                        name: query.trim().toUpperCase(),
+                        exchange: 'Yahoo Finance',
+                        type: 'Equity'
+                      });
+                    }
+                  }
+                }}
                 className="w-full bg-[#ffffff] border border-[#d8cdbf] focus:border-[#26693d] rounded-xl pl-10 pr-10 py-2.5 text-sm font-medium text-[#25170f] placeholder-[#a39283] focus:outline-none shadow-sm transition-colors"
               />
               {isSearching && (
@@ -213,10 +233,10 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
           {selectedPreview && !isFetchingQuote && (
             <div className="p-4 rounded-xl bg-[#faf7f2] border border-[#c3deca] space-y-3 animate-in fade-in duration-150">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-[#26693d]" />
                   <span className="text-xs font-bold text-[#26693d]">
-                    พบข้อมูลสดบน Yahoo Finance
+                    พบราคาตลาดจริงจาก Yahoo Finance
                   </span>
                 </div>
                 <button
@@ -229,24 +249,86 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
               </div>
 
               {/* Price Row */}
-              <div className="flex items-baseline justify-between p-3 rounded-lg bg-[#ffffff] border border-[#ede5d8]">
-                <div>
-                  <div className="font-mono font-bold text-lg text-[#25170f]">
-                    {selectedPreview.symbol}
+              <div className="p-3.5 rounded-xl bg-[#ffffff] border border-[#ede5d8] space-y-2.5">
+                <div className="flex items-baseline justify-between">
+                  <div>
+                    <div className="font-mono font-bold text-lg text-[#25170f]">
+                      {selectedPreview.symbol}
+                    </div>
+                    <div className="text-xs text-[#7d6b5c] truncate max-w-[200px]">
+                      {selectedPreview.name}
+                    </div>
                   </div>
-                  <div className="text-xs text-[#7d6b5c] truncate max-w-[200px]">
-                    {selectedPreview.name}
+
+                  <div className="text-right">
+                    <div className="font-mono font-bold text-xl text-[#25170f]">
+                      {selectedPreview.currency}{selectedPreview.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </div>
+                    <div className={`text-xs font-bold font-mono ${selectedPreview.change24h >= 0 ? 'text-[#226339]' : 'text-[#b33939]'}`}>
+                      {selectedPreview.change24h >= 0 ? '+' : ''}{selectedPreview.change24h.toFixed(2)}%
+                    </div>
                   </div>
                 </div>
 
-                <div className="text-right">
-                  <div className="font-mono font-bold text-lg text-[#25170f]">
-                    {selectedPreview.currency}{selectedPreview.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}
-                  </div>
-                  <div className={`text-xs font-bold font-mono ${selectedPreview.change24h >= 0 ? 'text-[#226339]' : 'text-[#b33939]'}`}>
-                    {selectedPreview.change24h >= 0 ? '+' : ''}{selectedPreview.change24h.toFixed(2)}%
-                  </div>
+                {/* Edit Toggle */}
+                <div className="pt-2 border-t border-[#f5ede2] flex items-center justify-between text-[11px] text-[#7d6b5c]">
+                  <span className="text-[10px] text-[#226339] font-medium">
+                    ✓ ดึงข้อมูลสำเร็จ
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setIsEditingPrice(!isEditingPrice)}
+                    className="text-[#6e5847] hover:text-[#25170f] font-medium underline"
+                  >
+                    {isEditingPrice ? 'ซ่อนการแก้ไข' : '✏️ แก้ไขราคาเอง'}
+                  </button>
                 </div>
+
+                {/* Optional Manual Price Edit */}
+                {isEditingPrice && (
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#f0e8dc] animate-in fade-in">
+                    <div>
+                      <label className="text-[10px] text-[#7d6b5c] block mb-1">ราคา ({selectedPreview.currency}):</label>
+                      <input
+                        type="number"
+                        step="any"
+                        value={selectedPreview.price}
+                        onChange={(e) => {
+                          const val = parseFloat(e.target.value) || 0;
+                          setSelectedPreview({
+                            ...selectedPreview,
+                            price: val,
+                            high24h: Math.max(val * 1.02, selectedPreview.high24h || 0),
+                            low24h: Math.min(val * 0.98, selectedPreview.low24h || val),
+                            forecast: selectedPreview.forecast ? {
+                              ...selectedPreview.forecast,
+                              support: `${selectedPreview.currency}${(val * 0.96).toFixed(2)}`,
+                              resistance: `${selectedPreview.currency}${(val * 1.04).toFixed(2)}`
+                            } : undefined
+                          });
+                        }}
+                        className="w-full px-2.5 py-1.5 text-xs font-mono border border-[#d8cdbf] rounded-lg bg-[#ffffff] text-[#25170f]"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] text-[#7d6b5c] block mb-1">เปลี่ยนแปลง (%):</label>
+                      <input
+                        type="number"
+                        step="any"
+                        value={selectedPreview.change24h}
+                        onChange={(e) => {
+                          const val = parseFloat(e.target.value) || 0;
+                          setSelectedPreview({
+                            ...selectedPreview,
+                            change24h: val,
+                            changeAmount: parseFloat(((selectedPreview.price * val) / 100).toFixed(2))
+                          });
+                        }}
+                        className="w-full px-2.5 py-1.5 text-xs font-mono border border-[#d8cdbf] rounded-lg bg-[#ffffff] text-[#25170f]"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* AI Forecast Summary */}

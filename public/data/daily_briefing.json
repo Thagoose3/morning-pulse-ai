@@ -1,23 +1,23 @@
 {
-  "generatedAt": "วันพฤหัสบดีที่ 10 กันยายน 2569 • 01:13 น.",
-  "headline": "ตลาดเช้านี้: NVIDIA ขยับบวกยืน $223.67 (-0.91%) | Bitcoin ทรงตัวแถว $78,299",
+  "generatedAt": "วันพฤหัสบดีที่ 10 กันยายน 2569 • 10:53 น.",
+  "headline": "ตลาดเช้านี้: NVIDIA ยืน $223.67 | PLTR อยู่ที่ $169.53 | Bitcoin ทรงตัวแถว $78,304",
   "readingTimeSeconds": 45,
   "sentiment": "Bullish",
-  "fearGreedIndex": 68,
-  "marketStatusSummary": "ข้อมูลสดจาก Yahoo Finance: หุ้นเทคโนโลยีสหรัฐฯ นำโดย NVDA ($223.67) ปิดบวก ขณะที่สินทรัพย์ปลอดภัยอย่างทองคำทรงตัวสูงที่ $4,456/oz",
+  "fearGreedIndex": 65,
+  "marketStatusSummary": "ข้อมูลสดจาก Yahoo Finance: หุ้นกลุ่ม AI เทคโนโลยีชั้นนำอย่าง NVDA ($223.67) และ PLTR ($169.53) มีการซื้อขายหนาแน่น ขณะที่ทองคำทรงตัวระดับสูงที่ $4,451/oz",
   "executiveSummary": [
-    "NVIDIA (NVDA) ซื้อขายที่ $223.67 (-0.91%) สะท้อนแรงหนุนต่อเนื่องในกลุ่ม AI Semiconductor",
-    "บิตคอยน์ (BTC) แกว่งตัวบริเวณ $78,299 อยู่ในระยะสะสมกำลังของรอบ",
-    "หุ้นไทย (SET) ได้รับแรงหนุนจากหุ้นกลุ่มอิเล็กทรอนิกส์ นำโดย DELTA ที่ระดับ 270 ฿",
-    "ทองคำ Spot Gold ยืนระดับสูง $4,456/oz จากความต้องการถือครองเพื่อบริหารความเสี่ยง"
+    "NVIDIA (NVDA) ซื้อขายที่ $223.67 และ Palantir (PLTR) อยู่ที่ $169.53 ได้รับความสนใจต่อเนื่องในกลุ่ม AI Software & Hardware",
+    "บิตคอยน์ (BTC) แกว่งตัวบริเวณ $78,304 อยู่ในระยะสะสมกำลังของรอบ",
+    "หุ้นไทย (SET) มีแรงพยุงจากกลุ่มอิเล็กทรอนิกส์ นำโดย DELTA ที่ระดับ 268 ฿",
+    "ทองคำ Spot Gold ยืนระดับสูง $4,451/oz จากความต้องการถือครองเพื่อบริหารความเสี่ยง"
   ],
   "keyCatalysts": [
     {
       "id": "cat-1",
-      "title": "ความต้องการชิป AI ยังแข็งแกร่ง",
+      "title": "ความต้องการชิปและซอฟต์แวร์ AI ยังเติบโตสูง",
       "impact": "High",
       "sentiment": "positive",
-      "description": "หุ้นกลุ่มชิปเทคโนโลยีโลกยังเป็นผู้นำการเคลื่อนไหวของตลาดสหรัฐฯ",
+      "description": "หุ้นกลุ่ม AI อย่าง NVDA และ PLTR ยังคงเป็นศูนย์กลางการไหลเข้าของเงินทุน",
       "category": "Tech"
     },
     {
@@ -33,8 +33,8 @@
       "title": "ตลาดหุ้นไทยจับตาทิศทาง Fund Flow",
       "impact": "Medium",
       "sentiment": "neutral",
-      "description": "แรงซื้อเก็งกำไรในหุ้นกลุ่มอิเล็กทรอนิกส์ยังช่วยพยุงดัชนี SET",
-      "category": "Thai"
+      "description": "แรงซื้อในหุ้นกลุ่มอิเล็กทรอนิกส์และค้าปลีกยังช่วยพยุงดัชนี SET",
+      "category": "Thai Market"
     }
   ],
   "watchItemsToday": [
@@ -42,7 +42,7 @@
       "time": "10:00 น.",
       "event": "เปิดตลาดหุ้นไทย (SET)",
       "impact": "Medium",
-      "forecast": "แนวต้าน 1,622 จุด"
+      "forecast": "แนวต้าน 1,620 จุด"
     },
     {
       "time": "19:30 น.",
@@ -53,22 +53,22 @@
   ],
   "topGainers": [
     {
-      "symbol": "DELTA",
-      "change": -1.82
+      "symbol": "META",
+      "change": 6.55
     },
     {
-      "symbol": "NVDA",
-      "change": -0.91
+      "symbol": "AMD",
+      "change": 3.04
     }
   ],
   "topLosers": [
     {
-      "symbol": "TSLA",
-      "change": -0.1
+      "symbol": "COIN",
+      "change": -2.36
     },
     {
-      "symbol": "BTC",
-      "change": 0.01
+      "symbol": "GOOGL",
+      "change": -2.28
     }
   ]
 }
