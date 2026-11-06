@@ -6,13 +6,33 @@ interface TickerMarqueeProps {
 }
 
 export const TickerMarquee: React.FC<TickerMarqueeProps> = ({ tickers }) => {
-  const displayTickers = [...tickers, ...tickers];
+  const stocks = tickers.filter((t) => t.category === 'us-tech' || t.category === 'thai');
+  const coins = tickers.filter((t) => t.category === 'crypto');
+  const others = tickers.filter((t) => !stocks.includes(t) && !coins.includes(t));
+  type Item = { kind: 'label'; text: string } | { kind: 'ticker'; ticker: TickerItem };
+  const sequence: Item[] = [
+    ...(stocks.length ? [{ kind: 'label', text: '📈 หุ้น' } as Item, ...stocks.map((t) => ({ kind: 'ticker', ticker: t } as Item))] : []),
+    ...(coins.length ? [{ kind: 'label', text: '🪙 เหรียญ' } as Item, ...coins.map((t) => ({ kind: 'ticker', ticker: t } as Item))] : []),
+    ...(others.length ? [{ kind: 'label', text: '🛢️ ทอง & น้ำมัน' } as Item, ...others.map((t) => ({ kind: 'ticker', ticker: t } as Item))] : [])
+  ];
+  const displayItems = [...sequence, ...sequence];
 
   return (
     <div className="bg-[#2a1d14] text-[#efe5d6] overflow-hidden py-2 select-none relative group">
       <div className="marquee-mask">
         <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] items-center">
-          {displayTickers.map((ticker, index) => {
+          {displayItems.map((item, index) => {
+            if (item.kind === 'label') {
+              return (
+                <span
+                  key={`label-${index}`}
+                  className="mx-3 px-2 py-0.5 rounded-full bg-white/10 text-[#f2c98c] text-[10px] font-bold whitespace-nowrap"
+                >
+                  {item.text}
+                </span>
+              );
+            }
+            const ticker = item.ticker;
             const isUp = ticker.change24h >= 0;
             return (
               <div

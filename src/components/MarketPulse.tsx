@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Gauge, Flame, Snowflake, CalendarClock, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { MorningBriefingData, TickerItem } from '../types';
 
@@ -78,19 +78,24 @@ const IMPACT_DOT = {
   Low: 'bg-[#8fb79a]'
 } as const;
 
+type MoverScope = 'stocks' | 'crypto';
+const isStock = (t: TickerItem) => t.category === 'us-tech' || t.category === 'thai';
+
 export const MarketPulse: React.FC<MarketPulseProps> = ({ briefing, tickers }) => {
-  const { gainers, losers, upCount, downCount } = useMemo(() => {
-    const sorted = [...tickers].sort((a, b) => b.change24h - a.change24h);
+  const [scope, setScope] = useState<MoverScope>('stocks');
+  const { gainers, losers } = useMemo(() => {
+    const pool = tickers.filter((t) => (scope === 'crypto' ? t.category === 'crypto' : isStock(t)));
+    const sorted = [...pool].sort((a, b) => b.change24h - a.change24h);
     return {
       gainers: sorted.filter((t) => t.change24h > 0).slice(0, 3),
       losers: sorted.filter((t) => t.change24h < 0).reverse().slice(0, 3),
-      upCount: tickers.filter((t) => t.change24h > 0).length,
-      downCount: tickers.filter((t) => t.change24h < 0).length
     };
-  }, [tickers]);
+  }, [tickers, scope]);
 
-  const total = Math.max(1, upCount + downCount);
-  const upPct = Math.round((upCount / total) * 100);
+  const allUp = tickers.filter((t) => t.change24h > 0).length;
+  const allDown = tickers.filter((t) => t.change24h < 0).length;
+  const total = Math.max(1, allUp + allDown);
+  const upPct = Math.round((allUp / total) * 100);
   const maxAbs = Math.max(1, ...[...gainers, ...losers].map((t) => Math.abs(t.change24h)));
 
   const MoverRow: React.FC<{ t: TickerItem }> = ({ t }) => {
@@ -126,9 +131,9 @@ export const MarketPulse: React.FC<MarketPulseProps> = ({ briefing, tickers }) =
           <MoodGauge value={briefing.fearGreedIndex} />
           <div className="mt-5">
             <div className="flex justify-between text-[11px] text-[#7d6b5c] mb-1.5">
-              <span>ขึ้น <b className="text-[#226339] font-mono">{upCount}</b></span>
+              <span>ขึ้น <b className="text-[#226339] font-mono">{allUp}</b></span>
               <span className="text-[#9c8979]">สัดส่วนหุ้นในลิสต์</span>
-              <span>ลง <b className="text-[#b33939] font-mono">{downCount}</b></span>
+              <span>ลง <b className="text-[#b33939] font-mono">{allDown}</b></span>
             </div>
             <div className="flex h-2 rounded-full overflow-hidden bg-[#f3ede3]">
               <span className="bg-[#5f9a6e] transition-all duration-700" style={{ width: `${upPct}%` }} />
@@ -139,7 +144,25 @@ export const MarketPulse: React.FC<MarketPulseProps> = ({ briefing, tickers }) =
 
         {/* Movers */}
         <Card className="md:col-span-4 animate-fade-up stagger-2">
-          <CardTitle icon={<Flame className="w-3.5 h-3.5" />} title="ตัวแรงประจำวัน" hint="24 ชม." />
+          <div className="flex items-center justify-between mb-4 gap-2">
+            <h4 className="flex items-center gap-2 text-sm font-bold text-[#2d1e14]">
+              <span className="p-1.5 rounded-lg bg-[#f5eee3] text-[#8a5d2c]"><Flame className="w-3.5 h-3.5" /></span>
+              ตัวแรงประจำวัน
+            </h4>
+            <div className="flex p-0.5 rounded-full bg-[#f3ede3] border border-[#e8dfd2] text-[11px] font-semibold" role="tablist">
+              {([['stocks', '📈 หุ้น'], ['crypto', '🪙 เหรียญ']] as [MoverScope, string][]).map(([id, label]) => (
+                <button
+                  key={id}
+                  role="tab"
+                  aria-selected={scope === id}
+                  onClick={() => setScope(id)}
+                  className={`px-2.5 py-1 rounded-full transition-colors ${scope === id ? 'bg-white text-[#2d1e14] shadow-sm' : 'text-[#8c7764] hover:text-[#2d1e14]'}`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
           <div className="space-y-5">
             <div>
               <p className="flex items-center gap-1 text-[11px] font-semibold text-[#226339] mb-2">
@@ -148,7 +171,7 @@ export const MarketPulse: React.FC<MarketPulseProps> = ({ briefing, tickers }) =
               {gainers.length ? (
                 <ul className="space-y-2.5">{gainers.map((t) => <MoverRow key={t.id} t={t} />)}</ul>
               ) : (
-                <p className="text-xs text-[#9c8979]">ยังไม่มีตัวที่ปรับขึ้น</p>
+                <p className="text-xs text-[#9c8979]">ยังไม่มี{scope === 'crypto' ? 'เหรียญ' : 'หุ้น'}ที่ปรับขึ้น</p>
               )}
             </div>
             <div>
@@ -158,7 +181,7 @@ export const MarketPulse: React.FC<MarketPulseProps> = ({ briefing, tickers }) =
               {losers.length ? (
                 <ul className="space-y-2.5">{losers.map((t) => <MoverRow key={t.id} t={t} />)}</ul>
               ) : (
-                <p className="text-xs text-[#9c8979] flex items-center gap-1"><Snowflake className="w-3 h-3" /> ไม่มีตัวที่ปรับลง</p>
+                <p className="text-xs text-[#9c8979] flex items-center gap-1"><Snowflake className="w-3 h-3" /> ไม่มี{scope === 'crypto' ? 'เหรียญ' : 'หุ้น'}ที่ปรับลง</p>
               )}
             </div>
           </div>
