@@ -163,7 +163,8 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
 
           {/* Headline */}
           {kicker && (
-            <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#2e6b45] mb-3">
+            <p className="text-[13px] font-bold text-[#2e6b45] mb-2 flex items-center gap-2">
+              <span className="w-6 h-[2px] bg-[#2e6b45] rounded-full" aria-hidden="true" />
               {kicker}
             </p>
           )}
@@ -191,7 +192,7 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
           {/* Numbered key points */}
           <div className="mt-8">
             <div className="flex items-baseline justify-between mb-3">
-              <h3 className="text-xs font-bold tracking-[0.15em] uppercase text-[#8a5d2c]">
+              <h3 className="text-[13px] font-bold text-[#8a5d2c]">
                 4 เรื่องที่ต้องรู้เช้านี้
               </h3>
               <span className="text-[11px] text-[#9c8979]">แตะเพื่ออ่านต่อ</span>
