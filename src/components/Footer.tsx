@@ -3,7 +3,7 @@ import { GitBranch, CheckCircle2 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-[#e8dfd2] bg-[#ffffff] py-8 text-[#7d6b5c] text-xs">
+    <footer className="mt-12 border-t border-[#e8dfd2] bg-white/70 backdrop-blur py-10 text-[#7d6b5c] text-xs">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           
@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
               🍵
             </div>
             <div>
-              <span className="font-bold text-[#35251b]">MorningPulse AI</span>
+              <span className="font-serif font-bold text-[#35251b] text-sm">MorningPulse <span className="text-[#2e6b45]">AI</span></span>
               <span className="text-[#8c7764] ml-2">Tea Time Morning Intelligence & Stock Dashboard</span>
             </div>
           </div>
@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
         
         <div className="mt-6 pt-4 border-t border-[#ede5d8] flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-[#8c7764]">
           <p>© {new Date().getFullYear()} MorningPulse AI. ข้อมูลและการวิเคราะห์เพื่อการศึกษาและติดตามตลาดเท่านั้น ไม่ใช่คำแนะนำการลงทุน</p>
-          <p className="text-[#8a5d2c] font-semibold">Tea Time Edition 🍵🌿</p>
+          <a href="#" className="text-[#8a5d2c] font-semibold hover:text-[#2e6b45] transition-colors">Tea Time Edition 🍵🌿 · กลับขึ้นด้านบน ↑</a>
         </div>
       </div>
     </footer>

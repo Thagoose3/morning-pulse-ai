@@ -8,16 +8,25 @@ interface HeaderProps {
   onRefresh: () => void;
   onOpenAddModal: () => void;
   isRefreshing: boolean;
+  lastUpdated?: Date | null;
 }
+
+const NAV = [
+  { href: '#briefing', label: 'สรุปเช้านี้' },
+  { href: '#pulse', label: 'ชีพจรตลาด' },
+  { href: '#watchlist', label: 'หุ้นที่ติดตาม' }
+];
 
 export const Header: React.FC<HeaderProps> = ({
   briefing,
   onRefresh,
   onOpenAddModal,
-  isRefreshing
+  isRefreshing,
+  lastUpdated
 }) => {
   const [currentDate, setCurrentDate] = useState<string>('');
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     MorningSpeechService.setCallback((speaking) => {
@@ -27,12 +36,17 @@ export const Header: React.FC<HeaderProps> = ({
     const now = new Date();
     setCurrentDate(
       now.toLocaleDateString('th-TH', {
-        weekday: 'long',
+        weekday: 'short',
         day: 'numeric',
         month: 'short',
-        year: 'numeric'
+        year: '2-digit'
       })
     );
+
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const handleToggleSpeech = () => {
@@ -45,69 +59,102 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="border-b border-[#e7ded2] bg-[#ffffff]/90 backdrop-blur-md sticky top-0 z-40">
+    <header
+      className={`sticky top-0 z-40 border-b transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/85 backdrop-blur-xl border-[#e7ded2] shadow-[0_4px_20px_rgba(80,60,40,0.06)]'
+          : 'bg-[#fbf9f5]/70 backdrop-blur-md border-transparent'
+      }`}
+    >
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
-          
+        <div className="flex items-center justify-between h-16 gap-3">
+
           {/* Logo & Brand */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#f4ece1] border border-[#e2d4c3] flex items-center justify-center text-xl shadow-sm">
-              🍵
+          <a href="#" className="flex items-center gap-3 min-w-0">
+            <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-[#f6ecdc] to-[#eadbc4] border border-[#e2d4c3] flex items-center justify-center text-xl shadow-sm flex-shrink-0">
+              <span className="animate-steam">🍵</span>
             </div>
-            <div>
-              <h1 className="font-bold text-[#35251b] text-base tracking-tight flex items-center gap-2">
-                MorningPulse AI
-                <span className="text-xs font-medium text-[#735e4d] bg-[#f5eee3] px-2.5 py-0.5 rounded-full border border-[#e5d9c9]">
+            <div className="min-w-0">
+              <h1 className="font-bold text-[#35251b] text-[15px] tracking-tight leading-tight flex items-center gap-2">
+                MorningPulse<span className="text-[#2e6b45]">AI</span>
+                <span className="hidden sm:inline text-[11px] font-medium text-[#735e4d] bg-[#f5eee3] px-2 py-0.5 rounded-full border border-[#e5d9c9]">
                   {currentDate}
                 </span>
               </h1>
-              <p className="text-xs text-[#7d6b5c]">
-                Tea Time Intelligence • สรุปตลาดเช้านี้ อ่านจบใน 45 วินาที
+              <p className="text-[11px] text-[#7d6b5c] truncate leading-tight mt-0.5">
+                Tea Time Intelligence • อ่านจบใน {briefing.readingTimeSeconds || 45} วินาที
               </p>
             </div>
-          </div>
+          </a>
+
+          {/* Section nav (desktop) */}
+          <nav className="hidden md:flex items-center gap-1 text-[13px]">
+            {NAV.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="px-3 py-1.5 rounded-full text-[#6d5a4c] hover:text-[#2d1e14] hover:bg-[#f3ece0] transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2.5">
-            {/* Audio Button */}
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
             <button
               onClick={handleToggleSpeech}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+              aria-label={isSpeaking ? 'หยุดอ่าน' : 'ฟังเสียงสรุป'}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                 isSpeaking
-                  ? 'bg-[#2b653f] text-white font-semibold shadow-sm animate-pulse'
+                  ? 'bg-[#2b653f] text-white font-semibold shadow-sm'
                   : 'bg-[#eaf4ed] text-[#23633d] hover:bg-[#dceddf] border border-[#c4ded0]'
               }`}
             >
               {isSpeaking ? (
                 <>
-                  <VolumeX className="w-3.5 h-3.5" />
-                  <span>หยุดอ่าน</span>
+                  <span className="flex items-end gap-[2px] h-3.5" aria-hidden="true">
+                    <span className="w-[3px] h-2 bg-white rounded-full animate-pulse" />
+                    <span className="w-[3px] h-3.5 bg-white rounded-full animate-pulse [animation-delay:150ms]" />
+                    <span className="w-[3px] h-2.5 bg-white rounded-full animate-pulse [animation-delay:300ms]" />
+                  </span>
+                  <VolumeX className="w-3.5 h-3.5 sm:hidden" />
+                  <span className="hidden sm:inline">หยุดอ่าน</span>
                 </>
               ) : (
                 <>
                   <Volume2 className="w-3.5 h-3.5 text-[#2b653f]" />
-                  <span>🔊 ฟังเสียงสรุป</span>
+                  <span className="hidden sm:inline">ฟังสรุป</span>
                 </>
               )}
             </button>
 
-            {/* Add Ticker Button */}
             <button
               onClick={onOpenAddModal}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#f5eee3] hover:bg-[#ede3d4] text-[#4a3729] border border-[#e2d4c3] transition-colors"
+              aria-label="เพิ่มหุ้น"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-[#f5eee3] hover:bg-[#ede3d4] text-[#4a3729] border border-[#e2d4c3] transition-colors"
             >
               <Plus className="w-3.5 h-3.5 text-[#735e4d]" />
-              <span>เพิ่มหุ้น</span>
+              <span className="hidden sm:inline">เพิ่มหุ้น</span>
             </button>
 
-            {/* Refresh */}
             <button
               onClick={onRefresh}
               disabled={isRefreshing}
-              title="รีเฟรชราคาล่าสุดจาก Yahoo Finance"
-              className="p-2 rounded-full text-[#7d6b5c] hover:text-[#35251b] hover:bg-[#f5eee3] transition-colors"
+              aria-label="รีเฟรชราคา"
+              title={
+                lastUpdated
+                  ? `อัปเดตล่าสุด ${lastUpdated.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น. • คลิกเพื่อรีเฟรช`
+                  : 'รีเฟรชราคาล่าสุดจาก Yahoo Finance'
+              }
+              className="flex items-center gap-1.5 p-2 rounded-full text-[#7d6b5c] hover:text-[#35251b] hover:bg-[#f5eee3] transition-colors"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-[#2b653f]' : ''}`} />
+              {lastUpdated && (
+                <span className="hidden lg:inline text-[11px] font-mono text-[#8c7764]">
+                  {lastUpdated.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })}
+                </span>
+              )}
             </button>
           </div>
 

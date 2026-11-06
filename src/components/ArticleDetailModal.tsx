@@ -23,8 +23,8 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
   if (!isOpen || !article) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#ffffff] border border-[#e5dcd0] rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl text-[#3d2e24]">
+    <div onClick={onClose} role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-[#2a1d14]/45 backdrop-blur-sm animate-fade-in">
+      <div onClick={(e) => e.stopPropagation()} className="bg-[#ffffff] border border-[#e5dcd0] rounded-t-3xl sm:rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto shadow-2xl text-[#3d2e24] animate-pop-in">
         
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-[#ede5d8]">

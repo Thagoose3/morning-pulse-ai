@@ -34,13 +34,13 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
     return matchesCat && matchesSearch;
   });
 
-  const renderSparkline = (points: number[], isUp: boolean) => {
+  const renderSparkline = (points: number[], isUp: boolean, id: string) => {
     if (!points || points.length < 2) return null;
     const min = Math.min(...points);
     const max = Math.max(...points);
     const range = max - min || 1;
-    const width = 80;
-    const height = 28;
+    const width = 96;
+    const height = 36;
 
     const pathData = points
       .map((p, i) => {
@@ -51,14 +51,25 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
       .join(' ');
 
     const strokeColor = isUp ? '#26693d' : '#b84444';
+    const gradId = `spark-${id.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+    const areaData = `${pathData} L ${width} ${height} L 0 ${height} Z`;
+    const lastY = height - ((points[points.length - 1] - min) / range) * (height - 4) - 2;
 
     return (
-      <svg className="w-20 h-7 overflow-visible" viewBox={`0 0 ${width} ${height}`}>
+      <svg className="w-24 h-9 overflow-visible" viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
+        <defs>
+          <linearGradient id={gradId} x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor={strokeColor} stopOpacity="0.22" />
+            <stop offset="100%" stopColor={strokeColor} stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path d={areaData} fill={`url(#${gradId})`} />
+        <circle cx={width} cy={lastY} r="2.6" fill={strokeColor} />
         <path
           d={pathData}
           fill="none"
           stroke={strokeColor}
-          strokeWidth="2.2"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -83,17 +94,18 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
       {/* Header and Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <div className="flex items-center gap-2">
-            <h3 className="text-base font-bold text-[#2d1e14] tracking-tight">
-              ราคาหุ้น & คาดการณ์แนวโน้ม (AI Forecast)
+          <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#2e6b45] mb-1">Watchlist & AI Forecast</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#2d1e14]">
+              หุ้นที่คุณติดตาม
             </h3>
             <span className="inline-flex items-center gap-1 text-[11px] font-medium text-[#226339] bg-[#eaf4ed] px-2.5 py-0.5 rounded-full border border-[#c3deca]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#226339] animate-pulse"></span>
-              Live Yahoo Finance API
+              Live • Yahoo Finance
             </span>
           </div>
-          <p className="text-xs text-[#7d6b5c] mt-0.5">
-            คลิกที่การ์ดหุ้นเพื่อดูบทวิเคราะห์คาดการณ์ แนวรับ-แนวต้าน และอ่านข่าวฉบับเต็มบน Yahoo Finance
+          <p className="text-[13px] text-[#7d6b5c] mt-1">
+            แตะการ์ดเพื่อดูแนวรับ-แนวต้าน มุมมอง AI และข่าวล่าสุด
           </p>
         </div>
 
@@ -106,14 +118,14 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
               placeholder="ค้นหาหุ้น..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-[#ffffff] border border-[#e2d8c9] rounded-full pl-8 pr-3 py-1.5 text-xs text-[#38281d] placeholder-[#9c8979] focus:outline-none focus:border-[#26693d] shadow-sm"
+              className="w-36 sm:w-44 bg-[#ffffff] border border-[#e2d8c9] rounded-full pl-8 pr-3 py-2 text-xs text-[#38281d] placeholder-[#9c8979] focus:outline-none focus:border-[#26693d] shadow-sm"
             />
           </div>
 
           {/* Add Button */}
           <button
             onClick={onOpenAddModal}
-            className="flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#26693d] hover:bg-[#1e5831] text-white transition-colors shadow-sm"
+            className="flex items-center gap-1 px-4 py-2 rounded-full text-xs font-semibold bg-[#26693d] hover:bg-[#1e5831] text-white transition-colors shadow-sm"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>เพิ่มหุ้น</span>
@@ -127,20 +139,23 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
           <button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id)}
-            className={`px-3.5 py-1 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
               activeCategory === cat.id
                 ? 'bg-[#4a3729] text-white font-semibold shadow-sm'
                 : 'bg-[#ffffff] text-[#6d5a4c] hover:text-[#2d1e14] border border-[#e4d9cb]'
             }`}
           >
             {cat.label}
+            <span className={`ml-1.5 font-mono text-[10px] ${activeCategory === cat.id ? 'text-white/70' : 'text-[#a39081]'}`}>
+              {cat.id === 'all' ? tickers.length : tickers.filter((t) => t.category === cat.id).length}
+            </span>
           </button>
         ))}
       </div>
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-        {filteredTickers.map((ticker) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredTickers.map((ticker, i) => {
           const isUp = ticker.change24h >= 0;
           const forecast = ticker.forecast;
           const badgeClass = getForecastBadge(forecast?.direction);
@@ -150,7 +165,10 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
               key={ticker.id}
               onClick={() => setSelectedTicker(ticker)}
               role="button"
-              className="group p-4 rounded-xl bg-[#ffffff] hover:bg-[#faf7f2] border border-[#e8dfd2] hover:border-[#b8d6bf] transition-all cursor-pointer flex flex-col justify-between shadow-[0_2px_8px_rgba(80,60,40,0.03)]"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedTicker(ticker); } }}
+              style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
+              className="group relative p-5 rounded-2xl bg-white border border-[#e8dfd2] hover:border-[#b8d6bf] transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-[0_2px_10px_rgba(80,60,40,0.04)] hover:shadow-[0_16px_32px_-16px_rgba(80,60,40,0.35)] hover:-translate-y-1 animate-fade-up"
             >
               <div>
                 {/* Top Row: Symbol, Name & Trash */}
@@ -160,7 +178,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
                       <span className="font-bold text-[#2d1e14] text-base font-mono">
                         {ticker.symbol}
                       </span>
-                      <span className="text-xs text-[#7d6b5c] truncate max-w-[120px]">
+                      <span className="text-xs text-[#7d6b5c] truncate max-w-[140px]">
                         {ticker.name}
                       </span>
                     </div>
@@ -173,7 +191,8 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
                         onRemoveTicker(ticker.id);
                       }}
                       title="ลบ"
-                      className="opacity-0 group-hover:opacity-100 p-1 text-[#a39081] hover:text-[#b84444] transition-opacity"
+                      aria-label={`ลบ ${ticker.symbol}`}
+                      className="sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 p-1 rounded-md text-[#a39081] hover:text-[#b84444] hover:bg-[#faeded] transition-opacity"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -183,7 +202,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
                 {/* Price & Sparkline Row */}
                 <div className="flex items-center justify-between my-2">
                   <div>
-                    <div className="text-xl font-extrabold text-[#24170f] font-mono">
+                    <div className="text-2xl font-bold tracking-tight text-[#24170f] font-mono tabular-nums">
                       {ticker.currency}{ticker.price.toLocaleString(undefined, {
                         minimumFractionDigits: ticker.price < 10 ? 2 : 2,
                         maximumFractionDigits: 2
@@ -191,8 +210,8 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
                     </div>
                     
                     <div
-                      className={`inline-flex items-center text-xs font-bold font-mono mt-0.5 ${
-                        isUp ? 'text-[#226339]' : 'text-[#b33939]'
+                      className={`inline-flex items-center text-xs font-bold font-mono mt-1 px-2 py-0.5 rounded-md ${
+                        isUp ? 'text-[#226339] bg-[#eaf4ed]' : 'text-[#b33939] bg-[#fbeded]'
                       }`}
                     >
                       {isUp ? (
@@ -206,7 +225,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
 
                   {/* Sparkline */}
                   <div>
-                    {renderSparkline(ticker.sparkline, isUp)}
+                    {renderSparkline(ticker.sparkline, isUp, ticker.id)}
                   </div>
                 </div>
               </div>
@@ -221,7 +240,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
                   
                   {forecast?.confidence && (
                     <span className="text-[11px] text-[#8c7764] font-mono">
-                      {forecast.confidence}% แม่นยำ
+                      ความมั่นใจ {forecast.confidence}%
                     </span>
                   )}
                 </div>
