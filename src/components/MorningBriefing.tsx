@@ -48,8 +48,8 @@ const getSentimentInfo = (sentiment: string) => {
       return {
         label: 'ตลาดสดใส',
         sub: 'Bullish',
-        badge: 'bg-[#8fd4a0]/10 text-[#8fd4a0] border-[#8fd4a0]/25',
-        dot: 'bg-[#8fd4a0]',
+        badge: 'bg-[#2e7d4f]/10 text-[#2e7d4f] border-[#2e7d4f]/25',
+        dot: 'bg-[#2e7d4f]',
         icon: <TrendingUp className="w-3.5 h-3.5" />
       };
     case 'Bearish':
@@ -57,25 +57,25 @@ const getSentimentInfo = (sentiment: string) => {
       return {
         label: 'ตลาดชะลอตัว',
         sub: 'Bearish',
-        badge: 'bg-[#f08a84]/10 text-[#f08a84] border-[#f08a84]/25',
-        dot: 'bg-[#f08a84]',
+        badge: 'bg-[#c2493f]/10 text-[#c2493f] border-[#c2493f]/25',
+        dot: 'bg-[#c2493f]',
         icon: <TrendingDown className="w-3.5 h-3.5" />
       };
     default:
       return {
         label: 'ตลาดทรงตัว',
         sub: 'Neutral',
-        badge: 'bg-[#e6b86e]/10 text-[#e6b86e] border-[#e6b86e]/25',
-        dot: 'bg-[#e6b86e]',
+        badge: 'bg-[#b07a2a]/10 text-[#b07a2a] border-[#b07a2a]/25',
+        dot: 'bg-[#b07a2a]',
         icon: <Activity className="w-3.5 h-3.5" />
       };
   }
 };
 
 const CATALYST_STYLE = {
-  positive: { bar: 'bg-[#8fd4a0]', glow: 'shadow-[0_0_16px_rgba(143,212,160,0.6)]', tag: 'text-[#8fd4a0] bg-[#8fd4a0]/10 border-[#8fd4a0]/20', label: 'หนุนตลาด' },
-  negative: { bar: 'bg-[#f08a84]', glow: 'shadow-[0_0_16px_rgba(240,138,132,0.6)]', tag: 'text-[#f08a84] bg-[#f08a84]/10 border-[#f08a84]/20', label: 'กดดันตลาด' },
-  neutral: { bar: 'bg-[#e6b86e]', glow: 'shadow-[0_0_16px_rgba(230,184,110,0.6)]', tag: 'text-[#e6b86e] bg-[#e6b86e]/10 border-[#e6b86e]/20', label: 'จับตา' }
+  positive: { bar: 'bg-[#2e7d4f]', glow: 'shadow-[0_0_16px_rgba(46,125,79,0.33)]', tag: 'text-[#2e7d4f] bg-[#2e7d4f]/10 border-[#2e7d4f]/20', label: 'หนุนตลาด' },
+  negative: { bar: 'bg-[#c2493f]', glow: 'shadow-[0_0_16px_rgba(194,73,63,0.33)]', tag: 'text-[#c2493f] bg-[#c2493f]/10 border-[#c2493f]/20', label: 'กดดันตลาด' },
+  neutral: { bar: 'bg-[#b07a2a]', glow: 'shadow-[0_0_16px_rgba(176,122,42,0.33)]', tag: 'text-[#b07a2a] bg-[#b07a2a]/10 border-[#b07a2a]/20', label: 'จับตา' }
 } as const;
 
 const IMPACT_LEVEL = { High: 3, Medium: 2, Low: 1 } as const;
@@ -159,15 +159,15 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
             {sentiment.label}
             <span className="opacity-60 font-normal">· {sentiment.sub}</span>
           </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] text-[#b8a896] bg-white/[0.03] border border-white/[0.07]">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] text-[#6d5a4c] bg-[#3d2e24]/[0.03] border border-[#3d2e24]/[0.07]">
             <Clock className="w-3.5 h-3.5" /> {briefing.generatedAt}
           </span>
-          <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] text-[#b8a896] bg-white/[0.03] border border-white/[0.07]">
+          <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] text-[#6d5a4c] bg-[#3d2e24]/[0.03] border border-[#3d2e24]/[0.07]">
             <Coffee className="w-3.5 h-3.5" /> อ่าน {briefing.readingTimeSeconds || 45} วินาที
           </span>
         </div>
 
-        <p className="flex items-center gap-3 text-[15px] sm:text-lg text-[#e6b86e] font-medium mb-4 animate-fade-up stagger-1">
+        <p className="flex items-center gap-3 text-[15px] sm:text-lg text-[#b07a2a] font-medium mb-4 animate-fade-up stagger-1">
           <span>{greeting.emoji}</span>
           {greeting.text}{kicker ? ` — ${kicker}` : ''}
         </p>
@@ -177,28 +177,28 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
             ? headlineParts.map((part, i) => (
                 <React.Fragment key={i}>
                   {i > 0 && (
-                    <span className="word-rise text-[#e6b86e]/70 font-normal" style={{ animationDelay: `${120 + wordIdx++ * 55}ms` }}>
+                    <span className="word-rise text-[#b07a2a]/70 font-normal" style={{ animationDelay: `${120 + wordIdx++ * 55}ms` }}>
                       /&nbsp;
                     </span>
                   )}
-                  {renderWords(part, i === 0 ? 'text-[#fbf3e6] [text-shadow:0_0_40px_rgba(230,184,110,0.25)]' : 'text-[#bfae9b]')}
+                  {renderWords(part, i === 0 ? 'text-[#24170f] [text-shadow:0_0_40px_rgba(176,122,42,0.14)]' : 'text-[#7a6555]')}
                 </React.Fragment>
               ))
-            : renderWords(mainHeadline, 'text-[#fbf3e6]')}
+            : renderWords(mainHeadline, 'text-[#24170f]')}
         </h2>
 
         {briefing.marketStatusSummary && (
-          <p className="mt-8 text-base sm:text-xl text-[#b8a896] max-w-3xl leading-relaxed animate-fade-up" style={{ animationDelay: '700ms' }}>
+          <p className="mt-8 text-base sm:text-xl text-[#6d5a4c] max-w-3xl leading-relaxed animate-fade-up" style={{ animationDelay: '700ms' }}>
             {briefing.marketStatusSummary}
           </p>
         )}
 
         <a
           href="#must-know"
-          className="group mt-12 inline-flex items-center gap-3 self-start text-[13px] text-[#9a8a7c] hover:text-[#f3ebe0] transition-colors animate-fade-up"
+          className="group mt-12 inline-flex items-center gap-3 self-start text-[13px] text-[#8c7764] hover:text-[#2a1d14] transition-colors animate-fade-up"
           style={{ animationDelay: '900ms' }}
         >
-          <span className="flex items-center justify-center w-9 h-9 rounded-full border border-white/10 group-hover:border-[#8fd4a0]/40 transition-colors">
+          <span className="flex items-center justify-center w-9 h-9 rounded-full border border-[#3d2e24]/10 group-hover:border-[#2e7d4f]/40 transition-colors">
             <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
           </span>
           เลื่อนลงอ่าน 4 เรื่องสำคัญ
@@ -210,21 +210,21 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
         <Reveal>
           <SectionHeading index="01" kicker="Must Know" title="4 เรื่องที่ต้องรู้เช้านี้" />
         </Reveal>
-        <ol className="border-t border-white/[0.08]">
+        <ol className="border-t border-[#3d2e24]/[0.08]">
           {briefing.executiveSummary.map((item, idx) => (
             <Reveal as="li" key={idx} delay={idx * 90}>
               <button
                 type="button"
                 onClick={() => handleBulletClick(idx, item)}
-                className="spotlight group relative w-full text-left grid grid-cols-[auto_1fr_auto] items-start sm:items-center gap-4 sm:gap-8 py-6 sm:py-8 px-2 sm:px-4 border-b border-white/[0.08] rounded-2xl sm:rounded-none hover:bg-white/[0.02] transition-colors"
+                className="spotlight group relative w-full text-left grid grid-cols-[auto_1fr_auto] items-start sm:items-center gap-4 sm:gap-8 py-6 sm:py-8 px-2 sm:px-4 border-b border-[#3d2e24]/[0.08] rounded-2xl sm:rounded-none hover:bg-[#3d2e24]/[0.02] transition-colors"
               >
-                <span className="font-mono text-sm sm:text-base text-[#e6b86e]/80 pt-1 sm:pt-0 tabular-nums">
+                <span className="font-mono text-sm sm:text-base text-[#b07a2a]/80 pt-1 sm:pt-0 tabular-nums">
                   {String(idx + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[16px] sm:text-xl leading-relaxed text-[#e9dfd2] group-hover:text-white transition-colors">
+                <span className="text-[16px] sm:text-xl leading-relaxed text-[#3d2e24] group-hover:text-white transition-colors">
                   {item}
                 </span>
-                <span className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 text-[#9a8a7c] group-hover:bg-[#8fd4a0] group-hover:border-[#8fd4a0] group-hover:text-[#0e0b09] group-hover:rotate-45 transition-all duration-300">
+                <span className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#3d2e24]/10 text-[#8c7764] group-hover:bg-[#2e7d4f] group-hover:border-[#2e7d4f] group-hover:text-[#fbf7f0] group-hover:rotate-45 transition-all duration-300">
                   <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </span>
               </button>
@@ -251,33 +251,33 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
                     className="glass spotlight group w-full h-full text-left flex flex-col p-6 sm:p-7 rounded-3xl hover:-translate-y-1 transition-transform duration-300"
                   >
                     <div className="flex items-center justify-between mb-10">
-                      <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-[#9a8a7c]">
+                      <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-[#8c7764]">
                         {cat.category}
                       </span>
                       <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border ${style.tag}`}>
                         {style.label}
                       </span>
                     </div>
-                    <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#f3ebe0] leading-snug mb-3">
+                    <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#2a1d14] leading-snug mb-3">
                       {cat.title}
                     </h4>
-                    <p className="text-[14px] text-[#b8a896] leading-relaxed flex-1">
+                    <p className="text-[14px] text-[#6d5a4c] leading-relaxed flex-1">
                       {cat.description}
                     </p>
-                    <div className="mt-8 pt-5 border-t border-white/[0.07] flex items-center justify-between">
-                      <span className="flex items-center gap-3 text-[12px] text-[#9a8a7c]">
+                    <div className="mt-8 pt-5 border-t border-[#3d2e24]/[0.07] flex items-center justify-between">
+                      <span className="flex items-center gap-3 text-[12px] text-[#8c7764]">
                         ผลกระทบ
                         <span className="flex gap-1" aria-label={`ผลกระทบระดับ${IMPACT_TH[cat.impact]}`}>
                           {[1, 2, 3].map((n) => (
                             <span
                               key={n}
-                              className={`w-5 h-1.5 rounded-full ${n <= level ? `${style.bar} ${style.glow}` : 'bg-white/10'}`}
+                              className={`w-5 h-1.5 rounded-full ${n <= level ? `${style.bar} ${style.glow}` : 'bg-[#3d2e24]/10'}`}
                             />
                           ))}
                         </span>
-                        <span className="font-medium text-[#e9dfd2]">{IMPACT_TH[cat.impact]}</span>
+                        <span className="font-medium text-[#3d2e24]">{IMPACT_TH[cat.impact]}</span>
                       </span>
-                      <ArrowUpRight className="w-5 h-5 text-[#6d5f53] group-hover:text-[#8fd4a0] group-hover:rotate-45 transition-all duration-300" />
+                      <ArrowUpRight className="w-5 h-5 text-[#b5a493] group-hover:text-[#2e7d4f] group-hover:rotate-45 transition-all duration-300" />
                     </div>
                   </button>
                 </Reveal>

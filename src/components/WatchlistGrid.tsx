@@ -58,7 +58,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
       })
       .join(' ');
 
-    const strokeColor = isUp ? '#8fd4a0' : '#f08a84';
+    const strokeColor = isUp ? '#2e7d4f' : '#c2493f';
     const gradId = `spark-${id.replace(/[^a-zA-Z0-9_-]/g, '')}`;
     const areaData = `${pathData} L ${width} ${height} L 0 ${height} Z`;
     const lastY = height - ((points[points.length - 1] - min) / range) * (height - 4) - 2;
@@ -88,11 +88,11 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
   const getForecastBadge = (dir?: 'bullish' | 'bearish' | 'neutral') => {
     switch (dir) {
       case 'bullish':
-        return 'text-[#8fd4a0] bg-[#8fd4a0]/10 border-[#8fd4a0]/20';
+        return 'text-[#2e7d4f] bg-[#2e7d4f]/10 border-[#2e7d4f]/20';
       case 'bearish':
-        return 'text-[#f08a84] bg-[#f08a84]/10 border-[#f08a84]/20';
+        return 'text-[#c2493f] bg-[#c2493f]/10 border-[#c2493f]/20';
       default:
-        return 'text-[#e6b86e] bg-[#e6b86e]/10 border-[#e6b86e]/20';
+        return 'text-[#b07a2a] bg-[#b07a2a]/10 border-[#b07a2a]/20';
     }
   };
 
@@ -116,10 +116,10 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
             <div className="flex items-start justify-between gap-2 mb-2">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-[#f3ebe0] text-base font-mono">
+                  <span className="font-bold text-[#2a1d14] text-base font-mono">
                     {ticker.symbol}
                   </span>
-                  <span className="text-xs text-[#9a8a7c] truncate max-w-[140px]">
+                  <span className="text-xs text-[#8c7764] truncate max-w-[140px]">
                     {ticker.name}
                   </span>
                 </div>
@@ -133,7 +133,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
                   }}
                   title="ลบ"
                   aria-label={`ลบ ${ticker.symbol}`}
-                  className="sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 p-1 rounded-md text-[#9a8a7c] hover:text-[#f08a84] hover:bg-[#2a1615] transition-opacity"
+                  className="sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 p-1 rounded-md text-[#8c7764] hover:text-[#c2493f] hover:bg-[#fbeded] transition-opacity"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
@@ -143,13 +143,13 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
             {/* Price & Sparkline Row */}
             <div className="flex items-center justify-between my-2">
               <div>
-                <div className="text-2xl font-bold tracking-tight text-[#f3ebe0] font-mono tabular-nums">
+                <div className="text-2xl font-bold tracking-tight text-[#2a1d14] font-mono tabular-nums">
                   <CountUp value={ticker.price} decimals={2} prefix={ticker.currency} duration={700} />
                 </div>
                 
                 <div
                   className={`inline-flex items-center text-xs font-bold font-mono mt-1 px-2 py-0.5 rounded-md ${
-                    isUp ? 'text-[#8fd4a0] bg-[#8fd4a0]/10' : 'text-[#f08a84] bg-[#f08a84]/10'
+                    isUp ? 'text-[#2e7d4f] bg-[#2e7d4f]/10' : 'text-[#c2493f] bg-[#c2493f]/10'
                   }`}
                 >
                   {isUp ? (
@@ -169,7 +169,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
           </div>
 
           {/* AI Forecast Banner on Card */}
-          <div className="pt-4 mt-4 border-t border-white/[0.07]">
+          <div className="pt-4 mt-4 border-t border-[#3d2e24]/[0.07]">
             <div className="flex items-center justify-between gap-1.5 mb-1.5">
               <span className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-md border ${badgeClass}`}>
                 <Sparkles className="w-3 h-3" />
@@ -177,7 +177,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
               </span>
               
               {forecast?.confidence && (
-                <span className="text-[11px] text-[#9a8a7c] font-mono">
+                <span className="text-[11px] text-[#8c7764] font-mono">
                   ความมั่นใจ {forecast.confidence}%
                 </span>
               )}
@@ -185,12 +185,12 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
 
             {/* Short reasoning snippet */}
             {forecast?.reasoning && (
-              <p className="text-[11px] text-[#cbbdab] line-clamp-2 leading-relaxed">
+              <p className="text-[11px] text-[#5b4636] line-clamp-2 leading-relaxed">
                 {forecast.reasoning}
               </p>
             )}
 
-            <div className="mt-2 text-[10px] text-[#9a8a7c] group-hover:text-[#8fd4a0] font-medium flex items-center justify-end gap-0.5 transition-colors">
+            <div className="mt-2 text-[10px] text-[#8c7764] group-hover:text-[#2e7d4f] font-medium flex items-center justify-end gap-0.5 transition-colors">
               <span>คลิกเพื่อดูแนวรับ-แนวต้าน & ข่าว</span>
               <ChevronRight className="w-3 h-3" />
             </div>
@@ -206,7 +206,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
       label: 'หุ้น',
       icon: '📈',
       desc: 'หุ้นสหรัฐฯ และหุ้นไทย',
-      iconClass: 'bg-[#8fd4a0]/10 border-[#8fd4a0]/20',
+      iconClass: 'bg-[#2e7d4f]/10 border-[#2e7d4f]/20',
       subs: [
         { id: 'us-tech', label: '🇺🇸 หุ้นสหรัฐฯ' },
         { id: 'thai', label: '🇹🇭 หุ้นไทย & ดัชนี SET' }
@@ -217,7 +217,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
       label: 'เหรียญคริปโต',
       icon: '🪙',
       desc: 'ซื้อขาย 24 ชม. ผันผวนสูงกว่าหุ้น',
-      iconClass: 'bg-[#e6b86e]/10 border-[#e6b86e]/20',
+      iconClass: 'bg-[#b07a2a]/10 border-[#b07a2a]/20',
       subs: [{ id: 'crypto', label: '🪙 คริปโต' }]
     },
     {
@@ -225,7 +225,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
       label: 'ทองคำ น้ำมัน & อื่นๆ',
       icon: '🛢️',
       desc: 'สินค้าโภคภัณฑ์และตัวชี้วัดมหภาค',
-      iconClass: 'bg-white/[0.04] border-white/10',
+      iconClass: 'bg-[#3d2e24]/[0.04] border-[#3d2e24]/10',
       subs: [
         { id: 'commodity', label: '🛢️ ทองคำ & น้ำมัน' },
         { id: 'macro', label: '🌐 มหภาค' }
@@ -254,8 +254,8 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
           kicker="Watchlist & AI Forecast"
           title="หุ้น & เหรียญที่คุณติดตาม"
           aside={
-            <span className="inline-flex items-center gap-2 text-[12px] font-medium text-[#8fd4a0] bg-[#8fd4a0]/10 px-3 py-1 rounded-full border border-[#8fd4a0]/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8fd4a0] shadow-[0_0_8px_rgba(143,212,160,1)] animate-pulse"></span>
+            <span className="inline-flex items-center gap-2 text-[12px] font-medium text-[#2e7d4f] bg-[#2e7d4f]/10 px-3 py-1 rounded-full border border-[#2e7d4f]/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2e7d4f] shadow-[0_0_8px_rgba(46,125,79,0.55)] animate-pulse"></span>
               Live • Yahoo Finance
             </span>
           }
@@ -264,27 +264,27 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
 
       {/* Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <p className="text-[13px] text-[#9a8a7c]">
+        <p className="text-[13px] text-[#8c7764]">
           แตะการ์ดเพื่อดูแนวรับ-แนวต้าน มุมมอง AI และข่าวล่าสุด
         </p>
 
         <div className="flex items-center gap-2.5">
           {/* Search */}
           <div className="relative">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#9a8a7c]" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#8c7764]" />
             <input
               type="text"
               placeholder="ค้นหาหุ้น / เหรียญ..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-40 sm:w-52 bg-white/[0.04] border border-white/10 rounded-full pl-8 pr-3 py-2 text-xs text-[#f3ebe0] placeholder-[#7d6e62] focus:outline-none focus:border-[#8fd4a0]/60 focus:bg-white/[0.06] transition-colors"
+              className="w-40 sm:w-52 bg-[#3d2e24]/[0.04] border border-[#3d2e24]/10 rounded-full pl-8 pr-3 py-2 text-xs text-[#2a1d14] placeholder-[#a39283] focus:outline-none focus:border-[#2e7d4f]/60 focus:bg-[#3d2e24]/[0.06] transition-colors"
             />
           </div>
 
           {/* Add Button */}
           <button
             onClick={onOpenAddModal}
-            className="flex items-center gap-1 px-4 py-2 rounded-full text-xs font-semibold bg-[#f3ebe0] hover:bg-white text-[#0e0b09] transition-colors"
+            className="flex items-center gap-1 px-4 py-2 rounded-full text-xs font-semibold bg-[#2a1d14] hover:bg-[#3d2e24] text-[#fbf7f0] transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>เพิ่มหุ้น</span>
@@ -300,12 +300,12 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
             onClick={() => setActiveCategory(cat.id)}
             className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-colors whitespace-nowrap ${
               activeCategory === cat.id
-                ? 'bg-[#f3ebe0] text-[#0e0b09] font-semibold border border-[#f3ebe0]'
-                : 'bg-white/[0.03] text-[#cbbdab] hover:text-[#f3ebe0] hover:bg-white/[0.06] border border-white/10'
+                ? 'bg-[#2a1d14] text-[#fbf7f0] font-semibold border border-[#2a1d14]'
+                : 'bg-[#3d2e24]/[0.03] text-[#5b4636] hover:text-[#2a1d14] hover:bg-[#3d2e24]/[0.06] border border-[#3d2e24]/10'
             }`}
           >
             {cat.label}
-            <span className={`ml-1.5 font-mono text-[10px] ${activeCategory === cat.id ? 'text-[#0e0b09]/60' : 'text-[#9a8a7c]'}`}>
+            <span className={`ml-1.5 font-mono text-[10px] ${activeCategory === cat.id ? 'text-[#fbf7f0]/70' : 'text-[#8c7764]'}`}>
               {cat.id === 'all' ? tickers.length : tickers.filter((t) => GROUP_OF[t.category] === cat.id).length}
             </span>
           </button>
@@ -321,14 +321,14 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
                 {group.icon}
               </span>
               <div className="min-w-0">
-                <h4 className="font-serif text-xl font-bold text-[#f3ebe0] leading-tight">
+                <h4 className="font-serif text-xl font-bold text-[#2a1d14] leading-tight">
                   {group.label}
-                  <span className="ml-2 font-mono text-[11px] font-medium text-[#9a8a7c]">{group.items.length}</span>
+                  <span className="ml-2 font-mono text-[11px] font-medium text-[#8c7764]">{group.items.length}</span>
                 </h4>
-                <p className="text-[11px] text-[#9a8a7c] leading-tight">{group.desc}</p>
+                <p className="text-[11px] text-[#8c7764] leading-tight">{group.desc}</p>
               </div>
-              <span className="flex-1 h-px bg-gradient-to-r from-white/10 to-transparent" aria-hidden="true" />
-              <span className={`hidden sm:inline font-mono text-[12px] font-bold ${group.avg >= 0 ? 'text-[#8fd4a0]' : 'text-[#f08a84]'}`}>
+              <span className="flex-1 h-px bg-gradient-to-r from-[#3d2e24]/10 to-transparent" aria-hidden="true" />
+              <span className={`hidden sm:inline font-mono text-[12px] font-bold ${group.avg >= 0 ? 'text-[#2e7d4f]' : 'text-[#c2493f]'}`}>
                 เฉลี่ย {group.avg >= 0 ? '+' : ''}{group.avg.toFixed(2)}%
               </span>
             </div>
@@ -336,8 +336,8 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
             {group.subgroups.map((sub) => (
               <div key={sub.id} className="mb-4 last:mb-0">
                 {group.subgroups.length > 1 && (
-                  <p className="text-[12px] font-semibold text-[#cbbdab] mb-2 ml-1">
-                    {sub.label} <span className="font-mono text-[10px] text-[#9a8a7c]">({sub.items.length})</span>
+                  <p className="text-[12px] font-semibold text-[#5b4636] mb-2 ml-1">
+                    {sub.label} <span className="font-mono text-[10px] text-[#8c7764]">({sub.items.length})</span>
                   </p>
                 )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
@@ -351,7 +351,7 @@ export const WatchlistGrid: React.FC<WatchlistGridProps> = ({
 
       {filteredTickers.length === 0 && (
         <div className="glass p-10 text-center rounded-3xl">
-          <p className="text-xs text-[#9a8a7c]">ไม่พบหุ้นหรือเหรียญที่ค้นหา</p>
+          <p className="text-xs text-[#8c7764]">ไม่พบหุ้นหรือเหรียญที่ค้นหา</p>
         </div>
       )}
 

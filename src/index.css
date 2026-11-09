@@ -3,18 +3,18 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────
-   Night Tea — dark roast surfaces, cream type,
-   matcha + amber highlights
+   Morning Latte — warm milk-tea surfaces, espresso type,
+   matcha + honey highlights. Soft contrast, easy on the eyes.
    ───────────────────────────────────────────── */
 :root {
-  --bg: #0e0b09;
-  --surface: #15110e;
-  --card: #1b1612;
-  --line: rgba(255, 240, 220, 0.08);
-  --cream: #f3ebe0;
-  --matcha: #8fd4a0;
-  --amber: #e6b86e;
-  color-scheme: dark;
+  --bg: #fbf7f0;
+  --surface: #f5eee3;
+  --card: #ffffff;
+  --line: rgba(60, 40, 25, 0.09);
+  --ink: #2a1d14;
+  --matcha: #2e7d4f;
+  --amber: #b07a2a;
+  color-scheme: light;
 }
 
 @layer base {
@@ -24,15 +24,15 @@
   }
   body {
     background-color: var(--bg);
-    color: var(--cream);
+    color: var(--ink);
     font-feature-settings: "tnum" 1, "zero" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: rgba(143, 212, 160, 0.28);
-    color: #ffffff;
+    background: #cfe6d4;
+    color: #1e4d30;
   }
   /* Thai script needs a little more vertical room to stay readable */
   p, li {
@@ -60,13 +60,13 @@
   }
   /* Cream → amber gradient type for big numbers / headline accents */
   .text-gradient {
-    background: linear-gradient(110deg, #fff7ea 0%, #f3ebe0 35%, #e6b86e 70%, #8fd4a0 100%);
+    background: linear-gradient(110deg, #2a1d14 0%, #5b4636 40%, #b07a2a 75%, #2e7d4f 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
   .text-gradient-matcha {
-    background: linear-gradient(110deg, #c9f0d2, #8fd4a0 50%, #5fb47a);
+    background: linear-gradient(110deg, #3f9a62, #2e7d4f 50%, #1e5e34);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -82,22 +82,22 @@
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2e2620;
+  background: #e2d6c6;
   border-radius: 8px;
   border: 2px solid var(--bg);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #4a3d33;
+  background: #cbbba7;
 }
 
-/* Page backdrop: faint grid + film grain */
-.night-backdrop {
+/* Page backdrop: warm paper with a faint dotted texture + paper grain */
+.morning-backdrop {
   background-color: var(--bg);
   background-image:
-    linear-gradient(rgba(255, 240, 220, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 240, 220, 0.025) 1px, transparent 1px);
-  background-size: 64px 64px;
-  background-position: center top;
+    linear-gradient(180deg, #fff9ef 0%, #fbf7f0 40%, #f8f2e8 100%),
+    radial-gradient(rgba(120, 90, 60, 0.07) 1px, transparent 1px);
+  background-blend-mode: multiply;
+  background-size: 100% 100%, 26px 26px;
 }
 .grain::after {
   content: "";
@@ -105,8 +105,8 @@
   inset: 0;
   pointer-events: none;
   z-index: 70;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -114,12 +114,12 @@
 .glass {
   position: relative;
   background:
-    linear-gradient(180deg, rgba(255, 245, 230, 0.045), rgba(255, 245, 230, 0.015)),
-    rgba(27, 22, 18, 0.72);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 252, 246, 0.78));
   border: 1px solid var(--line);
   box-shadow:
-    inset 0 1px 0 rgba(255, 245, 230, 0.06),
-    0 20px 50px -30px rgba(0, 0, 0, 0.9);
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(60, 40, 25, 0.04),
+    0 18px 40px -24px rgba(90, 60, 30, 0.22);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -137,7 +137,7 @@
   z-index: -1;
   opacity: 0;
   transition: opacity 0.35s ease;
-  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(143, 212, 160, 0.10), transparent 45%);
+  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(255, 217, 160, 0.28), transparent 45%);
 }
 .spotlight::after {
   content: "";
@@ -148,7 +148,7 @@
   padding: 1px;
   opacity: 0;
   transition: opacity 0.35s ease;
-  background: radial-gradient(260px circle at var(--mx) var(--my), rgba(230, 184, 110, 0.55), transparent 50%);
+  background: radial-gradient(260px circle at var(--mx) var(--my), rgba(46, 125, 79, 0.45), transparent 50%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

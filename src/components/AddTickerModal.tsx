@@ -99,27 +99,27 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
   };
 
   return (
-    <div onClick={onClose} role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-md animate-fade-in">
-      <div onClick={(e) => e.stopPropagation()} className="bg-[#1b1612] border border-[#2e2620] rounded-t-3xl sm:rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,240,220,0.04)] text-[#f3ebe0] animate-pop-in">
+    <div onClick={onClose} role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-[#2a1d14]/35 backdrop-blur-md animate-fade-in">
+      <div onClick={(e) => e.stopPropagation()} className="bg-[#ffffff] border border-[#e8dfd2] rounded-t-3xl sm:rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto shadow-[0_30px_80px_-20px_rgba(60,40,25,0.16),0_0_0_1px_rgba(60,40,25,0.04)] text-[#2a1d14] animate-pop-in">
         
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#2e2620]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#e8dfd2]">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-[#16251b] text-[#8fd4a0]">
+            <div className="p-1.5 rounded-lg bg-[#eaf4ed] text-[#2e7d4f]">
               <Plus className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-[#f3ebe0] tracking-tight">
+              <h3 className="text-base font-bold text-[#2a1d14] tracking-tight">
                 เพิ่มหุ้น / สินทรัพย์ใหม่
               </h3>
-              <p className="text-xs text-[#9a8a7c]">
+              <p className="text-xs text-[#8c7764]">
                 ค้นหาชื่อย่อหรือชื่อบริษัทจากฐานข้อมูล Yahoo Finance
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#9a8a7c] hover:text-[#f3ebe0] hover:bg-[#231d18] transition-colors"
+            className="p-1.5 rounded-lg text-[#8c7764] hover:text-[#2a1d14] hover:bg-[#f5eee3] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -129,11 +129,11 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
           
           {/* Search Box with Yahoo Finance Suggestions */}
           <div className="relative">
-            <label className="text-xs font-semibold text-[#f3ebe0] block mb-1.5">
+            <label className="text-xs font-semibold text-[#2a1d14] block mb-1.5">
               พิมพ์ชื่อหุ้น (เช่น PLTR, NVDA, DELTA, BTC):
             </label>
             <div className="relative">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#9a8a7c]" />
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8c7764]" />
               <input
                 type="text"
                 autoFocus
@@ -155,39 +155,39 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
                     }
                   }
                 }}
-                className="w-full bg-[#1b1612] border border-[#2e2620] focus:border-[#8fd4a0] rounded-xl pl-10 pr-10 py-2.5 text-sm font-medium text-[#f3ebe0] placeholder-[#9a8a7c] focus:outline-none shadow-sm transition-colors"
+                className="w-full bg-[#ffffff] border border-[#e8dfd2] focus:border-[#2e7d4f] rounded-xl pl-10 pr-10 py-2.5 text-sm font-medium text-[#2a1d14] placeholder-[#8c7764] focus:outline-none shadow-sm transition-colors"
               />
               {isSearching && (
-                <Loader2 className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8fd4a0] animate-spin" />
+                <Loader2 className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-[#2e7d4f] animate-spin" />
               )}
             </div>
 
             {/* Suggestions Dropdown */}
             {suggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-[#1b1612] border border-[#2e2620] rounded-xl shadow-xl overflow-hidden z-20 max-h-60 overflow-y-auto">
-                <div className="px-3 py-1.5 bg-[#231d18] text-[11px] font-semibold text-[#cbbdab] border-b border-[#2e2620] flex items-center justify-between">
+              <div className="absolute top-full left-0 right-0 mt-1 bg-[#ffffff] border border-[#e8dfd2] rounded-xl shadow-xl overflow-hidden z-20 max-h-60 overflow-y-auto">
+                <div className="px-3 py-1.5 bg-[#f5eee3] text-[11px] font-semibold text-[#5b4636] border-b border-[#e8dfd2] flex items-center justify-between">
                   <span>ผลการค้นหาจาก Yahoo Finance:</span>
-                  <span className="text-[10px] text-[#8fd4a0]">คลิกเพื่อดึงราคา</span>
+                  <span className="text-[10px] text-[#2e7d4f]">คลิกเพื่อดึงราคา</span>
                 </div>
                 {suggestions.map((item) => (
                   <div
                     key={item.symbol}
                     onClick={() => handleSelectSuggestion(item)}
                     role="button"
-                    className="px-3.5 py-2.5 hover:bg-[#16251b] flex items-center justify-between cursor-pointer border-b border-[#231d18] last:border-0 transition-colors"
+                    className="px-3.5 py-2.5 hover:bg-[#eaf4ed] flex items-center justify-between cursor-pointer border-b border-[#f5eee3] last:border-0 transition-colors"
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-sm text-[#f3ebe0] font-mono">
+                        <span className="font-bold text-sm text-[#2a1d14] font-mono">
                           {item.symbol}
                         </span>
-                        <span className="text-xs text-[#9a8a7c] truncate max-w-[220px]">
+                        <span className="text-xs text-[#8c7764] truncate max-w-[220px]">
                           {item.name}
                         </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#231d18] text-[#cbbdab]">
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#f5eee3] text-[#5b4636]">
                         {item.exchange}
                       </span>
                     </div>
@@ -200,7 +200,7 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
           {/* Quick Popular Chips */}
           {!selectedPreview && (
             <div>
-              <label className="text-xs font-semibold text-[#9a8a7c] block mb-2">
+              <label className="text-xs font-semibold text-[#8c7764] block mb-2">
                 🍵 ตัวอย่างยอดนิยม (คลิกเลือกได้ทันที):
               </label>
               <div className="flex flex-wrap gap-2">
@@ -209,10 +209,10 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
                     key={p.symbol}
                     type="button"
                     onClick={() => handleSelectSuggestion({ symbol: p.symbol, name: p.name, exchange: p.exchange, type: 'Equity' })}
-                    className="px-2.5 py-1 rounded-lg bg-[#1b1612] border border-[#2e2620] hover:border-[#2f5a3c] hover:bg-[#16251b] text-xs font-mono text-[#cbbdab] hover:text-[#a6e0b4] transition-all flex items-center gap-1.5"
+                    className="px-2.5 py-1 rounded-lg bg-[#ffffff] border border-[#e8dfd2] hover:border-[#c3deca] hover:bg-[#eaf4ed] text-xs font-mono text-[#5b4636] hover:text-[#1e5e34] transition-all flex items-center gap-1.5"
                   >
                     <span className="font-bold">{p.symbol}</span>
-                    <span className="text-[10px] text-[#9a8a7c]">{p.exchange}</span>
+                    <span className="text-[10px] text-[#8c7764]">{p.exchange}</span>
                   </button>
                 ))}
               </div>
@@ -221,9 +221,9 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
 
           {/* Fetching Quote Loader */}
           {isFetchingQuote && (
-            <div className="p-6 text-center rounded-xl bg-[#1b1612] border border-[#2e2620] space-y-2">
-              <Loader2 className="w-6 h-6 text-[#8fd4a0] animate-spin mx-auto" />
-              <p className="text-xs font-medium text-[#f3ebe0]">
+            <div className="p-6 text-center rounded-xl bg-[#ffffff] border border-[#e8dfd2] space-y-2">
+              <Loader2 className="w-6 h-6 text-[#2e7d4f] animate-spin mx-auto" />
+              <p className="text-xs font-medium text-[#2a1d14]">
                 กำลังดึงราคาล่าสุดและวิเคราะห์แนวโน้มจาก Yahoo Finance...
               </p>
             </div>
@@ -231,54 +231,54 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
 
           {/* Selected Stock Preview Card */}
           {selectedPreview && !isFetchingQuote && (
-            <div className="p-4 rounded-xl bg-[#1b1612] border border-[#2f5a3c] space-y-3 animate-in fade-in duration-150">
+            <div className="p-4 rounded-xl bg-[#ffffff] border border-[#c3deca] space-y-3 animate-in fade-in duration-150">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#8fd4a0]" />
-                  <span className="text-xs font-bold text-[#8fd4a0]">
+                  <CheckCircle2 className="w-4 h-4 text-[#2e7d4f]" />
+                  <span className="text-xs font-bold text-[#2e7d4f]">
                     พบราคาตลาดจริงจาก Yahoo Finance
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedPreview(null)}
-                  className="text-xs text-[#9a8a7c] hover:text-[#f3ebe0] underline"
+                  className="text-xs text-[#8c7764] hover:text-[#2a1d14] underline"
                 >
                   เลือกตัวอื่น
                 </button>
               </div>
 
               {/* Price Row */}
-              <div className="p-3.5 rounded-xl bg-[#1b1612] border border-[#2e2620] space-y-2.5">
+              <div className="p-3.5 rounded-xl bg-[#ffffff] border border-[#e8dfd2] space-y-2.5">
                 <div className="flex items-baseline justify-between">
                   <div>
-                    <div className="font-mono font-bold text-lg text-[#f3ebe0]">
+                    <div className="font-mono font-bold text-lg text-[#2a1d14]">
                       {selectedPreview.symbol}
                     </div>
-                    <div className="text-xs text-[#9a8a7c] truncate max-w-[200px]">
+                    <div className="text-xs text-[#8c7764] truncate max-w-[200px]">
                       {selectedPreview.name}
                     </div>
                   </div>
 
                   <div className="text-right">
-                    <div className="font-mono font-bold text-xl text-[#f3ebe0]">
+                    <div className="font-mono font-bold text-xl text-[#2a1d14]">
                       {selectedPreview.currency}{selectedPreview.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
-                    <div className={`text-xs font-bold font-mono ${selectedPreview.change24h >= 0 ? 'text-[#8fd4a0]' : 'text-[#f08a84]'}`}>
+                    <div className={`text-xs font-bold font-mono ${selectedPreview.change24h >= 0 ? 'text-[#2e7d4f]' : 'text-[#c2493f]'}`}>
                       {selectedPreview.change24h >= 0 ? '+' : ''}{selectedPreview.change24h.toFixed(2)}%
                     </div>
                   </div>
                 </div>
 
                 {/* Edit Toggle */}
-                <div className="pt-2 border-t border-[#231d18] flex items-center justify-between text-[11px] text-[#9a8a7c]">
-                  <span className="text-[10px] text-[#8fd4a0] font-medium">
+                <div className="pt-2 border-t border-[#f5eee3] flex items-center justify-between text-[11px] text-[#8c7764]">
+                  <span className="text-[10px] text-[#2e7d4f] font-medium">
                     ✓ ดึงข้อมูลสำเร็จ
                   </span>
                   <button
                     type="button"
                     onClick={() => setIsEditingPrice(!isEditingPrice)}
-                    className="text-[#cbbdab] hover:text-[#f3ebe0] font-medium underline"
+                    className="text-[#5b4636] hover:text-[#2a1d14] font-medium underline"
                   >
                     {isEditingPrice ? 'ซ่อนการแก้ไข' : '✏️ แก้ไขราคาเอง'}
                   </button>
@@ -286,9 +286,9 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
 
                 {/* Optional Manual Price Edit */}
                 {isEditingPrice && (
-                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#231d18] animate-in fade-in">
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#f5eee3] animate-in fade-in">
                     <div>
-                      <label className="text-[10px] text-[#9a8a7c] block mb-1">ราคา ({selectedPreview.currency}):</label>
+                      <label className="text-[10px] text-[#8c7764] block mb-1">ราคา ({selectedPreview.currency}):</label>
                       <input
                         type="number"
                         step="any"
@@ -307,11 +307,11 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
                             } : undefined
                           });
                         }}
-                        className="w-full px-2.5 py-1.5 text-xs font-mono border border-[#2e2620] rounded-lg bg-[#1b1612] text-[#f3ebe0]"
+                        className="w-full px-2.5 py-1.5 text-xs font-mono border border-[#e8dfd2] rounded-lg bg-[#ffffff] text-[#2a1d14]"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-[#9a8a7c] block mb-1">เปลี่ยนแปลง (%):</label>
+                      <label className="text-[10px] text-[#8c7764] block mb-1">เปลี่ยนแปลง (%):</label>
                       <input
                         type="number"
                         step="any"
@@ -324,7 +324,7 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
                             changeAmount: parseFloat(((selectedPreview.price * val) / 100).toFixed(2))
                           });
                         }}
-                        className="w-full px-2.5 py-1.5 text-xs font-mono border border-[#2e2620] rounded-lg bg-[#1b1612] text-[#f3ebe0]"
+                        className="w-full px-2.5 py-1.5 text-xs font-mono border border-[#e8dfd2] rounded-lg bg-[#ffffff] text-[#2a1d14]"
                       />
                     </div>
                   </div>
@@ -333,12 +333,12 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
 
               {/* AI Forecast Summary */}
               {selectedPreview.forecast && (
-                <div className="text-xs space-y-1 bg-[#1b1612] p-3 rounded-lg border border-[#2e2620]">
-                  <div className="flex items-center gap-1.5 text-[#8fd4a0] font-semibold">
+                <div className="text-xs space-y-1 bg-[#ffffff] p-3 rounded-lg border border-[#e8dfd2]">
+                  <div className="flex items-center gap-1.5 text-[#2e7d4f] font-semibold">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>AI Forecast: {selectedPreview.forecast.signalLabel} ({selectedPreview.forecast.confidence}%)</span>
                   </div>
-                  <p className="text-[11px] text-[#cbbdab] leading-relaxed">
+                  <p className="text-[11px] text-[#5b4636] leading-relaxed">
                     {selectedPreview.forecast.reasoning}
                   </p>
                 </div>
@@ -348,7 +348,7 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
               <button
                 type="button"
                 onClick={handleConfirmAdd}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#3f8f5a] hover:bg-[#4fa36b] text-white font-bold text-xs transition-colors shadow-sm flex items-center justify-center gap-1.5"
+                className="w-full py-2.5 px-4 rounded-xl bg-[#2e7d4f] hover:bg-[#256a42] text-white font-bold text-xs transition-colors shadow-sm flex items-center justify-center gap-1.5"
               >
                 <Plus className="w-4 h-4" />
                 <span>เพิ่ม {selectedPreview.symbol} ลงใน Watchlist</span>
@@ -357,11 +357,11 @@ export const AddTickerModal: React.FC<AddTickerModalProps> = ({
           )}
 
           {/* Footer Actions */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#2e2620]">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#e8dfd2]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-lg text-xs font-medium text-[#9a8a7c] hover:text-[#f3ebe0] transition-colors"
+              className="px-4 py-2 rounded-lg text-xs font-medium text-[#8c7764] hover:text-[#2a1d14] transition-colors"
             >
               ปิดหน้าต่าง
             </button>

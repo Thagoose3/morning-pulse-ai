@@ -22,7 +22,7 @@ export const ReadingProgress: React.FC = () => {
   return (
     <div className="fixed top-0 left-0 right-0 h-[3px] z-[60] pointer-events-none" aria-hidden="true">
       <div
-        className="h-full bg-gradient-to-r from-[#8fd4a0] via-[#c9e6a0] to-[#e6b86e] shadow-[0_0_12px_rgba(143,212,160,0.8)] transition-[width] duration-150 ease-out"
+        className="h-full bg-gradient-to-r from-[#2e7d4f] via-[#9cc25a] to-[#b07a2a] shadow-[0_0_12px_rgba(46,125,79,0.44)] transition-[width] duration-150 ease-out"
         style={{ width: `${progress}%` }}
       />
     </div>

@@ -86,12 +86,12 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen night-backdrop grain text-[#f3ebe0] flex flex-col font-sans overflow-x-clip">
-      {/* Ambient aurora (matcha + amber steam) */}
+    <div className="relative min-h-screen morning-backdrop grain text-[#2a1d14] flex flex-col font-sans overflow-x-clip">
+      {/* Morning light: soft sunrise peach + matcha glow */}
       <div className="pointer-events-none fixed inset-0 -z-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute -top-[20%] -left-[10%] w-[60vw] h-[60vw] max-w-[820px] max-h-[820px] rounded-full bg-[#3f8f5a]/20 blur-[120px] animate-aurora" />
-        <div className="absolute top-[10%] -right-[15%] w-[55vw] h-[55vw] max-w-[760px] max-h-[760px] rounded-full bg-[#c99a5b]/15 blur-[120px] animate-aurora-slow" />
-        <div className="absolute inset-x-0 top-0 h-[70vh] bg-gradient-to-b from-transparent via-transparent to-[#0e0b09]" />
+        <div className="absolute -top-[20%] -left-[10%] w-[60vw] h-[60vw] max-w-[820px] max-h-[820px] rounded-full bg-[#cfe6d4]/70 blur-[110px] animate-aurora" />
+        <div className="absolute top-[10%] -right-[15%] w-[55vw] h-[55vw] max-w-[760px] max-h-[760px] rounded-full bg-[#ffd9b0]/70 blur-[110px] animate-aurora-slow" />
+        <div className="absolute top-[45%] left-[30%] w-[40vw] h-[40vw] max-w-[560px] max-h-[560px] rounded-full bg-[#fff1c9]/60 blur-[100px] animate-aurora" />
       </div>
       <ReadingProgress />
 

@@ -96,12 +96,12 @@ export const SectionHeading: React.FC<{
 }> = ({ kicker, index, title, aside }) => (
   <div className="flex flex-wrap items-end justify-between gap-4 mb-6 sm:mb-8">
     <div>
-      <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] uppercase text-[#9a8a7c] mb-3">
-        {index && <span className="text-[#e6b86e]">{index}</span>}
-        <span className="w-8 h-px bg-[#3a3029]" aria-hidden="true" />
+      <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] uppercase text-[#8c7764] mb-3">
+        {index && <span className="text-[#b07a2a]">{index}</span>}
+        <span className="w-8 h-px bg-[#d9cdbd]" aria-hidden="true" />
         {kicker}
       </p>
-      <h3 className="font-serif text-3xl sm:text-[40px] font-bold leading-[1.15] text-[#f3ebe0]">{title}</h3>
+      <h3 className="font-serif text-3xl sm:text-[40px] font-bold leading-[1.15] text-[#2a1d14]">{title}</h3>
     </div>
     {aside}
   </div>

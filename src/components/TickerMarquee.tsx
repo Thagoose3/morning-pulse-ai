@@ -18,7 +18,7 @@ export const TickerMarquee: React.FC<TickerMarqueeProps> = ({ tickers }) => {
   const displayItems = [...sequence, ...sequence];
 
   return (
-    <div className="relative z-10 bg-black/40 border-b border-white/[0.06] text-[#efe5d6] overflow-hidden py-2 select-none group">
+    <div className="relative z-10 bg-[#3d2e24]/70 backdrop-blur border-b border-[#3d2e24]/[0.06] text-[#3d2e24] overflow-hidden py-2 select-none group">
       <div className="marquee-mask">
         <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] items-center">
           {displayItems.map((item, index) => {
@@ -26,7 +26,7 @@ export const TickerMarquee: React.FC<TickerMarqueeProps> = ({ tickers }) => {
               return (
                 <span
                   key={`label-${index}`}
-                  className="mx-3 px-2 py-0.5 rounded-full bg-[#e6b86e]/10 border border-[#e6b86e]/20 text-[#e6b86e] text-[10px] font-bold whitespace-nowrap"
+                  className="mx-3 px-2 py-0.5 rounded-full bg-[#b07a2a]/10 border border-[#b07a2a]/20 text-[#b07a2a] text-[10px] font-bold whitespace-nowrap"
                 >
                   {item.text}
                 </span>
@@ -37,10 +37,10 @@ export const TickerMarquee: React.FC<TickerMarqueeProps> = ({ tickers }) => {
             return (
               <div
                 key={`${ticker.id}-${index}`}
-                className="flex items-center gap-2 text-[11px] font-mono tracking-tight px-4 border-r border-white/[0.06]"
+                className="flex items-center gap-2 text-[11px] font-mono tracking-tight px-4 border-r border-[#3d2e24]/[0.06]"
               >
-                <span className="text-[#9a8a7c] font-semibold">{ticker.symbol}</span>
-                <span className="text-[#f3ebe0] font-medium">
+                <span className="text-[#8c7764] font-semibold">{ticker.symbol}</span>
+                <span className="text-[#2a1d14] font-medium">
                   {ticker.currency}
                   {ticker.price.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
@@ -48,7 +48,7 @@ export const TickerMarquee: React.FC<TickerMarqueeProps> = ({ tickers }) => {
                   })}
                 </span>
                 <span
-                  className={`font-bold ${isUp ? 'text-[#8fd4a0]' : 'text-[#f08a84]'}`}
+                  className={`font-bold ${isUp ? 'text-[#2e7d4f]' : 'text-[#c2493f]'}`}
                 >
                   {isUp ? '▲' : '▼'} {Math.abs(ticker.change24h).toFixed(2)}%
                 </span>
