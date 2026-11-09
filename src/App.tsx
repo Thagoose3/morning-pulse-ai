@@ -7,6 +7,7 @@ import { WatchlistGrid } from './components/WatchlistGrid';
 import { AddTickerModal } from './components/AddTickerModal';
 import { Footer } from './components/Footer';
 import { ReadingProgress } from './components/ReadingProgress';
+import { useSpotlight } from './components/ui';
 import { TickerItem, MorningBriefingData } from './types';
 import {
   getSavedWatchlist,
@@ -25,6 +26,7 @@ export const App: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  useSpotlight();
 
   // Live market mood (sentiment / fear-greed / movers) is recomputed from current prices,
   // while the written briefing from the morning JSON is kept intact.
@@ -84,7 +86,13 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-tea-pattern text-[#3d2e24] flex flex-col font-sans selection:bg-[#c5dec9] selection:text-[#1e4d30]">
+    <div className="relative min-h-screen night-backdrop grain text-[#f3ebe0] flex flex-col font-sans overflow-x-clip">
+      {/* Ambient aurora (matcha + amber steam) */}
+      <div className="pointer-events-none fixed inset-0 -z-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -top-[20%] -left-[10%] w-[60vw] h-[60vw] max-w-[820px] max-h-[820px] rounded-full bg-[#3f8f5a]/20 blur-[120px] animate-aurora" />
+        <div className="absolute top-[10%] -right-[15%] w-[55vw] h-[55vw] max-w-[760px] max-h-[760px] rounded-full bg-[#c99a5b]/15 blur-[120px] animate-aurora-slow" />
+        <div className="absolute inset-x-0 top-0 h-[70vh] bg-gradient-to-b from-transparent via-transparent to-[#0e0b09]" />
+      </div>
       <ReadingProgress />
 
       {/* Top Subtle Ticker Marquee */}
@@ -100,7 +108,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-10 sm:space-y-12">
+      <main className="relative z-10 flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12 pb-16 space-y-24 sm:space-y-32">
 
         {/* Morning 45-Second AI Briefing */}
         <section id="briefing" className="scroll-mt-24">
