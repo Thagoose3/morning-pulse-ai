@@ -15,7 +15,7 @@
       187.4,
       186.64
     ],
-    "updatedAt": "2026-11-09T03:31:00.860Z"
+    "updatedAt": "2026-11-09T03:33:40.705Z"
   },
   "TSLA": {
     "symbol": "TSLA",
@@ -33,7 +33,7 @@
       359.62,
       358.22
     ],
-    "updatedAt": "2026-11-09T03:31:00.943Z"
+    "updatedAt": "2026-11-09T03:33:40.807Z"
   },
   "AAPL": {
     "symbol": "AAPL",
@@ -51,7 +51,7 @@
       344.56,
       342.37
     ],
-    "updatedAt": "2026-11-09T03:31:01.031Z"
+    "updatedAt": "2026-11-09T03:33:40.903Z"
   },
   "MSFT": {
     "symbol": "MSFT",
@@ -69,7 +69,7 @@
       533.88,
       530.61
     ],
-    "updatedAt": "2026-11-09T03:31:01.111Z"
+    "updatedAt": "2026-11-09T03:33:41.001Z"
   },
   "PLTR": {
     "symbol": "PLTR",
@@ -87,7 +87,7 @@
       160.33,
       160.38
     ],
-    "updatedAt": "2026-11-09T03:31:01.194Z"
+    "updatedAt": "2026-11-09T03:33:41.100Z"
   },
   "AMD": {
     "symbol": "AMD",
@@ -105,7 +105,7 @@
       445.59,
       449.04
     ],
-    "updatedAt": "2026-11-09T03:31:01.387Z"
+    "updatedAt": "2026-11-09T03:33:41.208Z"
   },
   "META": {
     "symbol": "META",
@@ -123,7 +123,7 @@
       617.58,
       610.15
     ],
-    "updatedAt": "2026-11-09T03:31:01.473Z"
+    "updatedAt": "2026-11-09T03:33:41.310Z"
   },
   "GOOGL": {
     "symbol": "GOOGL",
@@ -141,7 +141,7 @@
       286.23,
       284.78
     ],
-    "updatedAt": "2026-11-09T03:31:01.575Z"
+    "updatedAt": "2026-11-09T03:33:41.413Z"
   },
   "AMZN": {
     "symbol": "AMZN",
@@ -159,7 +159,7 @@
       262.41,
       259.3
     ],
-    "updatedAt": "2026-11-09T03:31:01.660Z"
+    "updatedAt": "2026-11-09T03:33:41.515Z"
   },
   "COIN": {
     "symbol": "COIN",
@@ -177,7 +177,7 @@
       134.24,
       134.76
     ],
-    "updatedAt": "2026-11-09T03:31:01.747Z"
+    "updatedAt": "2026-11-09T03:33:41.616Z"
   },
   "ARM": {
     "symbol": "ARM",
@@ -195,7 +195,7 @@
       173.52,
       174.62
     ],
-    "updatedAt": "2026-11-09T03:31:01.827Z"
+    "updatedAt": "2026-11-09T03:33:41.718Z"
   },
   "INTC": {
     "symbol": "INTC",
@@ -213,7 +213,7 @@
       57.21,
       56.28
     ],
-    "updatedAt": "2026-11-09T03:31:01.936Z"
+    "updatedAt": "2026-11-09T03:33:41.826Z"
   },
   "NFLX": {
     "symbol": "NFLX",
@@ -231,7 +231,7 @@
       63.82,
       63.41
     ],
-    "updatedAt": "2026-11-09T03:31:02.017Z"
+    "updatedAt": "2026-11-09T03:33:41.931Z"
   },
   "TSM": {
     "symbol": "TSM",
@@ -249,79 +249,79 @@
       375.24,
       375.44
     ],
-    "updatedAt": "2026-11-09T03:31:02.106Z"
+    "updatedAt": "2026-11-09T03:33:42.037Z"
   },
   "BTC-USD": {
     "symbol": "BTC-USD",
-    "price": 74967.91,
-    "change24h": 0.33,
-    "changeAmount": 248.09,
+    "price": 74918.2,
+    "change24h": 0.27,
+    "changeAmount": 198.38,
     "high24h": 75452.81,
     "low24h": 74508.44,
     "sparkline": [
       74728.7,
-      74936.31,
+      74933.54,
       75181.35,
-      74679.78,
+      74686.84,
       75029.68,
-      75404,
-      74967.91
+      75396.39,
+      74918.2
     ],
-    "updatedAt": "2026-11-09T03:31:02.180Z"
+    "updatedAt": "2026-11-09T03:33:42.194Z"
   },
   "BTC": {
     "symbol": "BTC-USD",
-    "price": 74967.91,
-    "change24h": 0.33,
-    "changeAmount": 248.09,
+    "price": 74918.2,
+    "change24h": 0.27,
+    "changeAmount": 198.38,
     "high24h": 75452.81,
     "low24h": 74508.44,
     "sparkline": [
       74728.7,
-      74936.31,
+      74933.54,
       75181.35,
-      74679.78,
+      74686.84,
       75029.68,
-      75404,
-      74967.91
+      75396.39,
+      74918.2
     ],
-    "updatedAt": "2026-11-09T03:31:02.180Z"
+    "updatedAt": "2026-11-09T03:33:42.194Z"
   },
   "ETH-USD": {
     "symbol": "ETH-USD",
-    "price": 2141.83,
-    "change24h": 0.82,
-    "changeAmount": 17.5,
+    "price": 2141.2,
+    "change24h": 0.79,
+    "changeAmount": 16.87,
     "high24h": 2155.51,
     "low24h": 2117.73,
     "sparkline": [
-      2123.84,
+      2123.76,
       2138.75,
-      2142.76,
-      2124.59,
-      2137.86,
+      2142.84,
+      2124.58,
+      2138.04,
       2151.57,
-      2141.83
+      2141.2
     ],
-    "updatedAt": "2026-11-09T03:31:02.264Z"
+    "updatedAt": "2026-11-09T03:33:42.335Z"
   },
   "ETH": {
     "symbol": "ETH-USD",
-    "price": 2141.83,
-    "change24h": 0.82,
-    "changeAmount": 17.5,
+    "price": 2141.2,
+    "change24h": 0.79,
+    "changeAmount": 16.87,
     "high24h": 2155.51,
     "low24h": 2117.73,
     "sparkline": [
-      2123.84,
+      2123.76,
       2138.75,
-      2142.76,
-      2124.59,
-      2137.86,
+      2142.84,
+      2124.58,
+      2138.04,
       2151.57,
-      2141.83
+      2141.2
     ],
-    "updatedAt": "2026-11-09T03:31:02.264Z"
+    "updatedAt": "2026-11-09T03:33:42.335Z"
   },
   "SOL-USD": {
     "symbol": "SOL-USD",
@@ -331,15 +331,15 @@
     "high24h": 88.21,
     "low24h": 86.31,
     "sparkline": [
-      86.41,
-      86.98,
+      86.43,
+      86.94,
       87.57,
       86.93,
-      87.59,
-      88.08,
+      87.58,
+      88.09,
       87.71
     ],
-    "updatedAt": "2026-11-09T03:31:02.341Z"
+    "updatedAt": "2026-11-09T03:33:42.430Z"
   },
   "SOL": {
     "symbol": "SOL-USD",
@@ -349,21 +349,21 @@
     "high24h": 88.21,
     "low24h": 86.31,
     "sparkline": [
-      86.41,
-      86.98,
+      86.43,
+      86.94,
       87.57,
       86.93,
-      87.59,
-      88.08,
+      87.58,
+      88.09,
       87.71
     ],
-    "updatedAt": "2026-11-09T03:31:02.341Z"
+    "updatedAt": "2026-11-09T03:33:42.430Z"
   },
   "GC=F": {
     "symbol": "GC=F",
-    "price": 4127.8,
-    "change24h": 1.3,
-    "changeAmount": 52.9,
+    "price": 4129.8,
+    "change24h": 1.35,
+    "changeAmount": 54.9,
     "high24h": 4143.3,
     "low24h": 4062.5,
     "sparkline": [
@@ -373,15 +373,15 @@
       4111.9,
       4116.7,
       4136.8,
-      4127.8
+      4129.8
     ],
-    "updatedAt": "2026-11-09T03:31:02.366Z"
+    "updatedAt": "2026-11-09T03:33:42.527Z"
   },
   "GC": {
     "symbol": "GC=F",
-    "price": 4127.8,
-    "change24h": 1.3,
-    "changeAmount": 52.9,
+    "price": 4129.8,
+    "change24h": 1.35,
+    "changeAmount": 54.9,
     "high24h": 4143.3,
     "low24h": 4062.5,
     "sparkline": [
@@ -391,9 +391,9 @@
       4111.9,
       4116.7,
       4136.8,
-      4127.8
+      4129.8
     ],
-    "updatedAt": "2026-11-09T03:31:02.366Z"
+    "updatedAt": "2026-11-09T03:33:42.527Z"
   },
   "BZ=F": {
     "symbol": "BZ=F",
@@ -411,7 +411,7 @@
       97.26,
       98.17
     ],
-    "updatedAt": "2026-11-09T03:31:02.510Z"
+    "updatedAt": "2026-11-09T03:33:42.623Z"
   },
   "BZ": {
     "symbol": "BZ=F",
@@ -429,35 +429,37 @@
       97.26,
       98.17
     ],
-    "updatedAt": "2026-11-09T03:31:02.510Z"
+    "updatedAt": "2026-11-09T03:33:42.623Z"
   },
   "DELTA.BK": {
     "symbol": "DELTA.BK",
-    "price": 183.5,
-    "change24h": 3.67,
-    "changeAmount": 6.5,
+    "price": 182.5,
+    "change24h": 3.11,
+    "changeAmount": 5.5,
     "high24h": 185.5,
-    "low24h": 183.5,
+    "low24h": 182.5,
     "sparkline": [
-      179.82999999999998,
-      181.665,
-      183.5
+      183.5,
+      184,
+      183.5,
+      182.5
     ],
-    "updatedAt": "2026-11-09T03:31:02.585Z"
+    "updatedAt": "2026-11-09T03:33:42.716Z"
   },
   "DELTA": {
     "symbol": "DELTA.BK",
-    "price": 183.5,
-    "change24h": 3.67,
-    "changeAmount": 6.5,
+    "price": 182.5,
+    "change24h": 3.11,
+    "changeAmount": 5.5,
     "high24h": 185.5,
-    "low24h": 183.5,
+    "low24h": 182.5,
     "sparkline": [
-      179.82999999999998,
-      181.665,
-      183.5
+      183.5,
+      184,
+      183.5,
+      182.5
     ],
-    "updatedAt": "2026-11-09T03:31:02.585Z"
+    "updatedAt": "2026-11-09T03:33:42.716Z"
   },
   "PTT.BK": {
     "symbol": "PTT.BK",
@@ -467,11 +469,12 @@
     "high24h": 38.75,
     "low24h": 38.25,
     "sparkline": [
-      37.73,
-      38.115,
+      38.5,
+      38.75,
+      38.5,
       38.5
     ],
-    "updatedAt": "2026-11-09T03:31:02.700Z"
+    "updatedAt": "2026-11-09T03:33:42.878Z"
   },
   "PTT": {
     "symbol": "PTT.BK",
@@ -481,123 +484,132 @@
     "high24h": 38.75,
     "low24h": 38.25,
     "sparkline": [
-      37.73,
-      38.115,
+      38.5,
+      38.75,
+      38.5,
       38.5
     ],
-    "updatedAt": "2026-11-09T03:31:02.700Z"
+    "updatedAt": "2026-11-09T03:33:42.878Z"
   },
   "CPALL.BK": {
     "symbol": "CPALL.BK",
-    "price": 46,
-    "change24h": 1.1,
-    "changeAmount": 0.5,
+    "price": 45.75,
+    "change24h": 0.55,
+    "changeAmount": 0.25,
     "high24h": 46,
-    "low24h": 46,
+    "low24h": 45.75,
     "sparkline": [
-      45.08,
-      45.54,
-      46
+      46,
+      46,
+      45.75,
+      45.75
     ],
-    "updatedAt": "2026-11-09T03:31:02.772Z"
+    "updatedAt": "2026-11-09T03:33:42.973Z"
   },
   "CPALL": {
     "symbol": "CPALL.BK",
-    "price": 46,
-    "change24h": 1.1,
-    "changeAmount": 0.5,
+    "price": 45.75,
+    "change24h": 0.55,
+    "changeAmount": 0.25,
     "high24h": 46,
-    "low24h": 46,
+    "low24h": 45.75,
     "sparkline": [
-      45.08,
-      45.54,
-      46
+      46,
+      46,
+      45.75,
+      45.75
     ],
-    "updatedAt": "2026-11-09T03:31:02.772Z"
+    "updatedAt": "2026-11-09T03:33:42.973Z"
   },
   "ADVANC.BK": {
     "symbol": "ADVANC.BK",
-    "price": 338,
-    "change24h": 0,
-    "changeAmount": 0,
+    "price": 337,
+    "change24h": -0.3,
+    "changeAmount": -1,
     "high24h": 340,
-    "low24h": 338,
+    "low24h": 337,
     "sparkline": [
-      331.24,
-      334.62,
-      338
+      338,
+      338,
+      337,
+      337
     ],
-    "updatedAt": "2026-11-09T03:31:02.847Z"
+    "updatedAt": "2026-11-09T03:33:43.070Z"
   },
   "ADVANC": {
     "symbol": "ADVANC.BK",
-    "price": 338,
-    "change24h": 0,
-    "changeAmount": 0,
+    "price": 337,
+    "change24h": -0.3,
+    "changeAmount": -1,
     "high24h": 340,
-    "low24h": 338,
+    "low24h": 337,
     "sparkline": [
-      331.24,
-      334.62,
-      338
+      338,
+      338,
+      337,
+      337
     ],
-    "updatedAt": "2026-11-09T03:31:02.847Z"
+    "updatedAt": "2026-11-09T03:33:43.070Z"
   },
   "KBANK.BK": {
     "symbol": "KBANK.BK",
-    "price": 240,
-    "change24h": -0.41,
-    "changeAmount": -1,
+    "price": 241,
+    "change24h": 0,
+    "changeAmount": 0,
     "high24h": 243,
     "low24h": 239,
     "sparkline": [
-      235.2,
-      237.6,
-      240
+      240,
+      240,
+      240,
+      241
     ],
-    "updatedAt": "2026-11-09T03:31:02.985Z"
+    "updatedAt": "2026-11-09T03:33:43.187Z"
   },
   "KBANK": {
     "symbol": "KBANK.BK",
-    "price": 240,
-    "change24h": -0.41,
-    "changeAmount": -1,
+    "price": 241,
+    "change24h": 0,
+    "changeAmount": 0,
     "high24h": 243,
     "low24h": 239,
     "sparkline": [
-      235.2,
-      237.6,
-      240
+      240,
+      240,
+      240,
+      241
     ],
-    "updatedAt": "2026-11-09T03:31:02.985Z"
+    "updatedAt": "2026-11-09T03:33:43.187Z"
   },
   "SCB.BK": {
     "symbol": "SCB.BK",
-    "price": 148.5,
-    "change24h": -0.34,
-    "changeAmount": -0.5,
+    "price": 149,
+    "change24h": 0,
+    "changeAmount": 0,
     "high24h": 150,
     "low24h": 148.5,
     "sparkline": [
-      145.53,
-      147.015,
-      148.5
+      148.5,
+      149,
+      149,
+      149
     ],
-    "updatedAt": "2026-11-09T03:31:03.059Z"
+    "updatedAt": "2026-11-09T03:33:43.282Z"
   },
   "SCB": {
     "symbol": "SCB.BK",
-    "price": 148.5,
-    "change24h": -0.34,
-    "changeAmount": -0.5,
+    "price": 149,
+    "change24h": 0,
+    "changeAmount": 0,
     "high24h": 150,
     "low24h": 148.5,
     "sparkline": [
-      145.53,
-      147.015,
-      148.5
+      148.5,
+      149,
+      149,
+      149
     ],
-    "updatedAt": "2026-11-09T03:31:03.059Z"
+    "updatedAt": "2026-11-09T03:33:43.282Z"
   },
   "AOT.BK": {
     "symbol": "AOT.BK",
@@ -605,13 +617,14 @@
     "change24h": 0.84,
     "changeAmount": 0.5,
     "high24h": 60.25,
-    "low24h": 60.25,
+    "low24h": 60,
     "sparkline": [
-      59.045,
-      59.6475,
+      60.25,
+      60.25,
+      60,
       60.25
     ],
-    "updatedAt": "2026-11-09T03:31:03.132Z"
+    "updatedAt": "2026-11-09T03:33:43.382Z"
   },
   "AOT": {
     "symbol": "AOT.BK",
@@ -619,13 +632,14 @@
     "change24h": 0.84,
     "changeAmount": 0.5,
     "high24h": 60.25,
-    "low24h": 60.25,
+    "low24h": 60,
     "sparkline": [
-      59.045,
-      59.6475,
+      60.25,
+      60.25,
+      60,
       60.25
     ],
-    "updatedAt": "2026-11-09T03:31:03.132Z"
+    "updatedAt": "2026-11-09T03:33:43.382Z"
   },
   "BDMS.BK": {
     "symbol": "BDMS.BK",
@@ -633,13 +647,14 @@
     "change24h": 0.5,
     "changeAmount": 0.1,
     "high24h": 20.1,
-    "low24h": 20,
+    "low24h": 19.9,
     "sparkline": [
-      19.6,
-      19.8,
+      20,
+      20,
+      20,
       20
     ],
-    "updatedAt": "2026-11-09T03:31:03.207Z"
+    "updatedAt": "2026-11-09T03:33:43.472Z"
   },
   "BDMS": {
     "symbol": "BDMS.BK",
@@ -647,13 +662,14 @@
     "change24h": 0.5,
     "changeAmount": 0.1,
     "high24h": 20.1,
-    "low24h": 20,
+    "low24h": 19.9,
     "sparkline": [
-      19.6,
-      19.8,
+      20,
+      20,
+      20,
       20
     ],
-    "updatedAt": "2026-11-09T03:31:03.207Z"
+    "updatedAt": "2026-11-09T03:33:43.472Z"
   },
   "GULF.BK": {
     "symbol": "GULF.BK",
@@ -661,13 +677,14 @@
     "change24h": 0,
     "changeAmount": 0,
     "high24h": 61.5,
-    "low24h": 61.25,
+    "low24h": 61,
     "sparkline": [
-      60.025,
-      60.6375,
+      61.25,
+      61.25,
+      61.5,
       61.25
     ],
-    "updatedAt": "2026-11-09T03:31:03.281Z"
+    "updatedAt": "2026-11-09T03:33:43.564Z"
   },
   "GULF": {
     "symbol": "GULF.BK",
@@ -675,75 +692,80 @@
     "change24h": 0,
     "changeAmount": 0,
     "high24h": 61.5,
-    "low24h": 61.25,
+    "low24h": 61,
     "sparkline": [
-      60.025,
-      60.6375,
+      61.25,
+      61.25,
+      61.5,
       61.25
     ],
-    "updatedAt": "2026-11-09T03:31:03.281Z"
+    "updatedAt": "2026-11-09T03:33:43.564Z"
   },
   "BBL.BK": {
     "symbol": "BBL.BK",
-    "price": 182,
-    "change24h": 0.83,
-    "changeAmount": 1.5,
+    "price": 181,
+    "change24h": 0.28,
+    "changeAmount": 0.5,
     "high24h": 182.5,
-    "low24h": 182,
+    "low24h": 181,
     "sparkline": [
-      178.35999999999999,
-      180.18,
-      182
+      182,
+      182,
+      182,
+      181
     ],
-    "updatedAt": "2026-11-09T03:31:03.359Z"
+    "updatedAt": "2026-11-09T03:33:43.721Z"
   },
   "BBL": {
     "symbol": "BBL.BK",
-    "price": 182,
-    "change24h": 0.83,
-    "changeAmount": 1.5,
+    "price": 181,
+    "change24h": 0.28,
+    "changeAmount": 0.5,
     "high24h": 182.5,
-    "low24h": 182,
+    "low24h": 181,
     "sparkline": [
-      178.35999999999999,
-      180.18,
-      182
+      182,
+      182,
+      182,
+      181
     ],
-    "updatedAt": "2026-11-09T03:31:03.359Z"
+    "updatedAt": "2026-11-09T03:33:43.721Z"
   },
   "OR.BK": {
     "symbol": "OR.BK",
-    "price": 12.7,
-    "change24h": 0,
-    "changeAmount": 0,
-    "high24h": 12.7,
-    "low24h": 12.7,
+    "price": 12.6,
+    "change24h": -0.79,
+    "changeAmount": -0.1,
+    "high24h": 12.8,
+    "low24h": 12.6,
     "sparkline": [
-      12.446,
-      12.572999999999999,
-      12.7
+      12.7,
+      12.7,
+      12.6,
+      12.6
     ],
-    "updatedAt": "2026-11-09T03:31:03.500Z"
+    "updatedAt": "2026-11-09T03:33:43.814Z"
   },
   "OR": {
     "symbol": "OR.BK",
-    "price": 12.7,
-    "change24h": 0,
-    "changeAmount": 0,
-    "high24h": 12.7,
-    "low24h": 12.7,
+    "price": 12.6,
+    "change24h": -0.79,
+    "changeAmount": -0.1,
+    "high24h": 12.8,
+    "low24h": 12.6,
     "sparkline": [
-      12.446,
-      12.572999999999999,
-      12.7
+      12.7,
+      12.7,
+      12.6,
+      12.6
     ],
-    "updatedAt": "2026-11-09T03:31:03.500Z"
+    "updatedAt": "2026-11-09T03:33:43.814Z"
   },
   "^SET.BK": {
     "symbol": "^SET.BK",
-    "price": 1478.11,
-    "change24h": 0.85,
-    "changeAmount": 12.41,
+    "price": 1478,
+    "change24h": 0.84,
+    "changeAmount": 12.3,
     "high24h": 1483.99,
     "low24h": 1474.85,
     "sparkline": [
@@ -753,15 +775,15 @@
       1477.17,
       1478.18,
       1479.78,
-      1478.11
+      1478
     ],
-    "updatedAt": "2026-11-09T03:31:03.578Z"
+    "updatedAt": "2026-11-09T03:33:43.920Z"
   },
   "SET": {
     "symbol": "^SET.BK",
-    "price": 1478.11,
-    "change24h": 0.85,
-    "changeAmount": 12.41,
+    "price": 1478,
+    "change24h": 0.84,
+    "changeAmount": 12.3,
     "high24h": 1483.99,
     "low24h": 1474.85,
     "sparkline": [
@@ -771,8 +793,8 @@
       1477.17,
       1478.18,
       1479.78,
-      1478.11
+      1478
     ],
-    "updatedAt": "2026-11-09T03:31:03.578Z"
+    "updatedAt": "2026-11-09T03:33:43.920Z"
   }
 }
