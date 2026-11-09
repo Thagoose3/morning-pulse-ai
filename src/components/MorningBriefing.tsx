@@ -181,10 +181,10 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ briefing }) =>
                       /&nbsp;
                     </span>
                   )}
-                  {renderWords(part, i === 0 ? 'text-gradient' : 'text-[#cbbdab]')}
+                  {renderWords(part, i === 0 ? 'text-[#fbf3e6] [text-shadow:0_0_40px_rgba(230,184,110,0.25)]' : 'text-[#bfae9b]')}
                 </React.Fragment>
               ))
-            : renderWords(mainHeadline, 'text-gradient')}
+            : renderWords(mainHeadline, 'text-[#fbf3e6]')}
         </h2>
 
         {briefing.marketStatusSummary && (

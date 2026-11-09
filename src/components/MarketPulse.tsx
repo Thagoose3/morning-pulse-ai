@@ -153,8 +153,8 @@ export const MarketPulse: React.FC<MarketPulseProps> = ({ briefing, tickers }) =
         {/* Movers */}
         <Reveal className="md:col-span-4" delay={110}>
         <Card>
-          <div className="flex items-center justify-between mb-4 gap-2">
-            <h4 className="flex items-center gap-2 text-sm font-bold text-[#f3ebe0]">
+          <div className="flex flex-wrap items-center justify-between mb-4 gap-2">
+            <h4 className="flex items-center gap-2 text-sm font-bold text-[#f3ebe0] whitespace-nowrap">
               <span className="p-1.5 rounded-lg bg-[#e6b86e]/10 text-[#e6b86e]"><Flame className="w-3.5 h-3.5" /></span>
               ตัวแรงประจำวัน
             </h4>
