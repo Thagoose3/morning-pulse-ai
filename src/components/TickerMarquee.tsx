@@ -18,7 +18,7 @@ export const TickerMarquee: React.FC<TickerMarqueeProps> = ({ tickers }) => {
   const displayItems = [...sequence, ...sequence];
 
   return (
-    <div className="relative z-10 bg-[#3d2e24]/70 backdrop-blur border-b border-[#3d2e24]/[0.06] text-[#3d2e24] overflow-hidden py-2 select-none group">
+    <div className="relative z-10 bg-white/70 backdrop-blur border-b border-[#3d2e24]/[0.06] text-[#3d2e24] overflow-hidden py-2 select-none group">
       <div className="marquee-mask">
         <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] items-center">
           {displayItems.map((item, index) => {

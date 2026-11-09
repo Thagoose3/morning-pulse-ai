@@ -3,7 +3,7 @@ import { GitBranch, CheckCircle2, ArrowUp } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="relative z-10 mt-8 border-t border-[#3d2e24]/[0.07] bg-[#3d2e24]/60 backdrop-blur-sm text-[#8c7764] text-xs overflow-hidden">
+    <footer className="relative z-10 mt-8 border-t border-[#3d2e24]/[0.07] bg-white/60 backdrop-blur-sm text-[#8c7764] text-xs overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
